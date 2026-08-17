@@ -58,38 +58,79 @@ soffietto in un secondo momento senza rifare il retro.
 Riferimento KDJ120 5 porte, sedili posteriori rimossi:
 vano utile ≈ **165 cm (lung.) × 130 cm (largh.) × 90 cm (alt.)**.
 
+> 📐 **Disegni quotati**: [docs/disegni/](disegni/) — pianta, due sezioni, dettaglio
+> cucina e vista posteriore in uso. PDF pronto da stampare:
+> [cyber-cruiser-tavole.pdf](disegni/cyber-cruiser-tavole.pdf).
+
+La quota che comanda tutto il progetto non è dentro il veicolo: è il **pavimento
+del vano, che sta a 78 cm da terra**. Da lì discendono l'altezza della cucina
+esterna, quella della seduta e quella della scrivania.
+
 ```
-              PORTELLONE (apertura a battente + lunotto apribile)
-   ┌──────────────────────────────────────────────────────────────┐
-   │  CUCINA ESTRAIBILE su guide 120 cm — fornello 2 fuochi +     │  ← 45 cm
-   │  lavello, si usa da fuori con il portellone aperto           │
-   ├───────────────┬──────────────────────────────┬───────────────┤
-   │ FRIGO 50 L    │  3 CASSETTONI                │ VANO TECNICO  │
-   │ a compressore │  (cibo / vestiti / utensili) │ batteria      │  ← 90 cm
-   │ su slitta     │                              │ MPPT, fusibili│
-   │ estraibile    │                              │ inverter      │
-   ├───────────────┴──────────────────────────────┴───────────────┤
-   │  PIANO UNICO A 45 cm DA TERRA — sotto: serbatoio acqua 60 L, │
-   │  ruota di scorta interna, attrezzi, piastre di disincaglio   │  ← 30 cm
-   └──────────────────────────────────────────────────────────────┘
-        SEDILI ANTERIORI (girevoli? no: costa e serve omologazione)
+   PORTELLONE a battente ↓                                   AVANTI →
+   ┌──────────┬───────────────┬──────────┬───────────────────────────┐
+   │ FRIGO    │  ATTREZZI     │          │                           │  lato sx
+   │ 50 L     │  32 × 50      │          │   VANO TECNICO 60 × 40    │
+   │ 45 × 75  ├───────────────┤ POZZETTO │   batteria · MPPT · fusib.│
+   │ slitta   │               │  PIEDI   ├───────────────────────────┤
+   ├──────────┤ 2 CASSETTONI  │  70 × 30 │                           │
+   │ CUCINA   │  72 × 35      │          │   STIVAGGIO 70 × 40       │  lato dx
+   │ 85 × 60  │               │          │                           │
+   └──────────┴───────────────┴──────────┴───────────────────────────┘
+     ↑ esce 60 cm dal portellone      ↑ sopra questi due vani: SEDUTA
+
+   quote in cm · piano continuo a +50 · falso pavimento 12 (serbatoio 60 L)
 ```
 
-Sopra il piano, con il soffietto aperto: **altezza libera 185 cm** al centro,
-letto matrimoniale nel guscio sollevato.
+### Le tre quote verticali che contano
+
+| | dal pavimento | da terra |
+|---|---|---|
+| Falso pavimento (serbatoio, cavi) | +12 | 90 |
+| **Piano di lavoro della cucina estraibile** | +20 | **98** |
+| **Piano continuo** (panca, appoggio) | +50 | 128 |
+| **Scrivania** | +76 | 154 |
+| Tetto originale | +90 | 168 |
+| Tetto a soffietto aperto | +185 | 263 |
 
 ### Principi di progetto
 
-1. **Un solo piano continuo a 45 cm.** Diventa panca, tavolo (con top ribaltabile)
-   e superficie di lavoro. Tutto quello che sta sotto è stivaggio profondo.
-2. **Tutto ciò che si usa spesso si estrae dal portellone.** Cucina, frigo e una
-   cassetta attrezzi su guide: cucini fuori, all'asciutto sotto il tendalino
-   laterale, senza sporcare dentro.
+1. **Un solo piano continuo a 50 cm.** Diventa panca, appoggio e superficie di
+   lavoro. Tutto quello che sta sotto è stivaggio profondo.
+2. **La cucina si usa fuori, non dentro.** Blocco da 85 × 60 su guide da 120 cm
+   che esce di 60 cm dal portellone: fornello, lavello e piano di lavoro finiscono
+   all'aperto, sotto il tendalino, e dentro non si sporca né si condensa nulla.
+   Il piano della cucina è **basso di proposito** (+20 dal pavimento): a filo del
+   piano continuo si lavorerebbe a 128 cm da terra, cioè con le braccia alzate.
+   A 98 cm è l'altezza giusta per una persona di 175-185 cm.
 3. **Niente mobili a colonna sopra il piano**: rovinerebbero la sensazione di
    spazio che ti sei appena comprato col soffietto.
 4. **Modularità**: mobilio ancorato con 8 punti a pavimento su piastre imbullonate
    ai punti sedile originali → si smonta in un pomeriggio (utile per revisione,
    trasloco, rivendita).
+
+### La postazione: pozzetto piedi + scrivania
+
+Sedersi su una panca alta 50 cm con le gambe distese non regge più di dieci
+minuti. Per questo il modulo davanti ai cassettoni è una **cassa amovibile**:
+la togli e sotto resta il **pozzetto piedi 70 × 30**, con i piedi appoggiati sul
+falso pavimento a +12. Seduta-piedi = 38 cm, cioè la stessa geometria di una
+sedia vera.
+
+Il piano è una **scrivania 70 × 45 su braccio orientabile** (tipo Lagun) fissato
+al fianco del modulo cassettoni, regolabile in altezza attorno a +76:
+
+- **dentro** è la postazione PC: laptop o monitor, presa 230 V dall'inverter e
+  USB-C PD sul fianco del mobile;
+- **ruotata sul braccio** esce dal portellone e diventa il tavolo da pranzo
+  all'aperto, accanto alla cucina estratta.
+
+⚠️ Vincolo onesto: sopra il piano continuo, a tetto chiuso, restano **40 cm**.
+La postazione si usa **a soffietto aperto**, e per questo il letto del guscio
+è **ripiegabile a metà verso il portellone**: di giorno sopra la dinette restano
+135 cm liberi, di notte lo distendi e torna 190 × 130. Se l'installatore del
+soffietto non prevede il letto ripiegabile, la postazione PC non funziona:
+è una domanda da fare **prima** di firmare il preventivo.
 
 ### Costruzione del mobilio
 

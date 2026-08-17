@@ -19,7 +19,9 @@ tubi in PEX; svuotare l'impianto è la vera protezione, non il coibentante.
 
 ## Cucina
 
-Blocco estraibile su guide da 120 cm che esce dal portellone:
+Blocco estraibile 85 × 60 su guide da 120 cm (portata 120 kg) che esce di 60 cm
+dal portellone. Piano di lavoro a **98 cm da terra** — vedi
+[disegni, tav. 4 e 5](disegni/). Ci sta sopra:
 
 - **Fornello 2 fuochi a gas** con coperchio in vetro (Dometic/Smev).
 - **Bombola**: 5 kg in vano stagno **aerato verso l'esterno con foro sul pavimento**
@@ -29,9 +31,14 @@ Blocco estraibile su guide da 120 cm che esce dal portellone:
   1.800 W + inverter e batteria grande** (funziona, ma ti mangia 300 Wh a cena).
 - **Lavello** rettangolare in acciaio con coperchio a filo, che diventa piano.
 - Sopra il piano: portarotolo, portaspezie a barra magnetica, presa 12 V + USB-C.
-- **Tendalino laterale** 2×2,5 m sul lato guida: è ciò che rende la cucina esterna
+- **Tendalino** 2×2,5 m: sul lato guida oppure, meglio per questo layout,
+  **posteriore**, perché è lì che si cucina. È ciò che rende la cucina esterna
   usabile anche con pioggia, ed è il singolo accessorio che cambia di più la vita
   di bordo.
+- **Attacchi a sgancio rapido** per gas, acqua e 12 V, con tubi spiralati o catena
+  portacavi: il blocco fa 60 cm di corsa a ogni pasto e i tubi fissi si rompono.
+- **Fermo di fine corsa** in estrazione e **blocco in chiusura**: senza, su
+  sterrato la cucina esce da sola in curva.
 
 ## Riscaldamento e ventilazione
 

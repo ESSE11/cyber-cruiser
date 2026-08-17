@@ -17,7 +17,10 @@
 | Riscaldatore diesel 2 kW installato | 900 |
 | Tendalino laterale 2×2,5 m | 550 |
 | Zanzariere, tendine oscuranti, materasso 190×130 | 550 |
-| **Subtotale A** | **13.300 - 16.800** |
+| Braccio orientabile tipo Lagun + piano scrivania 70×45 | 260 |
+| Cuscini dinette (seduta + schienale, sfoderabili) | 320 |
+| Cassa amovibile del pozzetto piedi | 90 |
+| **Subtotale A** | **13.970 - 17.470** |
 
 ### B. Energia
 
@@ -62,7 +65,7 @@
 
 | Scenario | Veicolo | Allestimento | **Totale** |
 |---|---|---|---|
-| **Piano A** — soffietto, tutto nuovo | 19.000 | 19.000 | **38.000 €** |
+| **Piano A** — soffietto, tutto nuovo | 19.000 | 19.700 | **38.700 €** |
 | **Piano B** — tenda da tetto a guscio, mobilio fai da te | 17.000 | 11.500 | **28.500 €** |
 | **Piano C** — minimo sindacale (tenda, frigo, elettrico base) | 15.000 | 5.500 | **20.500 €** |
 

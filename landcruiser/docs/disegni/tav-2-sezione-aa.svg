@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1390 1077.8000000000002" width="1390" height="1077.8000000000002" font-family="DejaVu Sans Mono, monospace">
+<rect width="1390" height="1077.8000000000002" fill="#0d1219"/>
+<line x1="190.0" y1="957.8" x2="1120.0" y2="957.8" stroke="#6c8296" stroke-width="2.2"/>
+<text x="196.2" y="973.8" fill="#6c8296" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">PIANO STRADA</text>
+<line x1="170.0" y1="957.8" x2="170.0" y2="716.0" stroke="#6c8296" stroke-width="1"/>
+<line x1="167.5" y1="960.3" x2="172.5" y2="955.3" stroke="#6c8296" stroke-width="1"/>
+<line x1="167.5" y1="718.5" x2="172.5" y2="713.5" stroke="#6c8296" stroke-width="1"/>
+<text x="165.0" y="836.9" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" transform="rotate(-90 165.0 836.9)">78  (soglia da terra)</text>
+<line x1="388.4" y1="716.0" x2="1104.5" y2="716.0" stroke="#8fa3b5" stroke-width="2.2"/>
+<line x1="413.2" y1="716.0" x2="413.2" y2="437.0" stroke="#ffb020" stroke-width="2.5"/>
+<line x1="413.2" y1="437.0" x2="1104.5" y2="437.0" stroke="#8fa3b5" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="214.8" y="453.0" fill="#9fb3c4" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">linea tetto originale +90</text>
+<rect x="413.2" y="678.8" width="511.5" height="37.2" fill="#101820" stroke="#8fa3b5" stroke-width="1.2"/>
+<rect x="605.4" y="678.8" width="155.0" height="37.2" fill="#0f1c1e" stroke="#35d0c0" stroke-width="1.4"/>
+<text x="682.9" y="700.4" fill="#35d0c0" font-size="8.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">SERBATOIO 60 L</text>
+<rect x="227.2" y="654.0" width="186.0" height="62.0" fill="#182029" stroke="#ffb020" stroke-width="1.6"/>
+<text x="320.2" y="681.0" fill="#e6edf3" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">CUCINA IN USO</text>
+<text x="320.2" y="696.0" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">piano a 98 da terra</text>
+<rect x="413.2" y="654.0" width="186.0" height="62.0" fill="none" stroke="#ffb020" stroke-width="1.2" stroke-dasharray="6 4"/>
+<text x="506.2" y="688.0" fill="#ffb020" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">sede a riposo</text>
+<rect x="599.2" y="619.9" width="108.5" height="58.9" fill="#182029" stroke="#e6edf3" stroke-width="1.6"/>
+<text x="653.5" y="653.4" fill="#e6edf3" font-size="11" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">CASSETTONE 1</text>
+<rect x="599.2" y="561.0" width="108.5" height="58.9" fill="#182029" stroke="#e6edf3" stroke-width="1.6"/>
+<text x="653.5" y="594.5" fill="#e6edf3" font-size="11" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">CASSETTONE 2</text>
+<rect x="707.7" y="561.0" width="93.0" height="117.8" fill="#0f1c1e" stroke="#35d0c0" stroke-width="1.6" stroke-dasharray="7 4"/>
+<text x="754.2" y="627.0" fill="#35d0c0" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">POZZETTO</text>
+<text x="754.2" y="638.0" fill="#35d0c0" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">PIEDI</text>
+<rect x="800.7" y="561.0" width="124.0" height="117.8" fill="#182029" stroke="#35d0c0" stroke-width="1.6"/>
+<text x="862.7" y="615.9" fill="#e6edf3" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">VANO TECNICO</text>
+<text x="862.7" y="630.9" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">batteria · MPPT</text>
+<rect x="413.2" y="551.7" width="294.5" height="9.3" fill="#241c08" stroke="#ffb020" stroke-width="1.8"/>
+<rect x="800.7" y="551.7" width="124.0" height="9.3" fill="#241c08" stroke="#ffb020" stroke-width="1.8"/>
+<text x="562.0" y="543.7" fill="#ffb020" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">PIANO CONTINUO +50</text>
+<rect x="800.7" y="536.2" width="124.0" height="15.5" fill="#20272f" stroke="#e6edf3" stroke-width="1.4" rx="3"/>
+<text x="862.7" y="529.2" fill="#9fb3c4" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">CUSCINO SEDUTA</text>
+<rect x="918.5" y="412.2" width="18.6" height="124.0" fill="#20272f" stroke="#e6edf3" stroke-width="1.4" rx="3"/>
+<line x1="927.8" y1="468.0" x2="1129.3" y2="468.0" stroke="#6c8296" stroke-width="1"/>
+<circle cx="927.8" cy="468.0" r="2.4" fill="#6c8296" stroke="none" stroke-width="1.4"/>
+<text x="1135.3" y="471.5" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">schienale ribaltabile</text>
+<rect x="698.4" y="471.1" width="139.5" height="9.3" fill="#241c08" stroke="#ffb020" stroke-width="2"/>
+<text x="768.1" y="495.4" fill="#ffb020" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">SCRIVANIA +76  (70 × 45)</text>
+<line x1="704.6" y1="480.4" x2="704.6" y2="551.7" stroke="#ffb020" stroke-width="2.4"/>
+<text x="692.2" y="517.6" fill="#ffb020" font-size="8.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" transform="rotate(-90 692.2 517.6)">braccio orientabile</text>
+<circle cx="865.8" cy="322.3" r="27.9" fill="none" stroke="#6c8296" stroke-width="1.6"/>
+<path d="M 865.8000000000001 350.2 L 878.2 530
+               M 878.2 530 L 748 539.3
+               M 748 539.3 L 741.8000000000001 678.8000000000001
+               M 872 396.7 L 772.8000000000001 464.9" fill="none" stroke="#6c8296" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="723.2" y="396.7" width="7.8" height="74.4" fill="#20272f" stroke="#6c8296" stroke-width="1.4"/>
+<line x1="726.3" y1="418.4" x2="636.4" y2="368.8" stroke="#6c8296" stroke-width="1"/>
+<circle cx="726.3" cy="418.4" r="2.4" fill="#6c8296" stroke="none" stroke-width="1.4"/>
+<text x="630.4" y="372.3" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="end">monitor / laptop</text>
+<rect x="388.4" y="105.3" width="734.7" height="37.2" fill="#141c25" stroke="#8fa3b5" stroke-width="2"/>
+<text x="669.0" y="97.3" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">GUSCIO TETTO A SOFFIETTO</text>
+<path d="M 413.20000000000005 437 L 388.4 142.5" fill="none" stroke="#8fa3b5" stroke-width="1.4" stroke-dasharray="5 3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 1104.5 437 L 1123.1 142.5" fill="none" stroke="#8fa3b5" stroke-width="1.4" stroke-dasharray="5 3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="335.7" y="393.6" width="589.0" height="43.4" fill="none" stroke="#35d0c0" stroke-width="1.2" stroke-dasharray="7 4"/>
+<text x="648.8" y="419.3" fill="#35d0c0" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">letto disteso — posizione notte</text>
+<rect x="335.7" y="350.2" width="294.5" height="86.8" fill="#0f1c1e" stroke="#35d0c0" stroke-width="1.8"/>
+<text x="482.9" y="397.6" fill="#35d0c0" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">LETTO RIPIEGATO</text>
+<text x="482.9" y="409.6" fill="#35d0c0" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">posizione giorno</text>
+<line x1="475.2" y1="350.2" x2="208.6" y2="220.0" stroke="#35d0c0" stroke-width="1"/>
+<circle cx="475.2" cy="350.2" r="2.4" fill="#35d0c0" stroke="none" stroke-width="1.4"/>
+<text x="214.6" y="223.5" fill="#35d0c0" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">il letto si ripiega a metà verso il portellone:</text>
+<text x="227.2" y="236.0" fill="#9fb3c4" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">di giorno sopra la dinette restano 135 cm liberi,</text>
+<text x="227.2" y="248.0" fill="#9fb3c4" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">altrimenti sotto il letto disteso ce ne sarebbero 40</text>
+<line x1="138.0" y1="716.0" x2="138.0" y2="561.0" stroke="#6c8296" stroke-width="1"/>
+<line x1="135.5" y1="718.5" x2="140.5" y2="713.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="135.5" y1="563.5" x2="140.5" y2="558.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="413.2" y1="716.0" x2="138.0" y2="716.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<line x1="413.2" y1="561.0" x2="138.0" y2="561.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<text x="133.0" y="638.5" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" transform="rotate(-90 133.0 638.5)">50</text>
+<line x1="138.0" y1="561.0" x2="138.0" y2="437.0" stroke="#6c8296" stroke-width="1"/>
+<line x1="135.5" y1="563.5" x2="140.5" y2="558.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="135.5" y1="439.5" x2="140.5" y2="434.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="413.2" y1="561.0" x2="138.0" y2="561.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<line x1="413.2" y1="437.0" x2="138.0" y2="437.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<text x="133.0" y="499.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" transform="rotate(-90 133.0 499.0)">40</text>
+<line x1="108.0" y1="716.0" x2="108.0" y2="142.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="105.5" y1="718.5" x2="110.5" y2="713.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="105.5" y1="145.0" x2="110.5" y2="140.0" stroke="#6c8296" stroke-width="1"/>
+<line x1="413.2" y1="716.0" x2="108.0" y2="716.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<line x1="413.2" y1="142.5" x2="108.0" y2="142.5" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<text x="103.0" y="429.3" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" transform="rotate(-90 103.0 429.3)">185  (in piedi)</text>
+<line x1="686.0" y1="545.5" x2="686.0" y2="480.4" stroke="#6c8296" stroke-width="1"/>
+<line x1="683.5" y1="548.0" x2="688.5" y2="543.0" stroke="#6c8296" stroke-width="1"/>
+<line x1="683.5" y1="482.9" x2="688.5" y2="477.9" stroke="#6c8296" stroke-width="1"/>
+<line x1="704.6" y1="545.5" x2="686.0" y2="545.5" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<line x1="704.6" y1="480.4" x2="686.0" y2="480.4" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<text x="681.0" y="513.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" transform="rotate(-90 681.0 513.0)">21</text>
+<line x1="227.2" y1="760.0" x2="413.2" y2="760.0" stroke="#6c8296" stroke-width="1"/>
+<line x1="224.7" y1="762.5" x2="229.7" y2="757.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="410.7" y1="762.5" x2="415.7" y2="757.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="227.2" y1="716.0" x2="227.2" y2="760.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<line x1="413.2" y1="716.0" x2="413.2" y2="760.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<text x="320.2" y="755.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">60</text>
+<line x1="413.2" y1="760.0" x2="599.2" y2="760.0" stroke="#6c8296" stroke-width="1"/>
+<line x1="410.7" y1="762.5" x2="415.7" y2="757.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="596.7" y1="762.5" x2="601.7" y2="757.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="413.2" y1="716.0" x2="413.2" y2="760.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<line x1="599.2" y1="716.0" x2="599.2" y2="760.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<text x="506.2" y="755.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">60</text>
+<line x1="599.2" y1="760.0" x2="707.7" y2="760.0" stroke="#6c8296" stroke-width="1"/>
+<line x1="596.7" y1="762.5" x2="601.7" y2="757.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="705.2" y1="762.5" x2="710.2" y2="757.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="599.2" y1="716.0" x2="599.2" y2="760.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<line x1="707.7" y1="716.0" x2="707.7" y2="760.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<text x="653.5" y="755.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">35</text>
+<line x1="707.7" y1="760.0" x2="800.7" y2="760.0" stroke="#6c8296" stroke-width="1"/>
+<line x1="705.2" y1="762.5" x2="710.2" y2="757.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="798.2" y1="762.5" x2="803.2" y2="757.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="707.7" y1="716.0" x2="707.7" y2="760.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<line x1="800.7" y1="716.0" x2="800.7" y2="760.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<text x="754.2" y="755.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">30</text>
+<line x1="800.7" y1="760.0" x2="924.7" y2="760.0" stroke="#6c8296" stroke-width="1"/>
+<line x1="798.2" y1="762.5" x2="803.2" y2="757.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="922.2" y1="762.5" x2="927.2" y2="757.5" stroke="#6c8296" stroke-width="1"/>
+<line x1="800.7" y1="716.0" x2="800.7" y2="760.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<line x1="924.7" y1="716.0" x2="924.7" y2="760.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<text x="862.7" y="755.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">40</text>
+<line x1="335.7" y1="55.7" x2="924.7" y2="55.7" stroke="#6c8296" stroke-width="1"/>
+<line x1="333.2" y1="58.2" x2="338.2" y2="53.2" stroke="#6c8296" stroke-width="1"/>
+<line x1="922.2" y1="58.2" x2="927.2" y2="53.2" stroke="#6c8296" stroke-width="1"/>
+<text x="630.2" y="50.7" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">190  (letto, sbalzo sui sedili)</text>
+<text x="190.0" y="120.8" fill="#ffb020" font-size="13" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="700">A</text>
+<text x="1113.8" y="120.8" fill="#ffb020" font-size="13" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="end" font-weight="700">A</text>
+<line x1="190.0" y1="1037.8" x2="500.0" y2="1037.8" stroke="#9fb3c4" stroke-width="1.4"/>
+<rect x="190.0" y="1033.8" width="155.0" height="8.0" fill="#9fb3c4" stroke="#9fb3c4" stroke-width="1"/>
+<line x1="190.0" y1="1033.8" x2="190.0" y2="1041.8" stroke="#9fb3c4" stroke-width="1.4"/>
+<line x1="345.0" y1="1033.8" x2="345.0" y2="1041.8" stroke="#9fb3c4" stroke-width="1.4"/>
+<line x1="500.0" y1="1033.8" x2="500.0" y2="1041.8" stroke="#9fb3c4" stroke-width="1.4"/>
+<text x="190.0" y="1053.8" fill="#9fb3c4" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">0</text>
+<text x="345.0" y="1053.8" fill="#9fb3c4" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">50</text>
+<text x="500.0" y="1053.8" fill="#9fb3c4" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="end">100 cm</text>
+<rect x="1036.0" y="993.8" width="330.0" height="64.0" fill="#131b23" stroke="#6c8296" stroke-width="1.2"/>
+<line x1="1036.0" y1="1017.8" x2="1366.0" y2="1017.8" stroke="#6c8296" stroke-width="1"/>
+<text x="1046.0" y="1009.8" fill="#ffb020" font-size="11.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="1.6" text-anchor="start" font-weight="700">TAV. 2 — SEZIONE A-A</text>
+<text x="1046.0" y="1032.8" fill="#9fb3c4" font-size="8.6" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.4" text-anchor="start">lato destro — cucina estratta, soffietto aperto</text>
+<text x="1046.0" y="1046.8" fill="#6c8296" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">CYBER CRUISER · KDJ120 · quote in cm · rev. B</text>
+</svg>
