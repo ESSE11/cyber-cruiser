@@ -35,16 +35,19 @@ export default {
     const tAwn = new Toggle('LUCI TENDALINO', () => send('camper.lights.awning', !state.camper.lights.awning));
     const tPump = new Toggle('POMPA ACQUA', () => send('camper.pump', !state.camper.pump));
     const tHeat = new Toggle('RISCALDATORE', () => send('camper.heater', !state.camper.heater));
+    // la ventola cicla fra spenta e tre velocità: è il raffrescamento di bordo
+    const tFan = new Toggle('ESTRATTORE', () => send('camper.fan', (state.camper.fan + 1) % 4));
     const tg = el('div', 'toggles');
-    [tInt, tAwn, tPump, tHeat].forEach((t) => tg.appendChild(t.root));
+    [tInt, tAwn, tPump, tHeat, tFan].forEach((t) => tg.appendChild(t.root));
     const cCmd = card('COMANDI', tg);
 
     // --- temperature + storico -------------------------------------------
     const sFridge = new Stat('FRIGO', '°C');
     const sIn = new Stat('INTERNO', '°C');
     const sOut = new Stat('ESTERNO', '°C');
-    const gT = el('div', 'stats cols-3');
-    [sFridge, sIn, sOut].forEach((s) => gT.appendChild(s.root));
+    const sCo = new Stat('CO', 'ppm');
+    const gT = el('div', 'stats cols-4');
+    [sFridge, sIn, sOut, sCo].forEach((s) => gT.appendChild(s.root));
 
     const spark = new Spark({ min: 0, max: 100 });
     const sparkBox = el('div', 'gauge-wrap h-sm');
@@ -77,6 +80,9 @@ export default {
         tAwn.set(c.lights.awning);
         tPump.set(c.pump);
         tHeat.set(c.heater);
+        tFan.set(c.fan > 0);
+        tFan.root.firstChild.textContent = c.fan > 0 ? `ESTRATTORE ${c.fan}` : 'ESTRATTORE';
+        sCo.set(Math.round(c.coPpm), c.coPpm >= set.coWarn ? 'alarm' : c.coPpm > 15 ? 'warn' : 'ok');
 
         sFridge.set(c.fridgeTemp.toFixed(1), c.fridgeTemp > 8 ? 'alarm' : c.fridgeTemp > 6 ? 'warn' : 'ok');
         sIn.set(c.insideTemp.toFixed(1));

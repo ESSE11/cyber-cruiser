@@ -108,6 +108,7 @@ export class Simulator {
       + (s.camper.pump && this.press < state.settings.pressWork[1] ? 50 : 0)
       + (s.water.boilerOn && s.water.boilerTemp < state.settings.boilerTarget ? 200 : 0)
       + (s.camper.heater ? 28 : 0)
+      + s.camper.fan * 11
       + 14;                                              // Raspberry + schermo
 
     const netW = solarW + alternatorW - loadsW;
@@ -140,7 +141,7 @@ export class Simulator {
     const fridgeTemp = s.camper.fridgeTemp + (fridgeDuty ? -0.02 : 0.012) * (1 + s.camper.outsideTemp / 40);
     const outsideTemp = 6 + sun * 14 - this.altitude / 250;
     const insideTemp = s.camper.insideTemp
-      + (outsideTemp - s.camper.insideTemp) * 0.0015
+      + (outsideTemp - s.camper.insideTemp) * (0.0015 + s.camper.fan * 0.004)
       + (s.camper.heater ? 0.02 : 0);
     // i serbatoi si muovono con i litri davvero erogati, non "un po' a caso"
     const litri = (flowLpm / 60) * DT;
@@ -180,7 +181,11 @@ export class Simulator {
         pumpDuty: Math.min(1, this.pompaSec / Math.max(60, Math.min(3600, this.t))),
         leak: false
       },
-      camper: { fridgeTemp, insideTemp, outsideTemp, waterFresh, waterGrey },
+      camper: {
+        fridgeTemp, insideTemp, outsideTemp, waterFresh, waterGrey,
+        // con l'estrattore acceso l'interno insegue l'esterno molto più in fretta
+        coPpm: Math.max(0, s.camper.coPpm + (s.camper.heater ? 0.02 : -0.05))
+      },
       gps: {
         lat: s.gps.lat + Math.cos((this.heading * Math.PI) / 180) * dKm * 0.009,
         lon: s.gps.lon + Math.sin((this.heading * Math.PI) / 180) * dKm * 0.012,

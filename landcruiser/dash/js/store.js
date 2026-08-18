@@ -30,6 +30,8 @@ export const state = {
     waterFresh: 1, waterGrey: 0, gasKg: 5,
     fridgeTemp: 5, insideTemp: 20, outsideTemp: 15,
     heater: false, pump: false,
+    fan: 0,              // ventola di estrazione: 0 = spenta, 1..3 = velocità
+    coPpm: 0,            // monossido: con una stufa a combustione non è opzionale
     lights: { interior: false, awning: false }
   },
   gps: { lat: 45.0703, lon: 7.6869, fix: 0, sats: 0 },
@@ -48,7 +50,9 @@ export const state = {
     solarWp: 220,             // potenza di picco installata sul tetto
     pressWork: [1.6, 2.8],    // pressione normale dell'impianto, bar
     boilerTarget: 60,         // temperatura di esercizio del boiler
-    showerLitersWarn: 25      // litri per doccia oltre i quali avvisa
+    showerLitersWarn: 25,     // litri per doccia oltre i quali avvisa
+    tempTarget: 19,           // temperatura di comfort: sotto, parte la stufa
+    coWarn: 50                // ppm di CO: sopra, allarme a schermo
   }
 };
 

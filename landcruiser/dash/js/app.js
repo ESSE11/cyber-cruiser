@@ -156,6 +156,7 @@ function computeAlerts(s) {
   if (s.camper.waterFresh < 0.1) add('ACQUA PULITA QUASI FINITA', 'warn');
   if (s.camper.waterGrey > 0.9) add('SERBATOIO GRIGIE PIENO', 'warn');
   if (s.camper.fridgeTemp > 8) add('FRIGO SOPRA 8 °C');
+  if (s.camper.coPpm >= s.settings.coWarn) add('MONOSSIDO DI CARBONIO: AREARE SUBITO');
   if (s.water.leak) add('POMPA IN CICLO A RUBINETTI CHIUSI: PERDITA?');
   else if (s.camper.pump && s.water.pressureBar < s.settings.pressWork[0] * 0.5 && s.water.flowLpm < 0.2) {
     add('POMPA IN PRESSIONE MA NIENTE PORTATA: ARIA O FILTRO', 'warn');

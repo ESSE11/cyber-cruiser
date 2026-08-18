@@ -449,6 +449,7 @@ RELAYS = {
     "camper.heater": 23,
     "water.boilerOn": 24,        # resistenza del boiler
     "water.showerExt": 25,       # elettrovalvola della doccia esterna
+    "camper.fan": 5,             # ventola di estrazione (relè o PWM)
 }
 
 _gpio = None
