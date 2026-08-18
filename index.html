@@ -2,220 +2,129 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>Scheda Allenamento — Definizione</title>
-<style>
-  @page { size: A4 portrait; margin: 12mm 10mm; }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
-    color: #1a2330; font-size: 9.5px; line-height: 1.3;
-  }
-  .wrap { max-width: 190mm; margin: 0 auto; }
-
-  header {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    border-bottom: 3px solid #c0392b; padding-bottom: 8px; margin-bottom: 12px;
-  }
-  header .brand { font-size: 13px; font-weight: 800; letter-spacing: 1px; color: #3d4f5f; text-transform: uppercase; margin-bottom: 2px; }
-  header .brand span { color: #c0392b; }
-  header h1 { font-size: 22px; letter-spacing: -0.5px; color: #1a2330; }
-  header h1 span { color: #c0392b; }
-  header .meta { text-align: right; font-size: 9px; color: #5a6b7d; }
-  header .meta strong { color: #1a2330; font-size: 11px; }
-
-  .split {
-    width: 100%; border-collapse: collapse; margin-bottom: 14px;
-    font-size: 9px;
-  }
-  .split th, .split td { border: 1px solid #cdd6e0; padding: 4px 6px; text-align: left; }
-  .split th { background: #1a2330; color: #fff; font-weight: 600; }
-  .split td.g { font-weight: 700; color: #c0392b; width: 14%; }
-  .split tr:nth-child(even) td { background: #f4f7fa; }
-
-  .day { margin-bottom: 10px; break-inside: avoid; }
-  .day h2 {
-    font-size: 12px; background: #1a2330; color: #fff;
-    padding: 4px 8px; border-radius: 3px 3px 0 0;
-    display: flex; justify-content: space-between;
-  }
-  .day h2 .tag { font-weight: 400; font-size: 9px; opacity: .8; }
-  .day.cl h2 { background: #c0392b; }
-
-  table.ex { width: 100%; border-collapse: collapse; }
-  table.ex th, table.ex td { border: 1px solid #d5dce4; padding: 3px 6px; }
-  table.ex th {
-    background: #eef2f6; font-size: 8px; text-transform: uppercase;
-    letter-spacing: .3px; color: #5a6b7d; font-weight: 600;
-  }
-  table.ex td.name { text-align: left; font-weight: 600; width: 30%; }
-  table.ex td.c { text-align: center; white-space: nowrap; }
-  table.ex td.sr { text-align: center; font-weight: 700; color: #c0392b; width: 9%; }
-  table.ex td.rec { text-align: center; color: #5a6b7d; width: 7%; }
-  .box { background: repeating-linear-gradient(45deg,#fafbfc,#fafbfc 3px,#f0f3f6 3px,#f0f3f6 4px); }
-
-  .cols { display: flex; gap: 8px; }
-  .cols .day { flex: 1; }
-
-  footer {
-    margin-top: 14px; border-top: 2px solid #1a2330; padding-top: 8px;
-    font-size: 8.5px; break-inside: avoid;
-  }
-  footer h3 { font-size: 11px; color: #c0392b; margin-bottom: 4px; }
-  footer ul { list-style: none; }
-  footer li { padding: 1.5px 0 1.5px 14px; position: relative; }
-  footer li::before { content: "▸"; position: absolute; left: 0; color: #c0392b; }
-  .note { font-size: 8px; color: #8494a5; margin-top: 6px; font-style: italic; }
-  .pb { break-before: page; }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CYBER CRUISER — Land Cruiser camperizzato</title>
+<meta name="description" content="Progetto di camperizzazione di un Toyota Land Cruiser KDJ120: modello 3D navigabile, dashboard di bordo, disegni tecnici e checklist con i costi reali.">
+<meta name="theme-color" content="#0a0e12">
+<link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
-<div class="wrap">
 
-  <header>
-    <div>
-      <div class="brand">Punto<span>DSGN</span></div>
-      <h1>SCHEDA <span>DEFINIZIONE</span></h1>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">CYBER<span>CRUISER</span></div>
+    <nav class="menu">
+      <a href="/landcruiser/3d/">Modello 3D</a>
+      <a href="/landcruiser/dash/?sim=1">Dashboard</a>
+      <a href="/checklist/">Checklist e costi</a>
+      <a href="#progetto">Progetto</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="kicker">Toyota Land Cruiser KDJ120 · 5 porte passo lungo</div>
+    <h1>Un fuoristrada che<br>diventa <span>casa</span></h1>
+    <p class="lead">
+      Progetto completo di camperizzazione: layout quotato, modello 3D navigabile
+      di esterno e interni, computer di bordo con due schermi, distinta base con
+      i prezzi reali. Tutto disegnato dalle stesse quote, così i disegni, il 3D e
+      i costi non possono più raccontare cose diverse.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="/landcruiser/3d/">Apri il modello 3D</a>
+      <a class="btn" href="/landcruiser/dash/?sim=1">Prova la dashboard</a>
+      <a class="btn" href="/checklist/">Checklist e costi</a>
     </div>
-    <div class="meta">
-      Calisthenics + Pesi · 7 giorni<br>
-      <strong>5 Palestra + 2 Corpo libero</strong><br>
-      Ciclo 5-6 settimane · poi deload
-    </div>
-  </header>
-
-  <table class="split">
-    <tr>
-      <th>Giorno</th><th>Focus</th><th>Dove</th>
-      <th>Giorno</th><th>Focus</th><th>Dove</th>
-    </tr>
-    <tr>
-      <td class="g">Lun · G1</td><td>Push — petto/spalle/tricipiti</td><td>Palestra</td>
-      <td class="g">Ven · G5</td><td>Upper — forza + punti deboli</td><td>Palestra</td>
-    </tr>
-    <tr>
-      <td class="g">Mar · G2</td><td>Pull — dorso/bicipiti</td><td>Palestra</td>
-      <td class="g">Sab · G6</td><td>Lower + catena posteriore</td><td>Palestra</td>
-    </tr>
-    <tr>
-      <td class="g">Mer · G3</td><td>Gambe</td><td>Palestra</td>
-      <td class="g">Dom · G7</td><td>Calisthenics full-body + core</td><td>Ovunque</td>
-    </tr>
-    <tr>
-      <td class="g">Gio · G4</td><td>Calisthenics skill + upper</td><td>Ovunque</td>
-      <td colspan="3" style="background:#fff2f0;color:#c0392b;font-weight:600;">Def = deficit 300-500 kcal · proteine ~2 g/kg · carichi pesanti</td>
-    </tr>
-  </table>
-
-  <!-- G1 -->
-  <div class="day">
-    <h2>G1 · PUSH <span class="tag">Petto / Spalle / Tricipiti — Palestra</span></h2>
-    <table class="ex">
-      <tr><th class="name" style="text-align:left">Esercizio</th><th>S×R</th><th>Rec</th><th>Sett.1</th><th>Sett.2</th><th>Sett.3</th><th>Sett.4</th></tr>
-      <tr><td class="name">Panca piana bilanciere</td><td class="sr">4×6-8</td><td class="rec">2-3′</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Military press</td><td class="sr">3×8-10</td><td class="rec">2′</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Dip zavorrati</td><td class="sr">3×8-10</td><td class="rec">2′</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Croci ai cavi</td><td class="sr">3×12-15</td><td class="rec">60″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Alzate laterali</td><td class="sr">4×15</td><td class="rec">45″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">French press / pushdown</td><td class="sr">3×12</td><td class="rec">60″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-    </table>
   </div>
-
-  <!-- G2 -->
-  <div class="day">
-    <h2>G2 · PULL <span class="tag">Dorso / Bicipiti — Palestra</span></h2>
-    <table class="ex">
-      <tr><th class="name" style="text-align:left">Esercizio</th><th>S×R</th><th>Rec</th><th>Sett.1</th><th>Sett.2</th><th>Sett.3</th><th>Sett.4</th></tr>
-      <tr><td class="name">Trazioni zavorrate</td><td class="sr">4×6-8</td><td class="rec">2-3′</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Rematore bilanciere</td><td class="sr">4×8-10</td><td class="rec">2′</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Lat machine presa stretta</td><td class="sr">3×10-12</td><td class="rec">90″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Pulley basso</td><td class="sr">3×12</td><td class="rec">60″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Curl bilanciere</td><td class="sr">3×10</td><td class="rec">60″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Curl martello</td><td class="sr">3×12</td><td class="rec">45″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-    </table>
-  </div>
-
-  <!-- G3 -->
-  <div class="day">
-    <h2>G3 · GAMBE <span class="tag">Quadri / Femorali / Polpacci — Palestra</span></h2>
-    <table class="ex">
-      <tr><th class="name" style="text-align:left">Esercizio</th><th>S×R</th><th>Rec</th><th>Sett.1</th><th>Sett.2</th><th>Sett.3</th><th>Sett.4</th></tr>
-      <tr><td class="name">Squat</td><td class="sr">4×6-8</td><td class="rec">3′</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Stacco rumeno</td><td class="sr">3×8-10</td><td class="rec">2′</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Pressa</td><td class="sr">3×12</td><td class="rec">90″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Leg curl</td><td class="sr">3×12-15</td><td class="rec">60″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Affondi camminata</td><td class="sr">3×12/g</td><td class="rec">60″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Polpacci in piedi</td><td class="sr">4×15-20</td><td class="rec">45″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-    </table>
-  </div>
-
-  <!-- G4 corpo libero -->
-  <div class="day cl pb">
-    <h2>G4 · CALISTHENICS SKILL + UPPER <span class="tag">Parco / Casa — solo sbarra</span></h2>
-    <table class="ex">
-      <tr><th class="name" style="text-align:left">Blocco / Esercizio</th><th>S×R</th><th>Rec</th><th>Sett.1</th><th>Sett.2</th><th>Sett.3</th><th>Sett.4</th></tr>
-      <tr><td class="name">Skill (a fresco): muscle-up / front lever / handstand</td><td class="sr">15-20′</td><td class="rec">—</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Trazioni (controllate)</td><td class="sr">5×max</td><td class="rec">2′</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Dip</td><td class="sr">5×max</td><td class="rec">2′</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Pike / HSPU push-up</td><td class="sr">4×8-12</td><td class="rec">90″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Rows australiani</td><td class="sr">4×12</td><td class="rec">60″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Core: L-sit + hollow hold</td><td class="sr">4×max</td><td class="rec">60″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-    </table>
-  </div>
-
-  <!-- G5 -->
-  <div class="day">
-    <h2>G5 · UPPER <span class="tag">Forza + punti deboli — Palestra</span></h2>
-    <table class="ex">
-      <tr><th class="name" style="text-align:left">Esercizio</th><th>S×R</th><th>Rec</th><th>Sett.1</th><th>Sett.2</th><th>Sett.3</th><th>Sett.4</th></tr>
-      <tr><td class="name">Panca inclinata manubri</td><td class="sr">4×8-10</td><td class="rec">2′</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Trazioni presa larga</td><td class="sr">4×8</td><td class="rec">2′</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Arnold press</td><td class="sr">3×10</td><td class="rec">90″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Rematore manubrio 1 braccio</td><td class="sr">3×10/l</td><td class="rec">60″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Superset: alzate lat. + curl</td><td class="sr">3×15+15</td><td class="rec">60″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Superset: pushdown + face pull</td><td class="sr">3×15+15</td><td class="rec">60″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-    </table>
-  </div>
-
-  <!-- G6 -->
-  <div class="day">
-    <h2>G6 · LOWER + CATENA POSTERIORE <span class="tag">Palestra</span></h2>
-    <table class="ex">
-      <tr><th class="name" style="text-align:left">Esercizio</th><th>S×R</th><th>Rec</th><th>Sett.1</th><th>Sett.2</th><th>Sett.3</th><th>Sett.4</th></tr>
-      <tr><td class="name">Stacco da terra</td><td class="sr">4×5</td><td class="rec">3′</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Hip thrust</td><td class="sr">3×10-12</td><td class="rec">90″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Bulgarian split squat</td><td class="sr">3×10/g</td><td class="rec">90″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Good morning / nordic curl</td><td class="sr">3×8-10</td><td class="rec">90″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Polpacci seduto</td><td class="sr">4×20</td><td class="rec">45″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Plank zavorrato</td><td class="sr">3×45″</td><td class="rec">45″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-    </table>
-  </div>
-
-  <!-- G7 corpo libero -->
-  <div class="day cl">
-    <h2>G7 · CALISTHENICS FULL-BODY + CONDIZIONAMENTO <span class="tag">Parco / Casa</span></h2>
-    <table class="ex">
-      <tr><th class="name" style="text-align:left">Blocco / Esercizio</th><th>S×R</th><th>Rec</th><th>Sett.1</th><th>Sett.2</th><th>Sett.3</th><th>Sett.4</th></tr>
-      <tr><td class="name">Gambe: pistol squat + jump squat</td><td class="sr">4×6-8/g</td><td class="rec">90″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Spinta: push-up archer / diamond</td><td class="sr">4×max</td><td class="rec">75″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Tirata: trazioni</td><td class="sr">4×8</td><td class="rec">90″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Core: toes-to-bar + hanging leg raise</td><td class="sr">4×12</td><td class="rec">60″</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-      <tr><td class="name">Metabolico: circuito burpee/mountain climber/sprint</td><td class="sr">10-15′</td><td class="rec">—</td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td></tr>
-    </table>
-  </div>
-
-  <footer>
-    <h3>Regole definizione</h3>
-    <ul>
-      <li><strong>Carichi pesanti</strong> sui fondamentali anche in deficit → preservi massa muscolare</li>
-      <li><strong>Progressione</strong>: al top delle ripetizioni a RPE 8 → aumenta il carico la settimana dopo</li>
-      <li><strong>Cardio</strong>: finisher G7 + 8-10k passi/giorno; +1-2 LISS 30′ se lo stallo del grasso persiste</li>
-      <li><strong>Deload</strong> ogni 5-6 settimane: volume −40%, carichi invariati</li>
-      <li><strong>Dieta</strong>: deficit 300-500 kcal, proteine ~2 g/kg — il grasso lo taglia la dieta, non i pesi leggeri</li>
-      <li>G4 e G7 a intensità gestita (skill + metabolico) per recuperare dai 5 giorni palestra</li>
-    </ul>
-    <p class="note">Box Sett.1-4 = segna carico × ripetizioni eseguite per tracciare la progressione. Scheda modulare: i giorni palestra si convertono in calisthenics quando ti alleni solo al parco/casa.</p>
-  </footer>
-
 </div>
+
+<section>
+  <div class="wrap">
+    <h2>Il mezzo</h2>
+    <div class="grid c3">
+      <div class="card">
+        <h3>Perché il 120</h3>
+        <p>4,84 m, passo 2,79, tetto lungo e piatto, portata utile ~600 kg.
+           Il 5 porte passo lungo (7 posti, terza fila rimossa) è l'unico che
+           lascia un vano da 165 × 130 × 90 cm.</p>
+      </div>
+      <div class="card">
+        <h3>Vano abitabile</h3>
+        <p class="num big">165 × 130 × 90</p>
+        <p>centimetri, pavimento a 78 cm da terra. Con il soffietto aperto
+           l'altezza interna arriva a 185 cm: dentro ci si sta in piedi.</p>
+      </div>
+      <div class="card">
+        <h3>Autonomia</h3>
+        <p>200 Ah LiFePO4, 220 W di solare, 60 L d'acqua pulita, frigo a
+           compressore da 50 L, riscaldatore a gasolio da 2 kW.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="modello">
+  <div class="wrap">
+    <h2>Modello 3D — esterno e interni</h2>
+    <p class="lead" style="margin-bottom:22px">
+      Soffietto, portellone, cucina estraibile, frigo su slitta, letto, tenda a
+      ventaglio: si aprono e si chiudono. Impianti, stivaggio e porte sono gruppi
+      accendibili, con le etichette dei componenti.
+    </p>
+    <iframe class="frame" src="/landcruiser/3d/" title="Modello 3D dell'allestimento" loading="lazy"></iframe>
+    <div class="cta">
+      <a class="btn" href="/landcruiser/3d/">Apri a schermo intero</a>
+      <a class="btn" href="/landcruiser/docs/disegni/cyber-cruiser-tavole.pdf">PDF delle tavole</a>
+    </div>
+  </div>
+</section>
+
+<section id="dash">
+  <div class="wrap">
+    <h2>Computer di bordo — due schermi</h2>
+    <div class="grid c2">
+      <div class="card">
+        <h3>Schermo principale 10,1"</h3>
+        <p>Guida, offroad, viaggio: velocità, giri, temperature, inclinometro con
+           orizzonte artificiale, quota, consumi. Gira in Chromium kiosk su un
+           Raspberry Pi 5, senza rete.</p>
+      </div>
+      <div class="card">
+        <h3>Schermo impianti 7"</h3>
+        <p>Corrente che entra e che esce, resa solare, serbatoi, pressione della
+           pompa, portata, boiler, doccia esterna. Diagnosi comprese: se la pompa
+           cicla a rubinetti chiusi, lo dice.</p>
+      </div>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="/landcruiser/dash/?sim=1">Dashboard (simulatore)</a>
+      <a class="btn" href="/landcruiser/dash/?sim=1&view=impianti&kiosk=1">Schermo impianti</a>
+    </div>
+  </div>
+</section>
+
+<section id="progetto">
+  <div class="wrap">
+    <h2>Documenti di progetto</h2>
+    <div class="grid c3">
+      <div class="card"><h3>01 · Scelta del veicolo</h3><p>Cosa guardare, cosa fa scartare un mezzo, budget d'acquisto.</p></div>
+      <div class="card"><h3>02 · Layout</h3><p>Quote del vano, moduli, pesi, scheda di rilievo.</p></div>
+      <div class="card"><h3>03 · Impianto elettrico</h3><p>Bilancio energetico, batteria, solare, alternatore.</p></div>
+      <div class="card"><h3>04 · Idrico e cucina</h3><p>Serbatoi, pompa, boiler, doccia esterna, fornello.</p></div>
+      <div class="card"><h3>05 · Elettronica di bordo</h3><p>Hardware, sensori, protocollo dati, daemon.</p></div>
+      <div class="card"><h3>06 · Costi e roadmap</h3><p>Distinta base, tre scenari di spesa, omologazione.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Cyber Cruiser — progetto personale di camperizzazione. Prezzi indicativi 2026,
+    IVA inclusa: vanno riverificati al momento dell'acquisto.
+  </div>
+</footer>
+
 </body>
 </html>

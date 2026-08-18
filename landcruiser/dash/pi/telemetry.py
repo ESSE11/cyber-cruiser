@@ -255,6 +255,156 @@ async def gps_source() -> None:
         await asyncio.sleep(0.2)
 
 
+# --------------------------------------------------------------------------
+# impianto idrico: pressione, portata, livelli, boiler
+# --------------------------------------------------------------------------
+
+class Ads1115:
+    """Lettura single-shot dei 4 canali dell'ADS1115 via smbus2.
+
+    Nessuna libreria esotica: il convertitore parla I²C e basta. Guadagno fisso
+    a ±4,096 V, che copre sia il trasduttore di pressione 0,5-4,5 V sia i
+    partitori delle sonde resistive dei serbatoi.
+    """
+
+    ADDR = 0x48
+    MUX = (0x4000, 0x5000, 0x6000, 0x7000)   # AIN0..AIN3 verso GND
+
+    def __init__(self, bus):
+        self.bus = bus
+
+    def read(self, ch: int) -> float:
+        cfg = 0x8000 | self.MUX[ch] | 0x0200 | 0x0080 | 0x0003   # ±4,096 V, 128 SPS
+        self.bus.write_i2c_block_data(self.ADDR, 0x01, [cfg >> 8, cfg & 0xFF])
+        time.sleep(0.01)
+        hi, lo = self.bus.read_i2c_block_data(self.ADDR, 0x00, 2)
+        raw = (hi << 8) | lo
+        if raw > 32767:
+            raw -= 65536
+        return raw * 4.096 / 32768.0
+
+
+async def water_source(args) -> None:
+    """Pressione impianto, livelli serbatoi e diagnosi della pompa.
+
+    Canali dell'ADS1115: 0 = trasduttore di pressione, 1 = acqua chiara,
+    2 = acque grigie. Il trasduttore dà 0,5 V a 0 bar e 4,5 V a fondo scala.
+    """
+    try:
+        from smbus2 import SMBus
+    except ImportError:
+        LOG.warning("smbus2 non installato: impianto idrico disattivato")
+        return
+
+    try:
+        adc = Ads1115(SMBus(1))
+        adc.read(0)
+    except Exception as exc:
+        LOG.warning("ADS1115 non raggiungibile: %s", exc)
+        return
+
+    fondo_scala = args.press_max
+    storico: list[float] = []
+    pompa_on_s = 0.0
+    finestra = 3600.0
+    ultimo = time.monotonic()
+
+    while True:
+        ora = time.monotonic()
+        dt, ultimo = ora - ultimo, ora
+        try:
+            v = adc.read(0)
+            bar = max(0.0, (v - 0.5) / 4.0 * fondo_scala)
+            fresh = min(1.0, max(0.0, adc.read(1) / args.tank_full))
+            grey = min(1.0, max(0.0, adc.read(2) / args.tank_full))
+        except Exception as exc:
+            LOG.debug("lettura ADC fallita: %s", exc)
+            await asyncio.sleep(1)
+            continue
+
+        pompa = bool(STATE.get("camper", {}).get("pump"))
+        portata = FLOW.get("lpm", 0.0)
+        if pompa and bar < fondo_scala * 0.9:
+            pompa_on_s += dt
+        pompa_on_s = max(0.0, pompa_on_s - dt * pompa_on_s / finestra)
+
+        # Perdita: la pompa riparte, la pressione sale e ricade, ma non esce
+        # acqua da nessun rubinetto. È la diagnosi che salva il serbatoio.
+        storico.append(bar)
+        if len(storico) > 60:
+            storico.pop(0)
+        oscilla = len(storico) == 60 and (max(storico) - min(storico)) > 0.4
+        perdita = bool(pompa and oscilla and portata < 0.2)
+
+        merge(STATE, {
+            "water": {
+                "pressureBar": round(bar, 2),
+                "flowLpm": round(portata, 2),
+                "litersOut": round(FLOW.get("litri", 0.0), 2),
+                "pumpDuty": round(min(1.0, pompa_on_s / finestra), 3),
+                "leak": perdita,
+            },
+            "camper": {"waterFresh": round(fresh, 3), "waterGrey": round(grey, 3)},
+        })
+        await asyncio.sleep(0.5)
+
+
+# Contatore del flussimetro a turbina: lo aggiorna l'interrupt del GPIO.
+FLOW: dict = {"lpm": 0.0, "litri": 0.0, "impulsi": 0}
+
+
+async def flow_source(pin: int | None, k: float) -> None:
+    """Flussimetro YF-S201 o simile: k impulsi per litro (450 sul YF-S201)."""
+    if pin is None:
+        return
+    try:
+        from gpiozero import DigitalInputDevice
+    except ImportError:
+        LOG.warning("gpiozero non installato: flussimetro disattivato")
+        return
+
+    try:
+        sensore = DigitalInputDevice(pin)
+    except Exception as exc:
+        LOG.warning("flussimetro non inizializzato: %s", exc)
+        return
+
+    def conta():
+        FLOW["impulsi"] += 1
+
+    sensore.when_activated = conta
+
+    while True:
+        prima = FLOW["impulsi"]
+        await asyncio.sleep(1.0)
+        delta = FLOW["impulsi"] - prima
+        FLOW["lpm"] = delta / k * 60.0
+        FLOW["litri"] += delta / k
+
+
+async def energy_source() -> None:
+    """Integra i watt in wattora e azzera il bilancio a mezzanotte."""
+    ultimo = time.monotonic()
+    giorno = time.localtime().tm_yday
+    tot = {"solarWh": 0.0, "altWh": 0.0, "loadWh": 0.0}
+
+    while True:
+        await asyncio.sleep(2)
+        ora = time.monotonic()
+        dt, ultimo = ora - ultimo, ora
+        p = STATE.get("power", {})
+        tot["solarWh"] += p.get("solarW", 0) * dt / 3600
+        tot["altWh"] += p.get("alternatorW", 0) * dt / 3600
+        tot["loadWh"] += p.get("consumptionW", 0) * dt / 3600
+
+        oggi = time.localtime().tm_yday
+        if oggi != giorno:
+            giorno = oggi
+            tot = {k: 0.0 for k in tot}
+
+        merge(STATE, {"power": {k: round(v, 1) for k, v in tot.items()}})
+
+
 async def camper_source() -> None:
     """Serbatoi e temperature: ADS1115 + DS18B20. Sostituisci con i tuoi sensori."""
     import glob
@@ -273,13 +423,17 @@ async def camper_source() -> None:
     while True:
         sensors = sorted(glob.glob("/sys/bus/w1/devices/28-*"))
         patch: dict = {}
-        # convenzione: primo sensore = frigo, secondo = interno, terzo = esterno
+        # convenzione: 1 = frigo, 2 = interno, 3 = esterno, 4 = boiler
         for name, path in zip(("fridgeTemp", "insideTemp", "outsideTemp"), sensors):
             t = ds18b20(path)
             if t is not None:
                 patch[name] = round(t, 1)
         if patch:
             merge(STATE, {"camper": patch})
+        if len(sensors) > 3:
+            t = ds18b20(sensors[3])
+            if t is not None:
+                merge(STATE, {"water": {"boilerTemp": round(t, 1)}})
         await asyncio.sleep(5)
 
 
@@ -293,6 +447,8 @@ RELAYS = {
     "camper.lights.awning": 27,
     "camper.pump": 22,
     "camper.heater": 23,
+    "water.boilerOn": 24,        # resistenza del boiler
+    "water.showerExt": 25,       # elettrovalvola della doccia esterna
 }
 
 _gpio = None
@@ -353,6 +509,9 @@ async def main(args) -> None:
         imu_source(),
         gps_source(),
         camper_source(),
+        water_source(args),
+        flow_source(args.flow_pin, args.flow_k),
+        energy_source(),
     ]
     async with websockets.serve(handler, args.host, args.port):
         LOG.info("daemon in ascolto su ws://%s:%d", args.host, args.port)
@@ -366,6 +525,10 @@ if __name__ == "__main__":
     p.add_argument("--obd", default=None, help="porta OBD (es. /dev/ttyUSB0); vuoto = autorilevamento")
     p.add_argument("--vedirect", default=None, help="porta VE.Direct dello SmartShunt")
     p.add_argument("--mppt", default=None, help="porta VE.Direct del regolatore MPPT")
+    p.add_argument("--press-max", type=float, default=6.0, help="fondo scala del trasduttore, bar")
+    p.add_argument("--tank-full", type=float, default=3.3, help="volt della sonda a serbatoio pieno")
+    p.add_argument("--flow-pin", type=int, default=None, help="GPIO del flussimetro (BCM)")
+    p.add_argument("--flow-k", type=float, default=450.0, help="impulsi per litro del flussimetro")
     p.add_argument("-v", "--verbose", action="store_true")
     args = p.parse_args()
 

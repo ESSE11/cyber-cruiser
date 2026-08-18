@@ -11,7 +11,20 @@ export const state = {
   attitude: { pitch: 0, roll: 0, heading: 0, altitude: 250 },
   power: {
     soc: 0.9, battV: 13.2, battA: 0, solarW: 0,
-    alternatorW: 0, consumptionW: 0, toEmptyH: 99
+    alternatorW: 0, consumptionW: 0, toEmptyH: 99,
+    // bilancio della giornata, azzerato a mezzanotte dal daemon
+    solarWh: 0, altWh: 0, loadWh: 0
+  },
+  // impianto idrico: è la parte che il secondo schermo guarda da vicino
+  water: {
+    pressureBar: 0,      // pressione a valle della pompa
+    flowLpm: 0,          // portata istantanea
+    litersOut: 0,        // litri erogati dall'ultimo azzeramento
+    boilerTemp: 15,
+    boilerOn: false,
+    showerExt: false,    // doccia esterna aperta
+    pumpDuty: 0,         // % di tempo in cui la pompa ha girato nell'ultima ora
+    leak: false          // pompa che riparte a rubinetti chiusi
   },
   camper: {
     waterFresh: 1, waterGrey: 0, gasKg: 5,
@@ -31,13 +44,17 @@ export const state = {
     battAh: 200,
     consumptionCal: 1.0,      // calibrazione consumo stimato
     tiltWarn: 20,             // ° di rollio: avviso
-    tiltAlarm: 30             // ° di rollio: allarme
+    tiltAlarm: 30,            // ° di rollio: allarme
+    solarWp: 220,             // potenza di picco installata sul tetto
+    pressWork: [1.6, 2.8],    // pressione normale dell'impianto, bar
+    boilerTarget: 60,         // temperatura di esercizio del boiler
+    showerLitersWarn: 25      // litri per doccia oltre i quali avvisa
   }
 };
 
 // Storico per i grafici: campioni ogni ~2 s, finestra di 2 ore.
 export const history = {
-  soc: [], solarW: [], speed: [], insideTemp: []
+  soc: [], solarW: [], speed: [], insideTemp: [], battA: [], pressureBar: []
 };
 const HISTORY_MAX = 3600;
 
@@ -77,6 +94,8 @@ export function sampleHistory() {
   push(history.solarW, state.power.solarW);
   push(history.speed, state.vehicle.speed);
   push(history.insideTemp, state.camper.insideTemp);
+  push(history.battA, state.power.battA);
+  push(history.pressureBar, state.water.pressureBar);
 }
 
 /** Reset dei dati di viaggio (pulsante nella schermata VIAGGIO). */

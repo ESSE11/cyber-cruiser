@@ -51,7 +51,8 @@
 <div class="hud legenda">
   <b>Trascina</b> per ruotare · <b>rotella</b> per zoom<br>
   <i>ambra</i> = piani di lavoro e cucina<br>
-  <em>verde</em> = acqua, freddo, letto, energia<br>
+  <em>verde</em> = acqua, freddo, letto<br>
+  <u>rame</u> = energia · <b style="color:#3aa0e0">azzurro</b> = idrico<br>
   vano 165 × 130 × 90 · pavimento a 78 da terra
 </div>
 
@@ -59,11 +60,23 @@
   <div class="riga">
     <span class="k">STATO</span>
     <button data-stato="tetto"></button>
+    <button data-stato="portellone"></button>
     <button data-stato="cucina"></button>
     <button data-stato="frigo"></button>
     <button data-stato="letto"></button>
     <button data-stato="scrivania"></button>
+    <button data-stato="tenda"></button>
     <button data-stato="persone"></button>
+  </div>
+  <div class="riga">
+    <span class="k">MOSTRA</span>
+    <button data-vis="impianti">IMPIANTI</button>
+    <button data-vis="cabina">CABINA</button>
+    <button data-vis="esterni">ESTERNI</button>
+    <button data-vis="porte">PORTE</button>
+    <button data-vis="stivaggio">STIVAGGIO</button>
+    <button data-vis="etichette">ETICHETTE</button>
+    <button data-vis="scocca" hidden>SCOCCA REALE</button>
   </div>
   <div class="riga">
     <span class="k">VISTA</span>
@@ -72,13 +85,17 @@
     <button data-vista="posteriore">DA DIETRO</button>
     <button data-vista="alto">DALL'ALTO</button>
     <button data-vista="interno">INTERNO</button>
+    <button data-vista="cabina">CABINA</button>
+    <button data-vista="impianti">IMPIANTI</button>
   </div>
 </div>
 
 <script type="importmap">
 { "imports": {
     "three": "./vendor/three.module.min.js",
-    "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js"
+    "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js",
+    "three/addons/loaders/GLTFLoader.js": "./vendor/GLTFLoader.js",
+    "three/addons/utils/BufferGeometryUtils.js": "./vendor/BufferGeometryUtils.js"
 } }
 </script>
 <script type="module" src="js/app.js"></script>

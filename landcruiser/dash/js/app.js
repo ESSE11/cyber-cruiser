@@ -9,11 +9,12 @@ import { el } from './ui/widgets.js';
 
 import drive from './views/drive.js';
 import camper from './views/camper.js';
+import impianti from './views/impianti.js';
 import offroad from './views/offroad.js';
 import trip from './views/trip.js';
 import settings from './views/settings.js';
 
-const VIEWS = [drive, camper, offroad, trip, settings];
+const VIEWS = [drive, camper, impianti, offroad, trip, settings];
 const BRIDGE_TIMEOUT_MS = 2500;
 
 loadSettings();
@@ -23,6 +24,12 @@ loadSettings();
 const params = new URLSearchParams(location.search);
 const bridgeUrl = params.get('ws') || `ws://${location.hostname || 'localhost'}:8765`;
 const forceSim = params.get('sim') === '1';
+
+// Secondo schermo: ?view=impianti&kiosk=1 blocca l'app su una sola schermata e
+// toglie la navigazione. Sul Pi 5 i due schermi sono due finestre Chromium.
+const kiosk = params.get('kiosk') === '1';
+const viewParam = params.get('view');
+if (kiosk) document.body.classList.add('kiosk');
 
 const sim = new Simulator();
 let autoFallback = !forceSim;   // se il veicolo non risponde, si passa al simulatore
@@ -90,7 +97,9 @@ function show(view) {
 
   for (const btn of navEl.children) btn.classList.toggle('on', btn.dataset.id === view.id);
   inst.update(state);
-  try { localStorage.setItem('cybercruiser.view', view.id); } catch { /* ignora */ }
+  if (!kiosk) {
+    try { localStorage.setItem('cybercruiser.view', view.id); } catch { /* ignora */ }
+  }
 }
 
 VIEWS.forEach((v, i) => {
@@ -105,8 +114,10 @@ VIEWS.forEach((v, i) => {
   window.addEventListener('keydown', (e) => { if (e.key === String(i + 1)) show(v); });
 });
 
-let startId = 'drive';
-try { startId = localStorage.getItem('cybercruiser.view') || 'drive'; } catch { /* ignora */ }
+let startId = viewParam || 'drive';
+if (!viewParam) {
+  try { startId = localStorage.getItem('cybercruiser.view') || 'drive'; } catch { /* ignora */ }
+}
 show(VIEWS.find((v) => v.id === startId) || VIEWS[0]);
 
 // --- barra superiore -------------------------------------------------------
@@ -145,6 +156,11 @@ function computeAlerts(s) {
   if (s.camper.waterFresh < 0.1) add('ACQUA PULITA QUASI FINITA', 'warn');
   if (s.camper.waterGrey > 0.9) add('SERBATOIO GRIGIE PIENO', 'warn');
   if (s.camper.fridgeTemp > 8) add('FRIGO SOPRA 8 °C');
+  if (s.water.leak) add('POMPA IN CICLO A RUBINETTI CHIUSI: PERDITA?');
+  else if (s.camper.pump && s.water.pressureBar < s.settings.pressWork[0] * 0.5 && s.water.flowLpm < 0.2) {
+    add('POMPA IN PRESSIONE MA NIENTE PORTATA: ARIA O FILTRO', 'warn');
+  }
+  if (s.water.pressureBar > s.settings.pressWork[1] * 1.4) add('SOVRAPRESSIONE IMPIANTO ACQUA');
   if (Math.abs(s.attitude.roll) >= s.settings.tiltAlarm) add('ROLLIO CRITICO');
   else if (Math.abs(s.attitude.roll) >= s.settings.tiltWarn) add('ROLLIO ELEVATO', 'warn');
   if (s.source === 'offline') add('NESSUN COLLEGAMENTO AL VEICOLO', 'warn');

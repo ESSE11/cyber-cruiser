@@ -18,6 +18,10 @@ e senza rete.
 | Ambiente | BME280 (temp/umidità/pressione), DS18B20 ×3 | Temperature interne, esterna, frigo |
 | Energia | **Victron SmartShunt + MPPT** via 2 cavi **VE.Direct → USB** | Fornisce SoC batteria e resa solare senza costruirsi nulla |
 | Livelli | ADS1115 (ADC I²C) per sonde resistive | Acqua pulita, grigie, eventuale bilancia bombola (HX711) |
+| Pressione acqua | trasduttore ceramico 0-6 bar, uscita 0,5-4,5 V, su ADS1115 canale 0 | È la diagnosi dell'impianto: pompa che cicla a rubinetti chiusi = perdita |
+| Portata | flussimetro a turbina YF-S201 (450 impulsi/L) su GPIO | Litri della doccia, riempimento serbatoio |
+| Boiler | quarta sonda DS18B20 sulla serpentina | Sai se l'acqua calda c'è prima di spogliarti |
+| Secondo schermo | 7" 1024×600 sul secondo micro-HDMI del Pi 5 | Schermata IMPIANTI sempre accesa in sosta |
 
 **Consumo totale stimato**: 12-16 W acceso. Vedi budget energetico nel doc 03.
 
@@ -28,6 +32,38 @@ sopra permettono un adattamento pulito con cornice stampata in 3D
 (PETG, non PLA: d'estate dietro il parabrezza si superano i 60 °C).
 Il Raspberry va nel vano sotto il sedile passeggero, con ventilazione, collegato
 allo schermo con cavo HDMI piatto + USB touch.
+
+## Un solo computer, due schermi
+
+Il Pi 5 ha due uscite micro-HDMI: **schermo principale 10,1" in plancia**
+(guida, offroad, viaggio) e **schermo impianti 7"** sul montante centrale
+(energia, serbatoi, acqua). Stessa applicazione, due finestre Chromium:
+
+```bash
+# schermo 1 — plancia
+chromium --kiosk --window-position=0,0 \
+  "http://localhost:8080/?ws=ws://localhost:8765"
+
+# schermo 2 — impianti, senza barra di navigazione
+chromium --kiosk --window-position=1280,0 \
+  "http://localhost:8080/?ws=ws://localhost:8765&view=impianti&kiosk=1"
+```
+
+### Perché non Venus OS di Victron
+
+Venus OS darebbe gratis la parte energia (batteria, solare, serbatoi, allarmi,
+VRM) e si pilota via MQTT. Non lo usiamo per due motivi concreti:
+
+1. **non ha immagine ufficiale per il Pi 5** (supportati Zero 2W, 3B/3B+, 4):
+   servirebbe una seconda macchina dedicata;
+2. il progetto vuole **controllo su tutto lo stack** — se la logica sta dentro
+   un sistema chiuso, la si può solo configurare, non cambiare.
+
+L'hardware Victron però resta: SmartShunt, MPPT e Orion XS sono ottimi sensori e
+caricatori, e parlano **VE.Direct in chiaro** (testo ASCII su seriale). Li
+leggiamo direttamente noi, come fa `pi/telemetry.py`. Nessun vincolo, nessuna
+scatola nera: se il Raspberry muore, i Victron continuano a caricare e restano
+leggibili dall'app Bluetooth.
 
 ## Architettura software
 
@@ -74,6 +110,11 @@ Messaggi JSON, uno per pacchetto, `type: "telemetry"`, campi tutti opzionali
     "waterFresh": 0.55, "waterGrey": 0.3, "gasKg": 3.1,
     "fridgeTemp": 4.2, "insideTemp": 22.4, "outsideTemp": 9.1,
     "heater": false, "pump": true, "lights": { "interior": true, "awning": false }
+  },
+  "water": {
+    "pressureBar": 2.4, "flowLpm": 4.8, "litersOut": 12.6,
+    "boilerTemp": 58.0, "boilerOn": true, "showerExt": false,
+    "pumpDuty": 0.04, "leak": false
   },
   "gps": { "lat": 45.0703, "lon": 7.6869, "fix": 3, "sats": 11 }
 }

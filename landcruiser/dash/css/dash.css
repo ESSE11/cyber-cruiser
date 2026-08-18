@@ -1,5 +1,9 @@
 /* CYBER CRUISER — foglio di stile della dashboard di bordo.
-   Progettato per 1280x800 touch, leggibile di giorno e non accecante di notte. */
+   Progettato per 1280x800 touch, leggibile di giorno e non accecante di notte.
+   Tipografia: Orbitron per titoli ed etichette (il taglio "cyber"), Rajdhani
+   per il testo, Share Tech Mono per i numeri, che così restano incolonnati. */
+
+@import url('fonts.css');
 
 :root {
   --bg:        #0a0e12;
@@ -15,6 +19,9 @@
   --alarm:     #ff5252;
   --rail: 96px;
   --top: 56px;
+  --font-ui:   'Rajdhani', 'DejaVu Sans', system-ui, sans-serif;
+  --font-tit:  'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  --font-num:  'Share Tech Mono', 'SF Mono', 'DejaVu Sans Mono', monospace;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -24,8 +31,8 @@ html, body { height: 100%; overflow: hidden; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: "SF Mono", "JetBrains Mono", "DejaVu Sans Mono", monospace;
-  font-size: 15px;
+  font-family: var(--font-ui);
+  font-size: 16px;
   user-select: none;
 }
 
@@ -117,6 +124,7 @@ body {
 /* altezze fisse per i riquadri dentro le griglie a righe min-content */
 .gauge-wrap.h-sm { height: 104px; flex: none; }
 .gauge-wrap.h-md { height: 300px; flex: none; }
+.gauge-wrap.h-fix { height: 186px; flex: none; }
 .gauge { max-height: 100%; }
 .gauge .track { stroke: #1d2833; }
 .gauge .fill  { stroke: var(--accent); transition: stroke-dashoffset .18s linear, stroke .3s; }
@@ -247,3 +255,58 @@ body {
   .top-stats .ts:nth-child(n+2) { display: none; }
   #topbar { gap: 12px; padding: 0 10px; }
 }
+
+/* --- schermata IMPIANTI (secondo schermo) --------------------------------- */
+
+body.kiosk .view-grid-2 { grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; }
+body.kiosk .card { overflow: hidden; }
+
+.stats.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+.flow { width: 100%; height: 168px; }
+.flow .fnode rect { fill: #131b23; stroke: #24303c; stroke-width: 1.2; }
+.flow .fnode .fk { fill: #6d8092; font-size: 9px; letter-spacing: 1.3px; text-anchor: middle; }
+.flow .fnode .fv { fill: #e6edf3; font-size: 15px; font-weight: 700; text-anchor: middle; }
+.flow .fnode.src rect { stroke: #2f6fb0; }
+.flow .fnode.batt rect { stroke: #35d0c0; }
+.flow .fnode.load rect { stroke: #ffb020; }
+.flow .fpath { stroke: #1d2833; stroke-width: 5; }
+.flow .fflow {
+  stroke: #35506b; stroke-width: 5; stroke-linecap: round;
+  stroke-dasharray: 9 11; opacity: 0.35;
+}
+.flow .fflow.on { stroke: #35d0c0; opacity: 1; animation: scorre linear infinite; }
+.flow.carica .fnode.batt rect { stroke: #35d0c0; fill: #10241f; }
+
+@keyframes scorre { to { stroke-dashoffset: -40; } }
+
+/* Secondo schermo: niente navigazione, la schermata occupa tutto. */
+body.kiosk #nav { display: none; }
+body.kiosk #app { grid-template-columns: 1fr; }
+body.kiosk .top-stats .ts:nth-child(n+4) { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .flow .fflow.on { animation: none; }
+}
+
+
+/* --- tipografia cyberpunk -------------------------------------------------
+   Orbitron è largo: va bene sui titoli, non sui numeri. I valori usano
+   Share Tech Mono a larghezza fissa, così non ballano mentre cambiano. */
+
+.brand, .card > h2, .navbtn span, .badge, .alert {
+  font-family: var(--font-tit);
+  text-transform: uppercase;
+}
+.brand { letter-spacing: 4px; }
+.card > h2 { letter-spacing: 2.2px; font-weight: 500; }
+.navbtn span { letter-spacing: 1.2px; font-size: 9.5px; }
+
+.stat .k, .bar .k, .top-stats .ts i, .flow .fk {
+  font-family: var(--font-tit); font-weight: 500;
+}
+.stat .v, .bar .v, .top-stats .ts b, .clock, .gauge .val, .flow .fv {
+  font-family: var(--font-num); font-variant-numeric: tabular-nums;
+}
+.gauge .val { font-weight: 400; letter-spacing: 1px; }
+.toggle { font-family: var(--font-tit); letter-spacing: 1.4px; }

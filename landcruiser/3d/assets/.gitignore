@@ -1,0 +1,6 @@
+*.glb
+*.gltf
+*.bin
+*.png
+*.jpg
+!README.md

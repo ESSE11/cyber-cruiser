@@ -18,6 +18,11 @@ export class Simulator {
     this.odo = state.vehicle.odo;
     this.altitude = 320;
     this.heading = 180;
+    // impianto idrico: rubinetto aperto a tratti, pompa a pressostato
+    this.rubinetto = false;
+    this.rubinettoFine = 0;
+    this.pompaSec = 0;         // secondi di pompa nell'ultima ora simulata
+    this.press = 0;
   }
 
   start() {
@@ -100,7 +105,8 @@ export class Simulator {
       + (fridgeDuty ? 45 : 0)
       + (s.camper.lights.interior ? 8 : 0)
       + (s.camper.lights.awning ? 14 : 0)
-      + (s.camper.pump ? 50 : 0)
+      + (s.camper.pump && this.press < state.settings.pressWork[1] ? 50 : 0)
+      + (s.water.boilerOn && s.water.boilerTemp < state.settings.boilerTarget ? 200 : 0)
       + (s.camper.heater ? 28 : 0)
       + 14;                                              // Raspberry + schermo
 
@@ -110,14 +116,36 @@ export class Simulator {
     const battA = netW / 13.1;
     const battV = 12.9 + soc * 0.7 + (battA > 0 ? 0.35 : -0.1);
 
+    // --- acqua ---------------------------------------------------------------
+    // il rubinetto si apre ogni tanto; la pompa a pressostato insegue la pressione
+    if (this.t > this.rubinettoFine) {
+      this.rubinetto = !this.rubinetto && Math.random() < 0.6;
+      this.rubinettoFine = this.t + (this.rubinetto ? 8 + Math.random() * 50 : 120 + Math.random() * 600);
+    }
+    const [pMin, pMax] = state.settings.pressWork;
+    const pompaOn = s.camper.pump && (this.rubinetto || this.press < pMin);
+    this.press += pompaOn ? (pMax + 0.2 - this.press) * 0.06 : (this.rubinetto ? -0.35 : -0.004);
+    this.press = Math.max(0, Math.min(4, this.press));
+    const flowLpm = this.rubinetto && s.camper.pump ? 4.5 + Math.sin(this.t) * 0.6 : 0;
+    this.pompaSec += pompaOn ? DT : 0;
+
+    const boilerOn = s.water.boilerOn;
+    const boilerTarget = state.settings.boilerTarget;
+    const boilerTemp = s.water.boilerTemp
+      + (boilerOn && s.water.boilerTemp < boilerTarget ? 0.06 : 0)
+      - (s.water.boilerTemp - s.camper.insideTemp) * 0.0004
+      - (flowLpm > 0 ? flowLpm * 0.02 : 0);
+
     // --- camper -------------------------------------------------------------
     const fridgeTemp = s.camper.fridgeTemp + (fridgeDuty ? -0.02 : 0.012) * (1 + s.camper.outsideTemp / 40);
     const outsideTemp = 6 + sun * 14 - this.altitude / 250;
     const insideTemp = s.camper.insideTemp
       + (outsideTemp - s.camper.insideTemp) * 0.0015
       + (s.camper.heater ? 0.02 : 0);
-    const waterFresh = Math.max(0, s.camper.waterFresh - (s.camper.pump ? 0.0012 : 0));
-    const waterGrey = Math.min(1, s.camper.waterGrey + (s.camper.pump ? 0.001 : 0));
+    // i serbatoi si muovono con i litri davvero erogati, non "un po' a caso"
+    const litri = (flowLpm / 60) * DT;
+    const waterFresh = Math.max(0, s.camper.waterFresh - litri / state.settings.tankFreshL);
+    const waterGrey = Math.min(1, s.camper.waterGrey + (s.water.showerExt ? 0 : litri / state.settings.tankGreyL));
 
     // --- dati di viaggio ----------------------------------------------------
     const trip = s.trip;
@@ -139,7 +167,18 @@ export class Simulator {
       power: {
         soc, battV, battA, solarW, alternatorW,
         consumptionW: loadsW,
-        toEmptyH: netW < -5 ? (soc * capWh) / -netW : 99
+        toEmptyH: netW < -5 ? (soc * capWh) / -netW : 99,
+        solarWh: s.power.solarWh + (solarW * DT) / 3600,
+        altWh: s.power.altWh + (alternatorW * DT) / 3600,
+        loadWh: s.power.loadWh + (loadsW * DT) / 3600
+      },
+      water: {
+        pressureBar: this.press,
+        flowLpm,
+        litersOut: s.water.litersOut + litri,
+        boilerTemp,
+        pumpDuty: Math.min(1, this.pompaSec / Math.max(60, Math.min(3600, this.t))),
+        leak: false
       },
       camper: { fridgeTemp, insideTemp, outsideTemp, waterFresh, waterGrey },
       gps: {

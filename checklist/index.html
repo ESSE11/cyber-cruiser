@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CYBER CRUISER — Checklist e costi</title>
+<meta name="description" content="Distinta base della camperizzazione con prezzi reali, spunta di avanzamento e totali che si aggiornano.">
+<meta name="theme-color" content="#0a0e12">
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+  .bar-tot { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 22px 0 30px; }
+  .tot { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .tot .k { font-family: var(--font-tit); font-size: 10px; letter-spacing: 1.7px; color: var(--dim); text-transform: uppercase; }
+  .tot .v { font-family: var(--font-num); font-size: 26px; margin-top: 4px; }
+  .tot.speso .v { color: var(--ok); }
+  .tot.resta .v { color: var(--acc); }
+
+  .prog { height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; margin-top: 10px; }
+  .prog i { display: block; height: 100%; background: var(--teal); width: 0; transition: width .25s; }
+
+  .filtri { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .filtri button {
+    font-family: var(--font-tit); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 9px 13px; border: 1px solid var(--line); border-radius: 7px;
+    background: var(--panel); color: var(--dim); cursor: pointer;
+  }
+  .filtri button.on { color: var(--acc); border-color: #5a4413; background: #1d1809; }
+
+  tr.done td { opacity: .45; }
+  tr.done td.voce { text-decoration: line-through; }
+  td.chk { width: 44px; }
+  input[type=checkbox] { width: 20px; height: 20px; accent-color: #35d0c0; cursor: pointer; }
+  td.voce small { display: block; color: var(--dim); font-size: 13.5px; }
+  .cat-row th { color: var(--teal); font-size: 12px; letter-spacing: 2px; padding-top: 24px; }
+  .note { color: var(--dim); font-size: 14.5px; margin-top: 26px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">CYBER<span>CRUISER</span></div>
+    <nav class="menu">
+      <a href="/landcruiser/3d/">Modello 3D</a>
+      <a href="/landcruiser/dash/?sim=1">Dashboard</a>
+      <a class="on" href="/checklist/">Checklist e costi</a>
+      <a href="/">Home</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Checklist della camperizzazione</h2>
+    <p class="lead">
+      Prezzi indicativi 2026, IVA inclusa. Spunta una voce quando è comprata o
+      fatta: i totali si aggiornano e restano salvati su questo dispositivo.
+    </p>
+
+    <div class="bar-tot">
+      <div class="tot"><div class="k">Totale progetto</div><div class="v" id="tTot">—</div></div>
+      <div class="tot speso"><div class="k">Già fatto</div><div class="v" id="tSpeso">—</div></div>
+      <div class="tot resta"><div class="k">Manca</div><div class="v" id="tResta">—</div></div>
+      <div class="tot">
+        <div class="k">Avanzamento</div>
+        <div class="v" id="tPerc">0%</div>
+        <div class="prog"><i id="tBar"></i></div>
+      </div>
+    </div>
+
+    <div class="filtri" id="filtri"></div>
+
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>Voce</th><th>Fase</th><th class="r">€ min</th><th class="r">€ max</th>
+        </tr>
+      </thead>
+      <tbody id="corpo"></tbody>
+    </table>
+
+    <p class="note">
+      Le voci di <b>assetto e fuoristrada</b> sono opzionali: escludile dal filtro
+      per vedere il costo del solo camper. I prezzi vengono dal documento 06 del
+      progetto e vanno riverificati al preventivo.
+    </p>
+
+    <div class="cta">
+      <button class="btn" id="reset">Azzera le spunte</button>
+      <a class="btn" href="/landcruiser/3d/">Modello 3D</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">Cyber Cruiser — distinta base viva, non un preventivo.</div></footer>
+
+<script>
+// Distinta base: gli stessi numeri del documento 06 del progetto.
+// [id, voce, nota, categoria, fase, € min, € max]
+const VOCI = [
+  ['veic-mezzo', 'Land Cruiser KDJ120 5 porte', '200-280.000 km, telaio sano, tagliandi', 'veicolo', 0, 14000, 19000],
+  ['veic-tagl', 'Tagliando completo all\'acquisto', 'cinghie, liquidi, filtri', 'veicolo', 1, 800, 1200],
+  ['veic-gomme', 'Gomme all-terrain 265/70 R16', '5 pezzi, ruota di scorta compresa', 'veicolo', 1, 900, 1300],
+  ['veic-riserva', 'Riserva sorprese primi 6 mesi', 'la voce che tutti dimenticano', 'veicolo', 1, 1500, 1500],
+
+  ['ab-tetto', 'Tetto a soffietto installato', 'kit + montaggio: +95 cm, 185 interni', 'abitativo', 5, 7500, 11000],
+  ['ab-isol', 'Isolamento Armaflex 19 mm + antirombo', '', 'abitativo', 3, 400, 400],
+  ['ab-mobili', 'Mobilio: profili, multistrato, guide, ferramenta', '', 'abitativo', 6, 1100, 1100],
+  ['ab-piano', 'Piano di lavoro, rivestimenti, verniciatura', '', 'abitativo', 6, 350, 350],
+  ['ab-frigo', 'Frigo a compressore 50 L + slitta', 'corsa 40 cm, si usa a metà estrazione', 'abitativo', 6, 750, 750],
+  ['ab-cucina', 'Fornello 2 fuochi + lavello + rubinetteria', '', 'abitativo', 6, 450, 450],
+  ['ab-acqua', 'Serbatoi 60 + 20 L, pompa, tubi, filtri', '', 'abitativo', 6, 480, 480],
+  ['ab-gas', 'Vano gas, bombola, regolatore certificato', '', 'abitativo', 6, 250, 250],
+  ['ab-risc', 'Riscaldatore diesel 2 kW installato', 'Autoterm Air 2D: 0,1-0,24 l/h, 10-29 W', 'abitativo', 4, 900, 900],
+  ['ab-tenda', 'Tenda laterale a ventaglio 270°', 'copre fianco e retro, due piedi', 'abitativo', 5, 550, 550],
+  ['ab-tessili', 'Zanzariere, oscuranti, materasso 190×130', '', 'abitativo', 6, 550, 550],
+  ['ab-scriv', 'Braccio orientabile + piano scrivania 70×45', '', 'abitativo', 6, 260, 260],
+  ['ab-cuscini', 'Cuscini dinette sfoderabili', '', 'abitativo', 6, 320, 320],
+  ['ab-cassa', 'Cassa amovibile del pozzetto piedi', '', 'abitativo', 6, 90, 90],
+  ['ab-ventola', 'Ventola di estrazione a tetto', 'il raffrescamento vero: 0,2-2,7 A', 'abitativo', 5, 320, 380],
+
+  ['en-batt', 'Batteria LiFePO4 200 Ah con BMS Bluetooth', '52 × 24 × 22 cm sotto la seduta', 'energia', 4, 750, 750],
+  ['en-dcdc', 'DC-DC Victron Orion XS 50 A', 'ricarica dall\'alternatore', 'energia', 4, 320, 320],
+  ['en-mppt', 'MPPT Victron 100/30', 'VE.Direct verso il Raspberry', 'energia', 4, 190, 190],
+  ['en-pann', 'Pannelli solari 2 × 200 W + staffe', 'sul guscio del soffietto', 'energia', 5, 340, 340],
+  ['en-inv', 'Inverter 1000 W onda pura', '', 'energia', 4, 260, 260],
+  ['en-shunt', 'SmartShunt 500 A', 'stato di carica vero, non stimato', 'energia', 4, 130, 130],
+  ['en-carica', 'Caricabatterie 230 V 30 A', 'per le soste in area attrezzata', 'energia', 4, 200, 200],
+  ['en-cavi', 'Cavi, fusibili, bus bar, staccabatteria', '', 'energia', 4, 380, 380],
+
+  ['el-pi', 'Raspberry Pi 5 4 GB + NVMe HAT + SSD', 'niente microSD: muore ai tagli di corrente', 'elettronica', 2, 190, 190],
+  ['el-schermo', 'Schermo 10,1" 1280×800 touch', 'principale, in plancia', 'elettronica', 2, 130, 130],
+  ['el-schermo2', 'Schermo 7" impianti', 'secondo HDMI del Pi 5', 'elettronica', 2, 70, 90],
+  ['el-ups', 'Alimentatore 12→5 V con shutdown pulito', '', 'elettronica', 2, 70, 70],
+  ['el-obd', 'CAN HAT MCP2515 + cavo OBD-II', 'o ELM327 USB sui 2003-2005', 'elettronica', 2, 35, 35],
+  ['el-gps', 'GPS u-blox NEO-M8N', '', 'elettronica', 2, 30, 30],
+  ['el-sens', 'IMU, BME280, 3× DS18B20, ADS1115', 'inclinometro, temperature, serbatoi', 'elettronica', 2, 60, 60],
+  ['el-press', 'Trasduttore pressione 0-6 bar + flussimetro', 'diagnosi pompa e litri della doccia', 'elettronica', 2, 45, 60],
+  ['el-vedirect', 'Cavi VE.Direct → USB (2 pz)', '', 'elettronica', 2, 60, 60],
+  ['el-cornice', 'Cornice plancia stampata 3D + cablaggi', 'PETG, non PLA: dietro il parabrezza si superano i 60 °C', 'elettronica', 7, 60, 60],
+
+  ['off-sosp', 'Molle e ammortizzatori rinforzati', '+40 mm, taratura sul carico reale', 'assetto', 1, 1300, 1300],
+  ['off-piastre', 'Piastre paramotore', '', 'assetto', 1, 600, 600],
+  ['off-snorkel', 'Snorkel', '', 'assetto', 1, 300, 300],
+  ['off-verr', 'Verricello 9.500 lb + paraurti', 'solo se serve davvero', 'assetto', 1, 2200, 2200],
+
+  ['om-sedili', 'Aggiornamento carta: rimozione sedili', 'pratica in Motorizzazione', 'pratiche', 3, 150, 300],
+  ['om-autocaravan', 'Pratica trasformazione autocaravan', 'collaudo: decidila prima di costruire i mobili', 'pratiche', 8, 800, 1500],
+  ['om-assic', 'Polizza con allestimento dichiarato', 'una polizza auto non copre 15.000 € di mobilio', 'pratiche', 8, 200, 500],
+];
+
+const CATEGORIE = ['veicolo', 'abitativo', 'energia', 'elettronica', 'assetto', 'pratiche'];
+const LS = 'cybercruiser.checklist';
+
+let fatte = new Set();
+try { fatte = new Set(JSON.parse(localStorage.getItem(LS) || '[]')); } catch {}
+
+let attive = new Set(CATEGORIE);
+
+const euro = (n) => n.toLocaleString('it-IT', { maximumFractionDigits: 0 }) + ' €';
+
+const corpo = document.getElementById('corpo');
+const filtri = document.getElementById('filtri');
+
+function salva() {
+  try { localStorage.setItem(LS, JSON.stringify([...fatte])); } catch {}
+}
+
+function disegnaFiltri() {
+  filtri.replaceChildren();
+  for (const c of CATEGORIE) {
+    const b = document.createElement('button');
+    b.textContent = c;
+    b.className = attive.has(c) ? 'on' : '';
+    b.onclick = () => {
+      attive.has(c) ? attive.delete(c) : attive.add(c);
+      disegnaFiltri(); disegna();
+    };
+    filtri.appendChild(b);
+  }
+}
+
+function disegna() {
+  corpo.replaceChildren();
+  for (const c of CATEGORIE) {
+    if (!attive.has(c)) continue;
+    const voci = VOCI.filter((v) => v[3] === c);
+    if (!voci.length) continue;
+
+    const tr = document.createElement('tr');
+    tr.className = 'cat-row';
+    const th = document.createElement('th');
+    th.colSpan = 5;
+    const somma = voci.reduce((a, v) => a + v[5], 0);
+    th.textContent = `${c} — ${voci.length} voci · da ${euro(somma)}`;
+    tr.appendChild(th);
+    corpo.appendChild(tr);
+
+    for (const v of voci) {
+      const [id, nome, nota, , fase, min, max] = v;
+      const r = document.createElement('tr');
+      if (fatte.has(id)) r.className = 'done';
+
+      const tdC = document.createElement('td');
+      tdC.className = 'chk';
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = fatte.has(id);
+      cb.onchange = () => {
+        cb.checked ? fatte.add(id) : fatte.delete(id);
+        salva(); disegna();
+      };
+      tdC.appendChild(cb);
+
+      const tdV = document.createElement('td');
+      tdV.className = 'voce';
+      tdV.textContent = nome;
+      if (nota) {
+        const s = document.createElement('small');
+        s.textContent = nota;
+        tdV.appendChild(s);
+      }
+
+      const tdF = document.createElement('td');
+      tdF.className = 'num';
+      tdF.textContent = 'F' + fase;
+
+      const tdMin = document.createElement('td');
+      tdMin.className = 'r';
+      tdMin.textContent = euro(min);
+
+      const tdMax = document.createElement('td');
+      tdMax.className = 'r';
+      tdMax.textContent = max > min ? euro(max) : '—';
+
+      r.append(tdC, tdV, tdF, tdMin, tdMax);
+      corpo.appendChild(r);
+    }
+  }
+  totali();
+}
+
+function totali() {
+  const viste = VOCI.filter((v) => attive.has(v[3]));
+  const min = viste.reduce((a, v) => a + v[5], 0);
+  const max = viste.reduce((a, v) => a + v[6], 0);
+  const fatteVoci = viste.filter((v) => fatte.has(v[0]));
+  const speso = fatteVoci.reduce((a, v) => a + v[5], 0);
+
+  document.getElementById('tTot').textContent = min === max ? euro(min) : `${euro(min)} – ${euro(max)}`;
+  document.getElementById('tSpeso').textContent = euro(speso);
+  document.getElementById('tResta').textContent = euro(Math.max(0, min - speso));
+  const perc = viste.length ? Math.round((fatteVoci.length / viste.length) * 100) : 0;
+  document.getElementById('tPerc').textContent = perc + '%';
+  document.getElementById('tBar').style.width = perc + '%';
+}
+
+document.getElementById('reset').onclick = () => {
+  if (!confirm('Azzero tutte le spunte?')) return;
+  fatte = new Set();
+  salva();
+  disegna();
+};
+
+disegnaFiltri();
+disegna();
+</script>
+</body>
+</html>
