@@ -86,12 +86,6 @@ const html = `<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8">
       ${TAVOLE.map(([, t]) => `<li><span>▸</span> ${t}</li>`).join('\n      ')}
       <li><span>▸</span> R1-R6 — Render 3D dell’allestimento</li>
     </ul>
-    <div class="key" style="max-width:78mm">
-      <b>Attenzione</b><br>
-      Le quote esterne (484 × 185,5 × 184,5 cm, passo 279) sono da scheda tecnica.
-      Le quote interne del vano sono <b>valori di progetto</b>: vanno confermate
-      col metro sul mezzo — vedi la Tav. 0.
-    </ul>
     <div class="key">
       <b>Quote chiave</b> (in cm)<br>
       vano utile 165 × 130 × 90 · pavimento a 78 da terra<br>
@@ -99,7 +93,10 @@ const html = `<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8">
       cucina estraibile 85 × 60, corsa 60, piano a 98 da terra<br>
       scrivania 70 × 45 a +76 su braccio orientabile<br>
       pozzetto piedi 70 × 30 · letto 190 × 130 ripiegabile<br>
-      tetto a soffietto +95 → 185 di altezza interna
+      tetto a soffietto +95 → 185 di altezza interna<br><br>
+      <b>Attenzione:</b> le quote esterne (484 × 185,5 × 184,5, passo 279) sono da<br>
+      scheda tecnica; quelle interne del vano sono valori di progetto, da<br>
+      confermare col metro sul mezzo — vedi la Tav. 0.
     </div>
   </div>
   <div class="foot">quote in cm salvo diversa indicazione · disegni generati da docs/disegni/genera-disegni.mjs</div>
