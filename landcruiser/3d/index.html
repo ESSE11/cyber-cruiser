@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CYBER CRUISER — modello 3D dell'allestimento</title>
+<style>
+  :root { --bg:#0d1219; --panel:#121820; --line:#24303c; --text:#e6edf3; --dim:#8494a3; --acc:#ffb020; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; overflow:hidden; background:var(--bg); color:var(--text);
+               font-family:"DejaVu Sans Mono", ui-monospace, monospace; }
+  #vista { position:fixed; inset:0; width:100%; height:100%; display:block; touch-action:none; }
+
+  .hud { position:fixed; z-index:2; }
+  .titolo { top:18px; left:20px; letter-spacing:3px; font-size:15px; font-weight:700; }
+  .titolo span { color:var(--acc); }
+  .titolo small { display:block; font-weight:400; letter-spacing:1.4px; font-size:10.5px; color:var(--dim); margin-top:5px; }
+
+  .comandi { bottom:18px; left:20px; display:flex; flex-direction:column; gap:8px; }
+  .riga { display:flex; gap:8px; flex-wrap:wrap; max-width:min(76vw, 720px); }
+  .riga .k { font-size:9.5px; letter-spacing:1.6px; color:var(--dim); align-self:center; width:52px; }
+
+  button {
+    font:inherit; font-size:10.5px; letter-spacing:1.4px; color:var(--dim);
+    background:var(--panel); border:1px solid var(--line); border-radius:7px;
+    padding:9px 12px; cursor:pointer; white-space:nowrap;
+  }
+  button:hover { color:var(--text); }
+  button.on { color:var(--acc); border-color:#5a4413; background:#1d1809; }
+
+  .legenda { top:18px; right:20px; text-align:right; font-size:10.5px; color:var(--dim); line-height:1.9; }
+  .legenda b { color:var(--text); font-weight:600; }
+  .legenda i { font-style:normal; color:var(--acc); }
+  .legenda em { font-style:normal; color:#35d0c0; }
+
+  @media (max-width:760px) {
+    .legenda { display:none; }
+    .riga .k { display:none; }
+    .comandi { left:12px; right:12px; bottom:12px; }
+    button { padding:8px 10px; font-size:9.5px; }
+  }
+</style>
+</head>
+<body>
+<canvas id="vista"></canvas>
+
+<div class="hud titolo">CYBER<span>CRUISER</span>
+  <small>KDJ120 · modello 3D dell'allestimento · quote in cm</small>
+</div>
+
+<div class="hud legenda">
+  <b>Trascina</b> per ruotare · <b>rotella</b> per zoom<br>
+  <i>ambra</i> = piani di lavoro e cucina<br>
+  <em>verde</em> = acqua, freddo, letto, energia<br>
+  vano 165 × 130 × 90 · pavimento a 78 da terra
+</div>
+
+<div class="hud comandi">
+  <div class="riga">
+    <span class="k">STATO</span>
+    <button data-stato="tetto"></button>
+    <button data-stato="cucina"></button>
+    <button data-stato="frigo"></button>
+    <button data-stato="letto"></button>
+    <button data-stato="scrivania"></button>
+    <button data-stato="persone"></button>
+  </div>
+  <div class="riga">
+    <span class="k">VISTA</span>
+    <button data-vista="tre-quarti">3/4 POSTERIORE</button>
+    <button data-vista="laterale">LATERALE</button>
+    <button data-vista="posteriore">DA DIETRO</button>
+    <button data-vista="alto">DALL'ALTO</button>
+    <button data-vista="interno">INTERNO</button>
+  </div>
+</div>
+
+<script type="importmap">
+{ "imports": {
+    "three": "./vendor/three.module.min.js",
+    "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js"
+} }
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

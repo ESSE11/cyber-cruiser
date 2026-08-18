@@ -5,7 +5,7 @@
 // Richiede Playwright (già presente negli ambienti Claude Code; altrimenti
 // `npm i -D playwright`). Non serve nessun altro strumento di impaginazione.
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -28,10 +28,26 @@ const TAVOLE = [
   ['tav-5-retro.svg', 'Tav. 5 — Vista posteriore, cucina in uso'],
 ];
 
+const RENDER = [
+  ['r1-giorno-tre-quarti.png', 'R1 — Configurazione giorno: soffietto aperto, cucina e frigo estratti'],
+  ['r2-cucina-posteriore.png', 'R2 — Cucina in uso dal portellone, tavolo ruotato fuori'],
+  ['r5-postazione-interno.png', 'R5 — Postazione PC: pozzetto piedi, scrivania a +76, letto ripiegato'],
+  ['r3-notte-laterale.png', 'R3 — Configurazione notte: letto disteso 190 × 130'],
+  ['r4-pianta-alto.png', 'R4 — Vista dall\u2019alto a soffietto chiuso'],
+  ['r6-chiuso-marcia.png', 'R6 — Assetto di marcia: tutto chiuso, 1,97 m di altezza'],
+];
+
 const pagine = TAVOLE.map(([file, titolo]) => {
   const svg = readFileSync(join(OUT, file), 'utf8').replace(/<\?xml[^>]*\?>/, '');
   return `<section class="page"><h2>${titolo}</h2><div class="art">${svg}</div></section>`;
 }).join('\n');
+
+const paginaRender = RENDER
+  .filter(([f]) => existsSync(join(OUT, 'render', f)))
+  .map(([f, titolo]) => {
+    const b64 = readFileSync(join(OUT, 'render', f)).toString('base64');
+    return `<section class="page"><h2>${titolo}</h2><div class="art"><img src="data:image/png;base64,${b64}"></div></section>`;
+  }).join('\n');
 
 const html = `<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8">
 <style>
@@ -46,7 +62,7 @@ const html = `<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8">
   .page:last-child { page-break-after: auto; }
   h2 { font-size: 11pt; letter-spacing: 2px; color: #8494a3; font-weight: 600; margin-bottom: 6mm; }
   .art { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
-  .art svg { max-width: 100%; max-height: 100%; height: auto; width: auto; }
+  .art svg, .art img { max-width: 100%; max-height: 100%; height: auto; width: auto; }
 
   /* copertina */
   .cover { justify-content: center; }
@@ -67,6 +83,7 @@ const html = `<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8">
   <div class="cols">
     <ul>
       ${TAVOLE.map(([, t]) => `<li><span>▸</span> ${t}</li>`).join('\n      ')}
+      <li><span>▸</span> R1-R6 — Render 3D dell’allestimento</li>
     </ul>
     <div class="key">
       <b>Quote chiave</b> (in cm)<br>
@@ -82,6 +99,7 @@ const html = `<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8">
 </section>
 
 ${pagine}
+${paginaRender}
 </body></html>`;
 
 const tmp = join(OUT, '.tavole-print.html');

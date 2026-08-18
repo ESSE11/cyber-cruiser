@@ -21,6 +21,7 @@ Progetto completo in due metà, come il Cyber Pandino:
 | [docs/05-elettronica-schermo.md](docs/05-elettronica-schermo.md) | Hardware dello schermo, sensori, cablaggi, protocollo dati |
 | [docs/06-bom-costi-roadmap.md](docs/06-bom-costi-roadmap.md) | Distinta base, costi, fasi di realizzazione, note omologazione |
 | [docs/disegni/](docs/disegni/) | **Tavole tecniche quotate** — pianta, sezioni, cucina, vista posteriore ([PDF](docs/disegni/cyber-cruiser-tavole.pdf)) |
+| [3d/](3d/) | **Modello 3D navigabile** dell'allestimento + render statici |
 
 ## Il software in 30 secondi
 
@@ -52,12 +53,23 @@ node genera-disegni.mjs   # → tav-1 … tav-5 (.svg) + index.html
 node crea-pdf.mjs         # → cyber-cruiser-tavole.pdf (A3 orizzontale)
 ```
 
+## Modello 3D
+
+```bash
+python3 -m http.server 8099        # → http://localhost:8099/landcruiser/3d/
+node 3d/tools/render.mjs           # render statici in docs/disegni/render/
+node 3d/tools/build-single.mjs     # versione in un file solo
+```
+
+Apri/chiudi il soffietto, estrai la cucina, ripiega il letto, ruota la scrivania:
+sono le stesse quote delle tavole, viste in tre dimensioni. Gira offline.
+
 ## Stato del progetto
 
 - [x] Dossier tecnico veicolo + camperizzazione
 - [x] Software dashboard v1 (simulatore + 5 schermate + bridge WebSocket)
 - [x] Tavole tecniche degli interni (rev. B) + PDF
-- [ ] Render 3D dell'allestimento
+- [x] Modello 3D navigabile + render (giorno, notte, cucina, postazione)
 - [ ] Acquisto veicolo (in cerca — vedi checklist doc 01)
 - [ ] Prototipo elettronica su banco
 - [ ] Mobilio e pop-top
