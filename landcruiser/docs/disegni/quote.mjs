@@ -13,7 +13,7 @@ export const V = {
   piano: 50,                           // piano continuo
   pianoSp: 3,
   popUp: 95,                           // sollevamento del guscio
-  letto: { l: 190, t: 130, off: -25 },
+  letto: { l: 195, t: 150, off: -28, materasso: 10 },   // matrimoniale: sfrutta tutta la larghezza del guscio
 
   // moduli  [L0,L1] × [T0,T1]
   frigo:     { l0: 0,   l1: 75,  t0: 0,  t1: 45,  h: 46 },
@@ -26,6 +26,11 @@ export const V = {
   stiva:     { l0: 125, l1: 165, t0: 60, t1: 130 },   // sotto la seduta
   scrivania: { l0: 92,  l1: 137, t0: 45, t1: 115, h: 76 },
   serbatoio: { l0: 62,  l1: 112, t0: 13, t1: 113, h: 12 },   // 100×50×12 = 60 L
+
+  // Serbatoio gasolio ORIGINALE del mezzo (87 L sul KDJ120 passo lungo):
+  // sta fra gli assi sotto il pavimento ed è intoccabile. Tutto ciò che va
+  // sotto scocca — grigie, riscaldatore, tubi — deve girarci intorno.
+  serbatoioMezzo: { l0: 58, l1: 150, t0: 14, t1: 106, y0: -32, y1: -8, sotto: true, et: 'gasolio 87 L (originale)' },
 };
 
 // Quote della carrozzeria (KDJ120 5 porte, dati di catalogo verificati:
@@ -62,17 +67,17 @@ export const IMP = {
   dcdc:       { l0: 155, l1: 162, t0: 38,  t1: 56,  y0: 14, y1: 24, et: 'DC-DC 12/12-30' },
 
   // acqua
-  serbGrigie: { l0: 58,  l1: 118, t0: 32,  t1: 62,  y0: -26, y1: -13, sotto: true, et: 'grigie 20 L' },
+  serbGrigie: { l0: 6,   l1: 54,  t0: 24,  t1: 70,  y0: -26, y1: -12, sotto: true, et: 'grigie 20 L' },
   boiler:     { l0: 128, l1: 158, t0: 95,  t1: 125, y0: 12,  y1: 48,  et: 'boiler 10 L' },
   pompa:      { l0: 128, l1: 152, t0: 62,  t1: 75,  y0: 12,  y1: 23,  et: 'pompa + vaso' },
   filtro:     { l0: 128, l1: 138, t0: 78,  t1: 86,  y0: 12,  y1: 22,  et: 'filtro' },
 
   // clima
-  riscald:    { l0: 26,  l1: 57,  t0: 92,  t1: 104, y0: -24, y1: -12, sotto: true, et: 'riscaldatore 2 kW' },
+  riscald:    { l0: 8,   l1: 39,  t0: 88,  t1: 100, y0: -24, y1: -12, sotto: true, et: 'riscaldatore 2 kW' },
   condotto:   { l0: 30,  l1: 150, t0: 104, t1: 112, y0: 2,   y1: 10,  et: 'condotto aria calda' },
   bocchetta1: { l0: 34,  l1: 46,  t0: 112, t1: 118, y0: 2,   y1: 10,  et: 'bocchetta cucina' },
   bocchetta2: { l0: 132, l1: 144, t0: 112, t1: 118, y0: 2,   y1: 10,  et: 'bocchetta seduta' },
-  presaAria:  { l0: 60,  l1: 70,  t0: 96,  t1: 104, y0: -30, y1: -24, sotto: true, et: 'presa aria + scarico' },
+  presaAria:  { l0: 14,  l1: 24,  t0: 102, t1: 110, y0: -30, y1: -24, sotto: true, et: 'presa aria + scarico' },
 
   // schermi (nel vano: quello secondario è ripetuto in cabina)
   schermo2:   { l0: 122, l1: 124, t0: 82,  t1: 99,  y0: 52,  y1: 63,  et: 'schermo impianti 7"' },
@@ -113,10 +118,25 @@ export const EST = {
 // ---------------------------------------------------------------------------
 
 export const PORTE = {
-  post:  { l0: 232, l1: 326, y0: 56, y1: 148, cerniera: 'avanti', et: 'porta posteriore' },
-  ant:   { l0: 330, l1: 428, y0: 56, y1: 148, cerniera: 'avanti', et: 'porta anteriore' },
+  //  y0 = soglia, cintura = linea sotto il finestrino, y1 = gocciolatoio
+  post:  { l0: 190, l1: 268, y0: 62, y1: 178, cintura: 148, cerniera: 'avanti', et: 'porta posteriore' },
+  ant:   { l0: 272, l1: 352, y0: 62, y1: 180, cintura: 150, cerniera: 'avanti', et: 'porta anteriore' },
   portellone: { cerniera: 'sx', apertura: 100, et: 'portellone (cerniera da verificare)' },
   vetroLat: { l0: 60, l1: 226, y0: 112, y1: 152, et: 'finestrino laterale del vano' },
+};
+
+// ---------------------------------------------------------------------------
+// Allestimento del portellone: quote nel sistema del battente (origine sulla
+// cerniera), perché si muovono con lui. y assolute da terra.
+// ---------------------------------------------------------------------------
+
+export const PORT = {
+  tavolino:  { t0: 24,  t1: 94,  y0: 96,  sp: 3, sporgenza: 45, et: 'tavolino ribaltabile 70 × 45' },
+  organizer: { t0: 100, t1: 172, y0: 100, y1: 140, sp: 7, et: 'organizer attrezzi' },
+  rete:      { t0: 24,  t1: 94,  y0: 108, y1: 138, et: 'rete portaoggetti' },
+  led:       { t0: 20,  t1: 176, y: 176, et: 'barra LED del portellone' },
+  tanica:    { t0: 110, t1: 145, y0: 62,  y1: 96,  et: 'tanica acqua di riserva 20 L' },
+  gancio:    { t0: 30,  t1: 44,  y0: 150, y1: 156, et: 'gancio doccia / asciugatura' },
 };
 
 // ---------------------------------------------------------------------------

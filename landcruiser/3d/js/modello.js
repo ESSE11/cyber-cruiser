@@ -5,7 +5,7 @@
 //              z = longitudinale (0 = filo portellone, +z verso l'avanti).
 
 import * as THREE from 'three';
-import { V, CARROZZERIA as CAR, IMP, CABINA as CAB, EST, PORTE, STIV } from '../../docs/disegni/quote.mjs';
+import { V, CARROZZERIA as CAR, IMP, CABINA as CAB, EST, PORTE, STIV, PORT } from '../../docs/disegni/quote.mjs';
 
 export const COL = {
   bg: 0x0d1219,
@@ -95,52 +95,145 @@ export function persona({ seduta = false } = {}) {
   return g;
 }
 
-/** Carrozzeria: profilo laterale estruso in larghezza + ruote. */
+/**
+ * Carrozzeria del Prado: profilo laterale vero, parafanghi svasati, pedane,
+ * snorkel, rack a piattaforma sul tetto. Resta traslucida — serve a leggere gli
+ * ingombri dell'allestimento — ma le forme sono quelle del mezzo, non una scatola.
+ */
 function carrozzeria() {
   const g = new THREE.Group();
-  const s = new THREE.Shape();
-  // profilo laterale (z, y) sulle quote di catalogo: 484 lungo, 184,5 alto
+  const sporg = (CAR.larghezza - V.T) / 2;
+  const xDx = V.T + sporg, xSx = -sporg;
+
+  // profilo laterale (z, y) in cm: coda squadrata, padiglione piatto,
+  // montante A inclinato, cofano quasi orizzontale, muso corto
   const p = [
-    [-12, 45], [-12, 182], [230, 182], [246, 184.5], [320, 182],
-    [354, 138], [434, 126], [476, 120], [484, 94], [484, 57],
-    [462, 45], [300, 41], [-12, 45],
+    [-14, 44], [-14, 104], [-13, 158], [-11, 180], [-6, 186],
+    [110, 187], [232, 186],
+    [246, 185], [268, 176], [296, 154],      // parabrezza
+    [318, 149], [378, 146], [424, 143],      // cofano
+    [448, 138], [464, 122],                  // calandra
+    [472, 100], [474, 74],
+    [466, 58], [440, 50], [300, 47], [150, 47], [30, 48], [-8, 50],
   ];
-  s.moveTo(p[0][0], p[0][1]);
-  p.slice(1).forEach(([z, y]) => s.lineTo(z, y));
+  const shape = new THREE.Shape();
+  shape.moveTo(p[0][0], p[0][1]);
+  p.slice(1).forEach(([z, y]) => shape.lineTo(z, y));
+  shape.closePath();
 
-  const geo = new THREE.ExtrudeGeometry(s, { depth: CAR.larghezza, bevelEnabled: false });
-  // Il profilo è disegnato nel piano (z, y) ed estruso lungo +z: ruotandolo di
-  // -90° attorno a Y l'estrusione diventa la larghezza e il profilo torna nel
-  // verso giusto (con +90° il veicolo risulterebbe specchiato in lunghezza).
+  // passaruota: fori a mezzaluna nel profilo
+  for (const zc of [CAR.assePost, CAR.assePost + CAR.passo]) {
+    const r = CAR.ruota.r + 11;
+    const arco = new THREE.Path();
+    arco.absarc(zc, CAR.ruota.r + 4, r, Math.PI, 0, true);
+    arco.lineTo(zc + r, 40);
+    arco.lineTo(zc - r, 40);
+    shape.holes.push(arco);
+  }
+
+  const geo = new THREE.ExtrudeGeometry(shape, {
+    depth: CAR.larghezza - 10, bevelEnabled: true,
+    bevelThickness: 5, bevelSize: 5, bevelSegments: 2,
+  });
   geo.rotateY(-Math.PI / 2);
-  geo.translate(V.T + (CAR.larghezza - V.T) / 2, 0, 0);
+  geo.translate(xDx - 5, 0, 0);
 
-  const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
-    color: COL.carrozzeria, transparent: true, opacity: 0.09,
-    roughness: 0.6, side: THREE.DoubleSide, depthWrite: false,
-  }));
-  const edges = new THREE.LineSegments(
-    new THREE.EdgesGeometry(geo),
+  g.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
+    color: COL.carrozzeria, transparent: true, opacity: 0.1,
+    roughness: 0.5, side: THREE.DoubleSide, depthWrite: false,
+  })));
+  g.add(new THREE.LineSegments(
+    new THREE.EdgesGeometry(geo, 26),
     new THREE.LineBasicMaterial({ color: COL.carrozzeria, transparent: true, opacity: 0.5 })
-  );
-  g.add(mesh, edges);
+  ));
 
-  // ruote
-  const ruota = new THREE.CylinderGeometry(CAR.ruota.r, CAR.ruota.r, CAR.ruota.w, 22);
-  ruota.rotateZ(Math.PI / 2);
-  const matR = new THREE.MeshStandardMaterial({ color: 0x1a222b, roughness: 0.95 });
-  const sporgenza = (CAR.larghezza - V.T) / 2;
+  // vetratura sopra la linea di cintura
+  const vetro = new THREE.Shape();
+  const pv = [[4, 152], [4, 180], [234, 179], [250, 177], [290, 155], [238, 152]];
+  vetro.moveTo(pv[0][0], pv[0][1]);
+  pv.slice(1).forEach(([z, y]) => vetro.lineTo(z, y));
+  vetro.closePath();
+  const geoV = new THREE.ExtrudeGeometry(vetro, { depth: CAR.larghezza - 16, bevelEnabled: false });
+  geoV.rotateY(-Math.PI / 2);
+  geoV.translate(xDx - 8, 0, 0);
+  g.add(new THREE.Mesh(geoV, new THREE.MeshStandardMaterial({
+    color: COL.vetro, transparent: true, opacity: 0.16,
+    roughness: 0.15, side: THREE.DoubleSide, depthWrite: false,
+  })));
+
+  const matScuro = new THREE.MeshStandardMaterial({ color: 0x1b232c, roughness: 0.92 });
+  const matNero = new THREE.MeshStandardMaterial({ color: 0x141a21, roughness: 0.96 });
+
+  // parafanghi svasati: la firma di un Prado allestito
+  for (const zc of [CAR.assePost, CAR.assePost + CAR.passo]) {
+    for (const x of [xSx, xDx]) {
+      const flare = new THREE.Mesh(
+        new THREE.TorusGeometry(CAR.ruota.r + 9, 4.5, 8, 20, Math.PI),
+        matNero
+      );
+      flare.rotation.y = Math.PI / 2;
+      flare.position.set(x + (x < 0 ? -2 : 2), CAR.ruota.r + 2, zc);
+      g.add(flare);
+    }
+  }
+
+  // pedane laterali fra i passaruota
+  for (const x of [xSx - 4, xDx + 4]) {
+    const ped = new THREE.Mesh(new THREE.BoxGeometry(14, 6, 190), matNero);
+    ped.position.set(x, 56, (CAR.assePost + CAR.passo / 2) - 20);
+    g.add(ped);
+  }
+
+  // paraurti
+  const par = (z0, z1, y) => {
+    const b = new THREE.Mesh(new THREE.BoxGeometry(CAR.larghezza + 4, 22, z1 - z0), matScuro);
+    b.position.set(V.T / 2, y, (z0 + z1) / 2);
+    g.add(b);
+  };
+  par(-24, -13, 58);
+  par(470, 484, 62);
+
+  // snorkel sul montante anteriore destro
+  const snorkel = new THREE.Group();
+  const tubo = new THREE.Mesh(new THREE.CylinderGeometry(5, 5, 96, 12), matNero);
+  tubo.position.set(0, 48, 0);
+  const presa = new THREE.Mesh(new THREE.CylinderGeometry(7, 7, 16, 12), matNero);
+  presa.position.set(0, 100, 0);
+  snorkel.add(tubo, presa);
+  snorkel.position.set(xDx + 3, 122, 292);
+  g.add(snorkel);
+
+  // rack a piattaforma sopra la cabina (dove nelle foto stanno tenda e faretti)
+  const rack = new THREE.Mesh(new THREE.BoxGeometry(CAR.larghezza - 26, 5, 96), matScuro);
+  rack.position.set(V.T / 2, 191, 205);
+  g.add(rack);
+  for (const z of [162, 205, 248]) {
+    const trav = new THREE.Mesh(new THREE.BoxGeometry(CAR.larghezza - 20, 4, 5), matNero);
+    trav.position.set(V.T / 2, 194, z);
+    g.add(trav);
+  }
+
+  // specchietti
+  for (const x of [xSx - 10, xDx + 10]) {
+    const sp = new THREE.Mesh(new THREE.BoxGeometry(12, 9, 5), matScuro);
+    sp.position.set(x, 150, 300);
+    g.add(sp);
+  }
+
+  // ruote: pneumatico all-terrain alto di spalla + cerchio
+  const gomma = new THREE.CylinderGeometry(CAR.ruota.r, CAR.ruota.r, CAR.ruota.w, 28);
+  gomma.rotateZ(Math.PI / 2);
   for (const z of [CAR.assePost, CAR.assePost + CAR.passo]) {
-    for (const x of [-sporgenza + 6, V.T + sporgenza - 6]) {
-      const m = new THREE.Mesh(ruota, matR);
+    for (const x of [xSx + 9, xDx - 9]) {
+      const m = new THREE.Mesh(gomma, matNero);
       m.position.set(x, CAR.ruota.r, z);
       g.add(m);
       const cerchio = new THREE.Mesh(
-        new THREE.TorusGeometry(CAR.ruota.r * 0.55, 2, 8, 20),
-        new THREE.MeshStandardMaterial({ color: 0x4a5b6b, roughness: 0.7 })
+        new THREE.CylinderGeometry(CAR.ruota.r * 0.58, CAR.ruota.r * 0.58, 2.5, 22),
+        new THREE.MeshStandardMaterial({ color: 0x66788c, roughness: 0.55 })
       );
-      cerchio.position.set(x + (x < 0 ? -1 : 1) * (CAR.ruota.w / 2), CAR.ruota.r, z);
-      cerchio.rotation.y = Math.PI / 2;
+      cerchio.rotation.z = Math.PI / 2;
+      cerchio.position.set(x + (x < V.T / 2 ? -1 : 1) * (CAR.ruota.w / 2 + 0.5), CAR.ruota.r, z);
       g.add(cerchio);
     }
   }
@@ -171,6 +264,12 @@ export function costruisciAllestimento() {
   root.add(box({ x0: 0, x1: V.T, y0: Y(0) - 2, y1: Y(0), z0: 0, z1: V.L }, 0x1b232c));
   root.add(box({ x0: 0, x1: V.T, y0: Y(0), y1: Y(V.falsoPav), z0: 0, z1: V.L }, 0x1b232c, { opacity: 0.55 }));
   root.add(modulo(V.serbatoio, 0, V.serbatoio.h, 0x0f2a2c, { spigolo: COL.teal, opacitaSpigoli: 0.8 }));
+
+  // Serbatoio gasolio originale: non è un componente del camper, è un vincolo.
+  // Sta fra gli assi sotto il pavimento e da lì non si sposta.
+  const sm = V.serbatoioMezzo;
+  root.add(box({ x0: sm.t0, x1: sm.t1, y0: Y(sm.y0), y1: Y(sm.y1), z0: sm.l0, z1: sm.l1 },
+    0x2a2418, { spigolo: 0xb08040, opacitaSpigoli: 0.85, opacity: 0.75 }));
 
   // --- passaruota ---------------------------------------------------------
   const a = V.arco;
@@ -243,11 +342,45 @@ export function costruisciAllestimento() {
   }, COL.tessuto, { opacity: 0.18, spigolo: COL.tessuto, opacitaSpigoli: 0.45 });
   root.add(parti.tessuto, parti.guscio);
 
-  // --- letto ---------------------------------------------------------------
+  // --- letto matrimoniale nel soffietto ------------------------------------
+  // Sta tutto sul guscio: sale con lui e usa la larghezza piena del tetto,
+  // non quella del vano. Metà fissa + metà che si ribalta di giorno.
   const lt = V.letto;
+  const ltX0 = (V.T - lt.t) / 2;
   parti.letto = new THREE.Group();
-  parti.lettoFisso = box({ x0: 0, x1: lt.t, y0: Y(V.H), y1: Y(V.H + 14), z0: lt.off, z1: lt.off + lt.l / 2 }, 0x123033, { spigolo: COL.teal, opacitaSpigoli: 0.9 });
-  parti.lettoMobile = box({ x0: 0, x1: lt.t, y0: Y(V.H), y1: Y(V.H + 14), z0: lt.off + lt.l / 2, z1: lt.off + lt.l }, 0x123033, { spigolo: COL.teal, opacitaSpigoli: 0.9 });
+
+  const doga = (z0, z1) => box(
+    { x0: ltX0, x1: ltX0 + lt.t, y0: Y(V.H), y1: Y(V.H + 4), z0, z1 },
+    0x1b232c, { spigolo: COL.spigolo, opacitaSpigoli: 0.5, opacity: 0.85 }
+  );
+  const materasso = (z0, z1) => box(
+    { x0: ltX0 + 2, x1: ltX0 + lt.t - 2, y0: Y(V.H + 4), y1: Y(V.H + 4 + lt.materasso), z0, z1 },
+    0x123033, { spigolo: COL.teal, opacitaSpigoli: 0.9, opacity: 0.8 }
+  );
+
+  const mezzeria = lt.off + lt.l / 2;
+  parti.lettoFisso = new THREE.Group();
+  parti.lettoFisso.add(doga(lt.off, mezzeria), materasso(lt.off, mezzeria));
+  // La metà ribaltabile ha l'origine sulla cerniera: così basta ruotarla di
+  // 180° attorno a X per vederla ripiegata sopra la metà fissa.
+  parti.lettoMobile = new THREE.Group();
+  const meta = lt.l / 2;
+  parti.lettoMobile.add(
+    box({ x0: ltX0, x1: ltX0 + lt.t, y0: 0, y1: 4, z0: 0, z1: meta },
+      0x1b232c, { spigolo: COL.spigolo, opacitaSpigoli: 0.5, opacity: 0.85 }),
+    box({ x0: ltX0 + 2, x1: ltX0 + lt.t - 2, y0: 4, y1: 4 + lt.materasso, z0: 2, z1: meta - 2 },
+      0x123033, { spigolo: COL.teal, opacitaSpigoli: 0.9, opacity: 0.8 })
+  );
+  parti.lettoMobile.position.set(0, Y(V.H), mezzeria);
+
+  // due cuscini, per capire da che parte si dorme
+  for (const dx of [0.28, 0.72]) {
+    parti.lettoFisso.add(box({
+      x0: ltX0 + lt.t * dx - 22, x1: ltX0 + lt.t * dx + 22,
+      y0: Y(V.H + 14), y1: Y(V.H + 24), z0: lt.off + 6, z1: lt.off + 36,
+    }, 0x9fb3c4, { opacity: 0.5, spigolo: COL.tessuto, opacitaSpigoli: 0.6 }));
+  }
+
   parti.letto.add(parti.lettoFisso, parti.lettoMobile);
   root.add(parti.letto);
 
@@ -461,16 +594,6 @@ function gruppoEsterni(parti) {
   g.add(box({ x0: rx0, x1: rx0 + r.w, y0: Y(V.H + 12), y1: Y(V.H + 12 + r.h), z0: r.l0, z1: r.l1 },
     0x1a222b, { opacity: 0.35, spigolo: COL.carrozzeria, opacitaSpigoli: 0.75 }));
 
-  // cassonetto del tendalino sul fianco sinistro (la tela è in parti.tenda)
-  const td = EST.tendalino;
-  const tubo = new THREE.Mesh(
-    new THREE.CylinderGeometry(td.d / 2, td.d / 2, td.l1 - td.l0, 14),
-    new THREE.MeshStandardMaterial({ color: 0x2b3541, roughness: 0.8 })
-  );
-  tubo.rotation.x = Math.PI / 2;
-  tubo.position.set(-sporg - td.d / 2, Y(V.H) + 2, (td.l0 + td.l1) / 2);
-  g.add(tubo);
-
   // doccia esterna e presa di servizio sul fianco destro
   const d = EST.doccia;
   g.add(box({
@@ -516,6 +639,44 @@ function gruppoPortellone() {
   ruota.position.set(sc.t - cerniera.x, sc.y, sc.l - cerniera.z);
   g.add(ruota);
 
+  // --- il portellone è attrezzato ------------------------------------------
+  // Aperto è una parete verticale a portata di mano: sprecarla sarebbe stupido.
+  // Tutto ciò che segue ruota col battente, quindi è sempre "dietro" a te.
+  const dentro = 5;      // faccia interna del pannello
+
+  // tavolino ribaltabile: chiuso è piatto, aperto sporge di 45 cm
+  const tv = PORT.tavolino;
+  g.tavolino = new THREE.Group();
+  g.tavolino.add(box({
+    x0: tv.t0, x1: tv.t1, y0: 0, y1: tv.sp, z0: 0, z1: tv.sporgenza,
+  }, 0x3a2e12, { spigolo: COL.ambra, opacitaSpigoli: 0.95 }));
+  g.tavolino.position.set(0, tv.y0, dentro);
+  g.add(g.tavolino);
+
+  const org = PORT.organizer;
+  g.add(box({ x0: org.t0, x1: org.t1, y0: org.y0, y1: org.y1, z0: dentro, z1: dentro + org.sp },
+    COL.modulo, { spigolo: COL.spigolo, opacitaSpigoli: 0.6, opacity: 0.65 }));
+
+  const rt = PORT.rete;
+  g.add(box({ x0: rt.t0, x1: rt.t1, y0: rt.y0, y1: rt.y1, z0: dentro, z1: dentro + 4 },
+    COL.tessuto, { soloSpigoli: true, opacitaSpigoli: 0.7 }));
+
+  const tn = PORT.tanica;
+  g.add(box({ x0: tn.t0, x1: tn.t1, y0: tn.y0, y1: tn.y1, z0: dentro, z1: dentro + 18 },
+    0x10222e, { spigolo: COL.acqua, opacitaSpigoli: 0.9 }));
+
+  const led = PORT.led;
+  const barra = new THREE.Mesh(
+    new THREE.BoxGeometry(led.t1 - led.t0, 2, 2),
+    new THREE.MeshStandardMaterial({ color: 0xfff0c0, emissive: 0x554422 })
+  );
+  barra.position.set((led.t0 + led.t1) / 2, led.y, dentro + 2);
+  g.add(barra);
+
+  const gc = PORT.gancio;
+  g.add(box({ x0: gc.t0, x1: gc.t1, y0: gc.y0, y1: gc.y1, z0: dentro, z1: dentro + 6 },
+    0x2b3541, { spigolo: COL.spigolo, opacitaSpigoli: 0.8 }));
+
   g.position.set(cerniera.x, 0, cerniera.z);
   return g;
 }
@@ -527,6 +688,11 @@ function gruppoEtichette() {
   ['batteria', 'mppt', 'inverter', 'dcdc', 'shunt', 'fusibiliera'].forEach((k) => add(IMP[k], '#e08a3c'));
   ['serbGrigie', 'boiler', 'pompa'].forEach((k) => add(IMP[k], '#3aa0e0'));
   add(IMP.riscald, '#e0553a');
+
+  // serbatoio gasolio originale: il vincolo sotto il pavimento
+  const sm = V.serbatoioMezzo;
+  g.add(etichetta(sm.et,
+    [(sm.t0 + sm.t1) / 2, Y(sm.y1) + 4, (sm.l0 + sm.l1) / 2], '#b08040'));
 
   // serbatoio acqua chiara: la quota sta in V, non in IMP
   const sb = V.serbatoio;
@@ -550,36 +716,35 @@ function gruppoEtichette() {
 // Aperture e stivaggio.
 // ===========================================================================
 
-/** Sagoma delle porte sulle due fiancate: dove si apre, lì non si addossa nulla. */
+/**
+ * Porte: disegnate **a filo** della fiancata, non come scatole che sporgono.
+ * Servono a sapere dove si apre un battente: lì dentro non va niente di fisso.
+ * Ogni porta è il contorno del pannello + la linea del vetro + il montante
+ * della cerniera, tutto sul piano della lamiera.
+ */
 function gruppoPorte() {
   const g = new THREE.Group();
   const sporg = (CAR.larghezza - V.T) / 2;
-  const lati = [-sporg, V.T + sporg];
+  const lati = [-sporg - 0.6, V.T + sporg + 0.6];   // 6 mm fuori, per non compenetrare
+  const matP = new THREE.LineBasicMaterial({ color: COL.ambra, transparent: true, opacity: 0.55 });
+  const matC = new THREE.LineBasicMaterial({ color: COL.ambra, transparent: true, opacity: 0.9 });
+
+  const rettangolo = (x, z0, z1, y0, y1, mat) => {
+    const pts = [
+      new THREE.Vector3(x, y0, z0), new THREE.Vector3(x, y1, z0),
+      new THREE.Vector3(x, y1, z1), new THREE.Vector3(x, y0, z1),
+      new THREE.Vector3(x, y0, z0),
+    ];
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), mat));
+  };
 
   for (const p of [PORTE.ant, PORTE.post]) {
     for (const x of lati) {
-      const sp = x < 0 ? 3 : -3;
-      g.add(box({
-        x0: Math.min(x, x + sp), x1: Math.max(x, x + sp),
-        y0: p.y0, y1: p.y1, z0: p.l0, z1: p.l1,
-      }, 0x1b2733, { opacity: 0.16, spigolo: COL.ambra, opacitaSpigoli: 0.8 }));
-      // montante della cerniera, sul lato anteriore della porta
-      g.add(box({
-        x0: Math.min(x, x + sp * 1.6), x1: Math.max(x, x + sp * 1.6),
-        y0: p.y0, y1: p.y1, z0: p.l1 - 3, z1: p.l1,
-      }, COL.ambra, { opacity: 0.5, spigolo: COL.ambra, opacitaSpigoli: 1 }));
+      rettangolo(x, p.l0, p.l1, p.y0, p.y1, matP);            // pannello
+      rettangolo(x, p.l0 + 4, p.l1 - 4, p.cintura, p.y1 - 6, matP);  // luce del vetro
+      // montante della cerniera: sul 120 le porte sono incernierate in avanti
+      rettangolo(x, p.l1 - 2.5, p.l1, p.y0, p.y1, matC);
     }
-  }
-
-  // finestrini del vano: l'unica luce naturale dietro, e il punto in cui il
-  // mobile alto non deve arrivare
-  const vl = PORTE.vetroLat;
-  for (const x of lati) {
-    const sp = x < 0 ? 2 : -2;
-    g.add(box({
-      x0: Math.min(x, x + sp), x1: Math.max(x, x + sp),
-      y0: vl.y0, y1: vl.y1, z0: vl.l0, z1: vl.l1,
-    }, COL.vetro, { opacity: 0.18, spigolo: COL.vetro, opacitaSpigoli: 0.55 }));
   }
   return g;
 }
@@ -639,67 +804,105 @@ function gruppoEtichetteExtra() {
 
   const sporg = (CAR.larghezza - V.T) / 2;
   for (const p of [PORTE.ant, PORTE.post]) {
-    g.add(etichetta(p.et, [V.T + sporg + 26, (p.y0 + p.y1) / 2 + 26, (p.l0 + p.l1) / 2], '#ffb020'));
+    g.add(etichetta(p.et, [V.T + sporg + 26, p.y1 + 10, (p.l0 + p.l1) / 2], '#ffb020'));
   }
   return g;
 }
 
 
 /**
- * Tenda a ventaglio da 270°, come le batwing da rack: N settori incernierati
- * sullo stesso perno, che da chiusi stanno impilati sul cassonetto e da aperti
- * coprono il fianco e il dietro. Ogni settore è un gruppo separato, così
- * l'apertura si anima ruotandoli a ventaglio.
+ * Tenda a ventaglio da 270° montata sulle barre del tetto, come le batwing.
+ *
+ * Com'è fatta davvero: un cassonetto rigido lungo il fianco, il perno
+ * sull'angolo posteriore, N stecche che ruotano sullo stesso perno e la tela
+ * tesa fra una stecca e l'altra. Da chiusa sta tutta dentro il cassonetto;
+ * da aperta copre fiancata e retro, con due piedi telescopici agli angoli.
  */
 function gruppoTenda() {
   const g = new THREE.Group();
-  const td = EST.tenda, sporg = (CAR.larghezza - V.T) / 2;
-  const mat = new THREE.MeshStandardMaterial({
-    color: 0xc8a06a, roughness: 0.95, side: THREE.DoubleSide,
-    transparent: true, opacity: 0.55,
-  });
-  const matBordo = new THREE.LineBasicMaterial({ color: 0xe0b478, transparent: true, opacity: 0.7 });
+  const td = EST.tenda;
+  const sporg = (CAR.larghezza - V.T) / 2;
+  const quotaTetto = 188;                     // filo superiore delle barre
+  const xCasson = -sporg - 9;
 
+  // --- cassonetto: c'è sempre, aperta o chiusa ----------------------------
+  const casson = new THREE.Group();
+  const matCass = new THREE.MeshStandardMaterial({ color: 0x232c36, roughness: 0.85 });
+  const corpo = new THREE.Mesh(new THREE.BoxGeometry(15, 15, td.raggio), matCass);
+  corpo.position.set(xCasson, quotaTetto + 7, td.perno + td.raggio / 2);
+  casson.add(corpo);
+  // staffe sulle barre del tetto
+  for (const z of [td.perno + 40, td.perno + td.raggio - 40]) {
+    const st = new THREE.Mesh(new THREE.BoxGeometry(22, 6, 8), matCass);
+    st.position.set(xCasson + 9, quotaTetto + 2, z);
+    casson.add(st);
+  }
+  g.add(casson);
+
+  // --- ventaglio ----------------------------------------------------------
+  const ventaglio = new THREE.Group();
   const passo = (td.angolo / td.settori) * (Math.PI / 180);
-  g.settori = [];
+  const matTela = new THREE.MeshStandardMaterial({
+    color: 0xc9a276, roughness: 0.98, side: THREE.DoubleSide,
+    transparent: true, opacity: 0.62,
+  });
+  const matStecca = new THREE.MeshStandardMaterial({ color: 0x2b3541, roughness: 0.8 });
 
+  ventaglio.settori = [];
   for (let i = 0; i < td.settori; i++) {
     const s = new THREE.Group();
-    // triangolo nel piano orizzontale, con l'orlo esterno che scende di `caduta`
     const p0 = new THREE.Vector3(0, 0, 0);
     const p1 = new THREE.Vector3(td.raggio, -td.caduta, 0);
-    const p2 = new THREE.Vector3(
-      td.raggio * Math.cos(passo), -td.caduta, -td.raggio * Math.sin(passo)
-    );
+    const p2 = new THREE.Vector3(td.raggio * Math.cos(passo), -td.caduta, -td.raggio * Math.sin(passo));
     const geo = new THREE.BufferGeometry().setFromPoints([p0, p1, p2]);
     geo.computeVertexNormals();
-    s.add(new THREE.Mesh(geo, mat));
+    s.add(new THREE.Mesh(geo, matTela));
 
-    // stecca di bordo: è quella che dà la forma alla tela
-    s.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([p0, p1]), matBordo));
-    g.add(s);
-    g.settori.push(s);
+    // stecca: tubo vero, non una linea — è quella che tiene su la tela
+    const stecca = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, td.raggio, 8), matStecca);
+    stecca.rotation.z = Math.PI / 2;
+    stecca.position.set(td.raggio / 2, -td.caduta / 2, 0);
+    stecca.rotation.y = 0;
+    s.add(stecca);
+
+    ventaglio.add(s);
+    ventaglio.settori.push(s);
   }
 
-  // due piedi telescopici, visibili solo a tenda aperta: arrivano a terra
-  const quotaPerno = Y(V.H) + td.alt;
-  const lungPiede = quotaPerno - td.caduta;
-  const matPiede = new THREE.MeshStandardMaterial({ color: 0x2b3541, roughness: 0.8 });
-  g.piedi = [];
-  for (const a of [12, td.angolo - 12]) {
+  // orlo esterno: unisce le punte delle stecche quando è aperta
+  const orlo = new THREE.Mesh(
+    new THREE.TorusGeometry(td.raggio, 1, 6, 40, (td.angolo * Math.PI) / 180),
+    matStecca
+  );
+  orlo.rotation.x = Math.PI / 2;
+  orlo.position.y = -td.caduta;
+  ventaglio.add(orlo);
+  ventaglio.orlo = orlo;
+
+  // piedi telescopici agli angoli, con piastra a terra
+  const lungPiede = quotaTetto + 7 - td.caduta;
+  ventaglio.piedi = [];
+  for (const a of [4, td.angolo - 4]) {
     const rad = (a * Math.PI) / 180;
-    const piede = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, lungPiede, 10), matPiede);
-    // stesso sistema di riferimento dei settori: x = cos, z = -sin
+    const piede = new THREE.Group();
+    const asta = new THREE.Mesh(new THREE.CylinderGeometry(1.8, 1.8, lungPiede, 10), matStecca);
+    asta.position.y = -lungPiede / 2;
+    const piastra = new THREE.Mesh(new THREE.CylinderGeometry(6, 6, 1.5, 12), matStecca);
+    piastra.position.y = -lungPiede;
+    piede.add(asta, piastra);
     piede.position.set(
-      td.raggio * 0.96 * Math.cos(rad),
-      -td.caduta - lungPiede / 2,
-      -td.raggio * 0.96 * Math.sin(rad)
+      td.raggio * 0.985 * Math.cos(rad), -td.caduta, -td.raggio * 0.985 * Math.sin(rad)
     );
-    g.add(piede);
-    g.piedi.push(piede);
+    ventaglio.add(piede);
+    ventaglio.piedi.push(piede);
   }
 
-  g.position.set(-sporg - 6, quotaPerno, td.perno);
-  g.rotation.y = (td.ang0 * Math.PI) / 180;
+  ventaglio.position.set(xCasson, quotaTetto + 7, td.perno);
+  ventaglio.rotation.y = (td.ang0 * Math.PI) / 180;
+  g.add(ventaglio);
+  g.ventaglio = ventaglio;
+  g.settori = ventaglio.settori;
+  g.piedi = ventaglio.piedi;
   return g;
 }
+

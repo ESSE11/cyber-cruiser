@@ -16,14 +16,14 @@ renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.setClearColor(COL.bg);
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(COL.bg, 1100, 2600);
+scene.fog = new THREE.Fog(COL.bg, 1800, 5200);
 
-const camera = new THREE.PerspectiveCamera(32, 1, 10, 3000);
+const camera = new THREE.PerspectiveCamera(32, 1, 10, 8000);
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.dampingFactor = 0.08;
 controls.minDistance = 120;
-controls.maxDistance = 1400;
+controls.maxDistance = 4200;   // su finestre strette la camera deve poter arretrare
 controls.maxPolarAngle = Math.PI / 2 - 0.02;   // non si va sotto il piano stradale
 controls.target.set(0, 110, 0);
 
@@ -82,10 +82,21 @@ function applicaVisibilita() {
   }
 }
 
+let vistaCorrente = 'tre-quarti';
+
 function vista(nome, immediata = false) {
   const v = VISTE[nome] || VISTE['tre-quarti'];
-  camera.position.set(...v.pos);
-  controls.target.set(...v.target);
+  vistaCorrente = VISTE[nome] ? nome : 'tre-quarti';
+
+  // Le inquadrature sono tarate su uno schermo orizzontale: su un telefono o
+  // su una finestra stretta il mezzo uscirebbe dal quadro, quindi si arretra.
+  const aspetto = Math.max(0.35, canvas.clientWidth / Math.max(1, canvas.clientHeight));
+  const k = aspetto < 1.35 ? Math.min(1.9, 1.35 / aspetto) : 1;
+
+  const t = new THREE.Vector3(...v.target);
+  const pos = new THREE.Vector3(...v.pos).sub(t).multiplyScalar(k).add(t);
+  camera.position.copy(pos);
+  controls.target.copy(t);
   controls.update();
   for (const b of document.querySelectorAll('[data-vista]')) {
     b.classList.toggle('on', b.dataset.vista === nome);
@@ -109,26 +120,25 @@ function applica(dt) {
 
   // il letto vive nel guscio: sale con lui
   parti.letto.position.y = lift;
+  parti.lettoFisso.position.y = 0;
 
-  // metà mobile del letto: ruotando attorno alla cerniera passa da distesa
-  // (in avanti, sopra i sedili) a ripiegata (sopra la metà posteriore).
-  const lt = V.letto, cerniera = lt.off + lt.l / 2, braccio = lt.l / 4;
-  const ang = (1 - anim.letto) * Math.PI;                 // 0 = distesa, π = ribaltata
-  parti.lettoMobile.position.z = cerniera + Math.cos(ang) * braccio;
-  parti.lettoMobile.position.y = Y(V.H + 7) + Math.sin(ang) * 15;   // scavalca la metà fissa
+  // metà mobile del letto: la cerniera è l'origine del suo gruppo, quindi
+  // basta ruotarla. 0° = distesa sopra i sedili, 180° = ripiegata all'indietro.
+  const ang = (1 - anim.letto) * Math.PI;
   parti.lettoMobile.rotation.x = -ang;
+  parti.lettoMobile.position.y = Y(V.H) + Math.sin(ang) * 16;   // il guscio alza già il gruppo
 
   // portellone: 100° attorno alla cerniera sul fianco sinistro
   parti.portellone.rotation.y = anim.portellone * Math.PI * 0.56;
 
-  // tenda: i settori si aprono a ventaglio, i piedi compaiono a fine corsa
+  // tenda: le stecche si aprono a ventaglio dal cassonetto, che resta sempre
+  // montato sulle barre; i piedi scendono solo a tenda quasi tutta aperta
   {
     const t = parti.tenda, n = t.settori.length;
     const passo = (EST_ANGOLO / n) * (Math.PI / 180);
     t.settori.forEach((s, i) => { s.rotation.y = anim.tenda * passo * i; });
-    // da chiusa la tela sparisce dentro al cassonetto
-    t.visible = anim.tenda > 0.02;
-    t.scale.setScalar(Math.max(0.02, anim.tenda));
+    t.ventaglio.visible = anim.tenda > 0.02;
+    t.ventaglio.orlo.visible = anim.tenda > 0.98;   // l'orlo ha senso solo a tenda tesa
     for (const p of t.piedi) p.visible = anim.tenda > 0.9;
   }
 
@@ -164,6 +174,13 @@ function ridimensiona() {
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
 }
+
+// cambiando forma alla finestra l'inquadratura va ricalcolata, non solo scalata
+let riquadro;
+addEventListener('resize', () => {
+  clearTimeout(riquadro);
+  riquadro = setTimeout(() => vista(vistaCorrente), 120);
+});
 addEventListener('resize', ridimensiona);
 
 // ---------------------------------------------------------------- interfaccia
@@ -281,5 +298,7 @@ window.CC = {
   setVisibili(v) { Object.assign(visibili, v); applicaVisibilita(); },
   setVista(nome) { vista(nome, true); },
   render,
+  // esposti per gli script di rendering e per il debug dell'inquadratura
+  camera, controls, parti,
   pronto: true,
 };
