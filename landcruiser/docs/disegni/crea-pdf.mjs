@@ -21,6 +21,7 @@ async function loadChromium() {
 }
 
 const TAVOLE = [
+  ['tav-0-rilievo.svg', 'Tav. 0 — Scheda di rilievo, da compilare sul mezzo'],
   ['tav-1-pianta.svg', 'Tav. 1 — Pianta dell’allestimento'],
   ['tav-2-sezione-aa.svg', 'Tav. 2 — Sezione longitudinale A-A'],
   ['tav-3-sezione-bb.svg', 'Tav. 3 — Sezione trasversale B-B'],
@@ -84,6 +85,12 @@ const html = `<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8">
     <ul>
       ${TAVOLE.map(([, t]) => `<li><span>▸</span> ${t}</li>`).join('\n      ')}
       <li><span>▸</span> R1-R6 — Render 3D dell’allestimento</li>
+    </ul>
+    <div class="key" style="max-width:78mm">
+      <b>Attenzione</b><br>
+      Le quote esterne (484 × 185,5 × 184,5 cm, passo 279) sono da scheda tecnica.
+      Le quote interne del vano sono <b>valori di progetto</b>: vanno confermate
+      col metro sul mezzo — vedi la Tav. 0.
     </ul>
     <div class="key">
       <b>Quote chiave</b> (in cm)<br>

@@ -20,7 +20,7 @@ Progetto completo in due metà, come il Cyber Pandino:
 | [docs/04-impianto-idrico-cucina.md](docs/04-impianto-idrico-cucina.md) | Acqua, scarichi, cucina estraibile, doccia esterna |
 | [docs/05-elettronica-schermo.md](docs/05-elettronica-schermo.md) | Hardware dello schermo, sensori, cablaggi, protocollo dati |
 | [docs/06-bom-costi-roadmap.md](docs/06-bom-costi-roadmap.md) | Distinta base, costi, fasi di realizzazione, note omologazione |
-| [docs/disegni/](docs/disegni/) | **Tavole tecniche quotate** — pianta, sezioni, cucina, vista posteriore ([PDF](docs/disegni/cyber-cruiser-tavole.pdf)) |
+| [docs/disegni/](docs/disegni/) | **Tavole tecniche quotate** — scheda di rilievo, pianta, sezioni, cucina, vista posteriore ([PDF](docs/disegni/cyber-cruiser-tavole.pdf)) |
 | [3d/](3d/) | **Modello 3D navigabile** dell'allestimento + render statici |
 
 ## Il software in 30 secondi
@@ -43,13 +43,13 @@ node dash/tools/build-single.mjs   # genera dash/dist/cyber-cruiser.html
 
 ## Disegni tecnici
 
-Le cinque tavole sono **generate da codice**: le quote stanno tutte in cima a
+Le tavole sono **generate da codice**: le quote stanno tutte in cima a
 `docs/disegni/genera-disegni.mjs`, quindi se cambi una misura i disegni si
 riallineano da soli.
 
 ```bash
 cd landcruiser/docs/disegni
-node genera-disegni.mjs   # → tav-1 … tav-5 (.svg) + index.html
+node genera-disegni.mjs   # → tav-0 … tav-5 (.svg) + index.html
 node crea-pdf.mjs         # → cyber-cruiser-tavole.pdf (A3 orizzontale)
 ```
 
@@ -63,6 +63,9 @@ node 3d/tools/build-single.mjs     # versione in un file solo
 
 Apri/chiudi il soffietto, estrai la cucina, ripiega il letto, ruota la scrivania:
 sono le stesse quote delle tavole, viste in tre dimensioni. Gira offline.
+
+> Quote esterne da scheda tecnica; quote interne del vano da confermare col metro
+> sul mezzo (Tav. 0 — scheda di rilievo).
 
 ## Stato del progetto
 

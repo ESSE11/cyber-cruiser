@@ -16,7 +16,7 @@ const OUT = dirname(fileURLToPath(import.meta.url));
 
 // ---------------------------------------------------------------- quote
 
-import { V } from './quote.mjs';
+import { V, CARROZZERIA as CAR } from './quote.mjs';
 
 // ---------------------------------------------------------------- stile
 
@@ -131,6 +131,62 @@ class Sheet {
 ${this.parts.join('\n')}
 </svg>`;
   }
+}
+
+
+// ============================================ TAV. 0 — SCHEDA DI RILIEVO
+
+function tavolaRilievo() {
+  const RIGHE = [
+    ['1', 'Lunghezza vano', 'dal filo portellone chiuso allo schienale dei sedili anteriori, tutti indietro', `${V.L}`],
+    ['2', 'Larghezza massima', 'fra i rivestimenti, all\u2019altezza del piano previsto (+50)', `${V.T}`],
+    ['3', 'Larghezza fra i passaruota', 'la quota che limita cassettoni e serbatoio', `${V.T - 2 * V.arco.w}`],
+    ['4', 'Altezza vano', 'dal pavimento al cielo, al centro', `${V.H}`],
+    ['5', 'Altezza soglia da terra', 'a vuoto, con le gomme che monterai', `${V.pavTerra}`],
+    ['6', 'Passaruota: lunghezza / sporgenza / altezza', 'la sagoma attorno a cui girano i mobili', `${V.arco.l1 - V.arco.l0} / ${V.arco.w} / ${V.arco.h}`],
+    ['7', 'Luce netta del portellone', 'largh. × alt. dell\u2019apertura: la cucina deve passarci', '—'],
+    ['8', 'Profondità utile sotto il pavimento', 'per il falso pavimento e il serbatoio ribassato', `${V.falsoPav}`],
+    ['9', 'Lunghezza del tetto piano', 'zona utile per il soffietto, dal lunotto al parabrezza', '—'],
+    ['10', 'Massa a vuoto e massa complessiva', 'dalla carta di circolazione: è il budget dei pesi', '—'],
+  ];
+
+  const s = 3, M = { x: 70, y: 156 };
+  const W = 1150, RH = 62;
+  const sh = new Sheet({
+    w: M.x + W + 90, h: M.y + RIGHE.length * RH + 220, scale: s,
+    title: 'TAV. 0 — SCHEDA DI RILIEVO',
+    subtitle: 'da compilare sul mezzo prima di costruire'
+  });
+
+  sh.text(M.x, 64, 'MISURE DA PRENDERE SUL VEICOLO', { size: 17, weight: 700, fill: C.acc, ls: 2 });
+  sh.text(M.x, 90, 'La colonna “progetto” è il valore usato nelle tavole. Rileva il tuo e, se cambia, aggiorna docs/disegni/quote.mjs:', { size: 10.5, fill: C.dimText });
+  sh.text(M.x, 108, 'tavole, PDF e modello 3D si riallineano da soli. Misura con i sedili posteriori già rimossi e il mezzo in piano.', { size: 10.5, fill: C.dimText });
+
+  const cN = M.x, cT = M.x + 40, cP = M.x + 830, cR = M.x + 940;
+  sh.line(M.x, M.y - 26, M.x + W, M.y - 26, { stroke: C.acc, sw: 1.6 });
+  sh.text(cT, M.y - 34, 'QUOTA', { size: 10, fill: C.dimText, ls: 1.6 });
+  sh.text(cP + 45, M.y - 34, 'PROGETTO', { size: 10, fill: C.dimText, ls: 1.6, anchor: 'middle' });
+  sh.text(cR + 80, M.y - 34, 'RILEVATO (cm)', { size: 10, fill: C.acc, ls: 1.6, anchor: 'middle' });
+
+  RIGHE.forEach(([n, titolo, come, prog], i) => {
+    const y = M.y + i * RH;
+    sh.line(M.x, y + RH - 20, M.x + W, y + RH - 20, { stroke: C.dim, sw: 0.5 });
+    sh.text(cN, y + 4, n, { size: 12, fill: C.acc, weight: 700 });
+    sh.text(cT, y + 4, titolo, { size: 12.5, fill: C.text, weight: 600 });
+    sh.text(cT, y + 22, come, { size: 10, fill: C.dimText });
+    sh.text(cP + 45, y + 6, prog, { size: 13, fill: C.text, anchor: 'middle' });
+    sh.rect(cR, y - 14, 160, 30, { stroke: C.acc, sw: 1, rx: 4 });
+  });
+
+  const yN = M.y + RIGHE.length * RH + 24;
+  sh.text(M.x, yN, 'DA PORTARE', { size: 10.5, fill: C.acc, ls: 1.8, weight: 700 });
+  sh.text(M.x, yN + 20, 'metro a nastro 5 m · metro laser · livella · torcia · cacciavite (per sondare la ruggine del telaio) · questa scheda stampata', { size: 10.5, fill: C.dimText });
+  sh.text(M.x, yN + 48, 'ATTENZIONE', { size: 10.5, fill: C.acc, ls: 1.8, weight: 700 });
+  sh.text(M.x, yN + 68, 'Le quote interne di queste tavole sono valori di progetto, non dati di catalogo: il vano cambia con allestimento, terza fila e rivestimenti.', { size: 10.5, fill: C.dimText });
+  sh.text(M.x, yN + 84, 'Le quote esterne (484 × 185,5 × 184,5 cm, passo 279) sono invece da scheda tecnica.', { size: 10.5, fill: C.dimText });
+
+  sh.cartiglio();
+  return sh.render();
 }
 
 // ============================================================ TAV. 1 — PIANTA
@@ -514,7 +570,7 @@ function tavolaRetro() {
   const X = (t) => M.x + s * (t + 40);      // 0 = fiancata sx del vano
   const Yg = (h) => M.y + s * (HMAX - h);   // altezza da terra
 
-  const larghezza = 179, sbalzo = (larghezza - V.T) / 2;
+  const larghezza = CAR.larghezza, sbalzo = (larghezza - V.T) / 2;
 
   // terreno
   sh.line(X(-40), Yg(0), X(260), Yg(0), { stroke: C.dim, sw: 2.2 });
@@ -556,7 +612,7 @@ function tavolaRetro() {
   sh.rect(X(-sbalzo - 2), Yg(hOpen + 12), s * (larghezza + 4), s * 12, { stroke: C.body, sw: 2, fill: '#141c25' });
   sh.path(`M ${X(-sbalzo)} ${Yg(V.pavTerra + V.H)} L ${X(-sbalzo - 2)} ${Yg(hOpen)}`, { stroke: C.body, sw: 1.4, dash: '5 3' });
   sh.path(`M ${X(larghezza - sbalzo)} ${Yg(V.pavTerra + V.H)} L ${X(larghezza - sbalzo + 2)} ${Yg(hOpen)}`, { stroke: C.body, sw: 1.4, dash: '5 3' });
-  sh.text(X(V.T / 2), Yg(hOpen + 12) - 8, 'GUSCIO APERTO — ingombro totale 2,73 m', { size: 9.5, fill: C.dimText, anchor: 'middle' });
+  sh.text(X(V.T / 2), Yg(hOpen + 12) - 8, `GUSCIO APERTO — ingombro totale ${(Math.round(CAR.altezza + V.popUp) / 100).toFixed(2).replace('.', ',')} m`, { size: 9.5, fill: C.dimText, anchor: 'middle' });
 
   // persona che cucina
   sh.omino(X(V.T + 96), Yg(0), 175);
@@ -566,10 +622,10 @@ function tavolaRetro() {
   const xd = X(-40) - 24;
   sh.dimV(Yg(0), Yg(V.pavTerra), xd, '78  (pavimento)', { ext: X(-sbalzo) });
   sh.dimV(Yg(0), Yg(topCucina), xd - 32, '98  (piano cucina)', { ext: X(V.cucina.t0) });
-  sh.dimV(Yg(0), Yg(V.pavTerra + V.H + 10), xd - 64, '189  (tetto chiuso)', { ext: X(-sbalzo) });
-  sh.dimV(Yg(0), Yg(hOpen + 12), xd - 96, '273  (tetto aperto)', { ext: X(-sbalzo) });
+  sh.dimV(Yg(0), Yg(V.pavTerra + V.H + 10), xd - 64, `${Math.round(CAR.altezza)}  (tetto chiuso)`, { ext: X(-sbalzo) });
+  sh.dimV(Yg(0), Yg(hOpen + 12), xd - 96, `${Math.round(CAR.altezza + V.popUp)}  (tetto aperto)`, { ext: X(-sbalzo) });
   sh.dimH(X(0), X(V.T), Yg(0) + 40, '130  (interno)', { ext: Yg(0) });
-  sh.dimH(X(-sbalzo), X(larghezza - sbalzo), Yg(0) + 70, '179  (largh. veicolo)');
+  sh.dimH(X(-sbalzo), X(larghezza - sbalzo), Yg(0) + 70, `${larghezza.toFixed(0)}  (largh. veicolo)`);
 
   sh.text(X(-36), Yg(214), 'piano a 98 cm da terra: altezza di lavoro giusta', { size: 9.5, fill: C.acc });
   sh.text(X(-36), Yg(214) - 13, 'per una persona di 175-185 cm', { size: 9.5, fill: C.dimText });
@@ -586,6 +642,7 @@ function tavolaRetro() {
 // ---------------------------------------------------------------- output
 
 const tavole = [
+  ['tav-0-rilievo.svg', 'Tav. 0 — Scheda di rilievo da compilare sul mezzo', tavolaRilievo()],
   ['tav-1-pianta.svg', 'Tav. 1 — Pianta dell’allestimento', tavolaPianta()],
   ['tav-2-sezione-aa.svg', 'Tav. 2 — Sezione longitudinale A-A (cucina estratta, scrivania, letto)', tavolaSezioneAA()],
   ['tav-3-sezione-bb.svg', 'Tav. 3 — Sezione trasversale B-B (pozzetto piedi e postazione PC)', tavolaSezioneBB()],

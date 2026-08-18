@@ -58,9 +58,18 @@ soffietto in un secondo momento senza rifare il retro.
 Riferimento KDJ120 5 porte, sedili posteriori rimossi:
 vano utile ≈ **165 cm (lung.) × 130 cm (largh.) × 90 cm (alt.)**.
 
-> 📐 **Disegni quotati**: [docs/disegni/](disegni/) — pianta, due sezioni, dettaglio
-> cucina e vista posteriore in uso. PDF pronto da stampare:
+> 📐 **Disegni quotati**: [docs/disegni/](disegni/) — scheda di rilievo, pianta, due
+> sezioni, dettaglio cucina e vista posteriore in uso. PDF pronto da stampare:
 > [cyber-cruiser-tavole.pdf](disegni/cyber-cruiser-tavole.pdf).
+
+> ⚠️ **Da dove vengono i numeri.** Le quote **esterne** sono da scheda tecnica
+> (4840 × 1855 × 1845 mm, passo 2790 mm). Le quote **interne del vano** sono
+> invece *valori di progetto*: il vano di carico cambia con allestimento, terza
+> fila, rivestimenti e tipo di ruota di scorta, e Toyota non pubblica le misure
+> interne. Vanno confermate col metro sul mezzo che comprerai — la
+> [Tav. 0](disegni/tav-0-rilievo.svg) è la scheda da stampare e portarsi dietro.
+> Rilevate le misure, si aggiorna `docs/disegni/quote.mjs` e tavole, PDF e
+> modello 3D si riallineano da soli.
 
 La quota che comanda tutto il progetto non è dentro il veicolo: è il **pavimento
 del vano, che sta a 78 cm da terra**. Da lì discendono l'altezza della cucina

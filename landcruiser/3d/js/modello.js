@@ -95,10 +95,11 @@ export function persona({ seduta = false } = {}) {
 function carrozzeria() {
   const g = new THREE.Group();
   const s = new THREE.Shape();
+  // profilo laterale (z, y) sulle quote di catalogo: 484 lungo, 184,5 alto
   const p = [
-    [-12, 45], [-12, 186], [230, 186], [246, 190], [318, 186],
-    [352, 140], [430, 128], [472, 122], [478, 96], [478, 58],
-    [458, 46], [300, 42], [-12, 45],
+    [-12, 45], [-12, 182], [230, 182], [246, 184.5], [320, 182],
+    [354, 138], [434, 126], [476, 120], [484, 94], [484, 57],
+    [462, 45], [300, 41], [-12, 45],
   ];
   s.moveTo(p[0][0], p[0][1]);
   p.slice(1).forEach(([z, y]) => s.lineTo(z, y));

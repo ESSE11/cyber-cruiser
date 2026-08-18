@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1310 996" width="1310" height="996" font-family="DejaVu Sans Mono, monospace">
+<rect width="1310" height="996" fill="#0d1219"/>
+<text x="70.0" y="64.0" fill="#ffb020" font-size="17" font-family="DejaVu Sans Mono, monospace" letter-spacing="2" text-anchor="start" font-weight="700">MISURE DA PRENDERE SUL VEICOLO</text>
+<text x="70.0" y="90.0" fill="#9fb3c4" font-size="10.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">La colonna “progetto” è il valore usato nelle tavole. Rileva il tuo e, se cambia, aggiorna docs/disegni/quote.mjs:</text>
+<text x="70.0" y="108.0" fill="#9fb3c4" font-size="10.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">tavole, PDF e modello 3D si riallineano da soli. Misura con i sedili posteriori già rimossi e il mezzo in piano.</text>
+<line x1="70.0" y1="130.0" x2="1220.0" y2="130.0" stroke="#ffb020" stroke-width="1.6"/>
+<text x="110.0" y="122.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="1.6" text-anchor="start">QUOTA</text>
+<text x="945.0" y="122.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="1.6" text-anchor="middle">PROGETTO</text>
+<text x="1090.0" y="122.0" fill="#ffb020" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="1.6" text-anchor="middle">RILEVATO (cm)</text>
+<line x1="70.0" y1="198.0" x2="1220.0" y2="198.0" stroke="#6c8296" stroke-width="0.5"/>
+<text x="70.0" y="160.0" fill="#ffb020" font-size="12" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="700">1</text>
+<text x="110.0" y="160.0" fill="#e6edf3" font-size="12.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="600">Lunghezza vano</text>
+<text x="110.0" y="178.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">dal filo portellone chiuso allo schienale dei sedili anteriori, tutti indietro</text>
+<text x="945.0" y="162.0" fill="#e6edf3" font-size="13" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">165</text>
+<rect x="1010.0" y="142.0" width="160.0" height="30.0" fill="none" stroke="#ffb020" stroke-width="1" rx="4"/>
+<line x1="70.0" y1="260.0" x2="1220.0" y2="260.0" stroke="#6c8296" stroke-width="0.5"/>
+<text x="70.0" y="222.0" fill="#ffb020" font-size="12" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="700">2</text>
+<text x="110.0" y="222.0" fill="#e6edf3" font-size="12.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="600">Larghezza massima</text>
+<text x="110.0" y="240.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">fra i rivestimenti, all’altezza del piano previsto (+50)</text>
+<text x="945.0" y="224.0" fill="#e6edf3" font-size="13" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">130</text>
+<rect x="1010.0" y="204.0" width="160.0" height="30.0" fill="none" stroke="#ffb020" stroke-width="1" rx="4"/>
+<line x1="70.0" y1="322.0" x2="1220.0" y2="322.0" stroke="#6c8296" stroke-width="0.5"/>
+<text x="70.0" y="284.0" fill="#ffb020" font-size="12" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="700">3</text>
+<text x="110.0" y="284.0" fill="#e6edf3" font-size="12.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="600">Larghezza fra i passaruota</text>
+<text x="110.0" y="302.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">la quota che limita cassettoni e serbatoio</text>
+<text x="945.0" y="286.0" fill="#e6edf3" font-size="13" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">104</text>
+<rect x="1010.0" y="266.0" width="160.0" height="30.0" fill="none" stroke="#ffb020" stroke-width="1" rx="4"/>
+<line x1="70.0" y1="384.0" x2="1220.0" y2="384.0" stroke="#6c8296" stroke-width="0.5"/>
+<text x="70.0" y="346.0" fill="#ffb020" font-size="12" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="700">4</text>
+<text x="110.0" y="346.0" fill="#e6edf3" font-size="12.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="600">Altezza vano</text>
+<text x="110.0" y="364.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">dal pavimento al cielo, al centro</text>
+<text x="945.0" y="348.0" fill="#e6edf3" font-size="13" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">90</text>
+<rect x="1010.0" y="328.0" width="160.0" height="30.0" fill="none" stroke="#ffb020" stroke-width="1" rx="4"/>
+<line x1="70.0" y1="446.0" x2="1220.0" y2="446.0" stroke="#6c8296" stroke-width="0.5"/>
+<text x="70.0" y="408.0" fill="#ffb020" font-size="12" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="700">5</text>
+<text x="110.0" y="408.0" fill="#e6edf3" font-size="12.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="600">Altezza soglia da terra</text>
+<text x="110.0" y="426.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">a vuoto, con le gomme che monterai</text>
+<text x="945.0" y="410.0" fill="#e6edf3" font-size="13" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">78</text>
+<rect x="1010.0" y="390.0" width="160.0" height="30.0" fill="none" stroke="#ffb020" stroke-width="1" rx="4"/>
+<line x1="70.0" y1="508.0" x2="1220.0" y2="508.0" stroke="#6c8296" stroke-width="0.5"/>
+<text x="70.0" y="470.0" fill="#ffb020" font-size="12" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="700">6</text>
+<text x="110.0" y="470.0" fill="#e6edf3" font-size="12.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="600">Passaruota: lunghezza / sporgenza / altezza</text>
+<text x="110.0" y="488.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">la sagoma attorno a cui girano i mobili</text>
+<text x="945.0" y="472.0" fill="#e6edf3" font-size="13" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">60 / 13 / 28</text>
+<rect x="1010.0" y="452.0" width="160.0" height="30.0" fill="none" stroke="#ffb020" stroke-width="1" rx="4"/>
+<line x1="70.0" y1="570.0" x2="1220.0" y2="570.0" stroke="#6c8296" stroke-width="0.5"/>
+<text x="70.0" y="532.0" fill="#ffb020" font-size="12" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="700">7</text>
+<text x="110.0" y="532.0" fill="#e6edf3" font-size="12.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="600">Luce netta del portellone</text>
+<text x="110.0" y="550.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">largh. × alt. dell’apertura: la cucina deve passarci</text>
+<text x="945.0" y="534.0" fill="#e6edf3" font-size="13" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">—</text>
+<rect x="1010.0" y="514.0" width="160.0" height="30.0" fill="none" stroke="#ffb020" stroke-width="1" rx="4"/>
+<line x1="70.0" y1="632.0" x2="1220.0" y2="632.0" stroke="#6c8296" stroke-width="0.5"/>
+<text x="70.0" y="594.0" fill="#ffb020" font-size="12" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="700">8</text>
+<text x="110.0" y="594.0" fill="#e6edf3" font-size="12.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="600">Profondità utile sotto il pavimento</text>
+<text x="110.0" y="612.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">per il falso pavimento e il serbatoio ribassato</text>
+<text x="945.0" y="596.0" fill="#e6edf3" font-size="13" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">12</text>
+<rect x="1010.0" y="576.0" width="160.0" height="30.0" fill="none" stroke="#ffb020" stroke-width="1" rx="4"/>
+<line x1="70.0" y1="694.0" x2="1220.0" y2="694.0" stroke="#6c8296" stroke-width="0.5"/>
+<text x="70.0" y="656.0" fill="#ffb020" font-size="12" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="700">9</text>
+<text x="110.0" y="656.0" fill="#e6edf3" font-size="12.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="600">Lunghezza del tetto piano</text>
+<text x="110.0" y="674.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">zona utile per il soffietto, dal lunotto al parabrezza</text>
+<text x="945.0" y="658.0" fill="#e6edf3" font-size="13" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">—</text>
+<rect x="1010.0" y="638.0" width="160.0" height="30.0" fill="none" stroke="#ffb020" stroke-width="1" rx="4"/>
+<line x1="70.0" y1="756.0" x2="1220.0" y2="756.0" stroke="#6c8296" stroke-width="0.5"/>
+<text x="70.0" y="718.0" fill="#ffb020" font-size="12" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="700">10</text>
+<text x="110.0" y="718.0" fill="#e6edf3" font-size="12.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start" font-weight="600">Massa a vuoto e massa complessiva</text>
+<text x="110.0" y="736.0" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">dalla carta di circolazione: è il budget dei pesi</text>
+<text x="945.0" y="720.0" fill="#e6edf3" font-size="13" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">—</text>
+<rect x="1010.0" y="700.0" width="160.0" height="30.0" fill="none" stroke="#ffb020" stroke-width="1" rx="4"/>
+<text x="70.0" y="800.0" fill="#ffb020" font-size="10.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="1.8" text-anchor="start" font-weight="700">DA PORTARE</text>
+<text x="70.0" y="820.0" fill="#9fb3c4" font-size="10.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">metro a nastro 5 m · metro laser · livella · torcia · cacciavite (per sondare la ruggine del telaio) · questa scheda stampata</text>
+<text x="70.0" y="848.0" fill="#ffb020" font-size="10.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="1.8" text-anchor="start" font-weight="700">ATTENZIONE</text>
+<text x="70.0" y="868.0" fill="#9fb3c4" font-size="10.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">Le quote interne di queste tavole sono valori di progetto, non dati di catalogo: il vano cambia con allestimento, terza fila e rivestimenti.</text>
+<text x="70.0" y="884.0" fill="#9fb3c4" font-size="10.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">Le quote esterne (484 × 185,5 × 184,5 cm, passo 279) sono invece da scheda tecnica.</text>
+<rect x="956.0" y="912.0" width="330.0" height="64.0" fill="#131b23" stroke="#6c8296" stroke-width="1.2"/>
+<line x1="956.0" y1="936.0" x2="1286.0" y2="936.0" stroke="#6c8296" stroke-width="1"/>
+<text x="966.0" y="928.0" fill="#ffb020" font-size="11.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="1.6" text-anchor="start" font-weight="700">TAV. 0 — SCHEDA DI RILIEVO</text>
+<text x="966.0" y="951.0" fill="#9fb3c4" font-size="8.6" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.4" text-anchor="start">da compilare sul mezzo prima di costruire</text>
+<text x="966.0" y="965.0" fill="#6c8296" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">CYBER CRUISER · KDJ120 · quote in cm · rev. B</text>
+</svg>

@@ -28,9 +28,19 @@ export const V = {
   serbatoio: { l0: 62,  l1: 112, t0: 13, t1: 113, h: 12 },   // 100×50×12 = 60 L
 };
 
-// Quote della carrozzeria, servono solo al modello 3D.
+// Quote della carrozzeria (KDJ120 5 porte, dati di catalogo verificati:
+// 4840 × 1855 × 1845 mm, passo 2790 mm — fonte wheel-size.com / autoevolution).
 export const CARROZZERIA = {
-  larghezza: 179, lunghezza: 478, altezza: 189,
+  larghezza: 185.5, lunghezza: 484, altezza: 184.5,
   passo: 279, sbalzoPost: 90, ruota: { r: 38, w: 26 },
   assePost: 85,                 // coincide col centro del passaruota nei disegni
+};
+
+// Stato di ciascuna quota interna: 'catalogo' = da dati ufficiali,
+// 'stima' = valore di progetto da confermare col metro sul mezzo reale.
+// Vedi la scheda di rilievo in docs/02-layout-camper.md.
+export const ORIGINE = {
+  L: 'stima', T: 'stima', H: 'stima', pavTerra: 'stima',
+  arco: 'stima', larghezza: 'catalogo', lunghezza: 'catalogo',
+  altezza: 'catalogo', passo: 'catalogo',
 };
