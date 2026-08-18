@@ -98,9 +98,10 @@
 // Distinta base: gli stessi numeri del documento 06 del progetto.
 // [id, voce, nota, categoria, fase, € min, € max]
 const VOCI = [
-  ['veic-mezzo', 'Land Cruiser KDJ120 5 porte', '200-280.000 km, telaio sano, tagliandi', 'veicolo', 0, 14000, 19000],
+  ['veic-mezzo', 'Land Cruiser Prado 90/95 5 porte', '1KZ-TE 3.0 TD, telaio sano, testata documentata', 'veicolo', 0, 8000, 13000],
   ['veic-tagl', 'Tagliando completo all\'acquisto', 'cinghie, liquidi, filtri', 'veicolo', 1, 800, 1200],
   ['veic-gomme', 'Gomme all-terrain 265/70 R16', '5 pezzi, ruota di scorta compresa', 'veicolo', 1, 900, 1300],
+  ['veic-testata', 'Fondo testata / iniettori 1KZ-TE', 'il difetto noto del motore: o è gia fatto, o mettilo a budget', 'veicolo', 1, 0, 2500],
   ['veic-riserva', 'Riserva sorprese primi 6 mesi', 'la voce che tutti dimenticano', 'veicolo', 1, 1500, 1500],
 
   ['ab-tetto', 'Tetto a soffietto installato', 'kit + montaggio: +95 cm, 185 interni', 'abitativo', 5, 7500, 11000],
@@ -132,7 +133,7 @@ const VOCI = [
   ['el-schermo', 'Schermo 10,1" 1280×800 touch', 'principale, in plancia', 'elettronica', 2, 130, 130],
   ['el-schermo2', 'Schermo 7" impianti', 'secondo HDMI del Pi 5', 'elettronica', 2, 70, 90],
   ['el-ups', 'Alimentatore 12→5 V con shutdown pulito', '', 'elettronica', 2, 70, 70],
-  ['el-obd', 'CAN HAT MCP2515 + cavo OBD-II', 'o ELM327 USB sui 2003-2005', 'elettronica', 2, 35, 35],
+  ['el-motore', 'Sensori motore (giri, temp, EGT, pressione olio)', 'il 1KZ-TE non ha OBD-II: la telemetria la costruiamo noi', 'elettronica', 2, 120, 180],
   ['el-gps', 'GPS u-blox NEO-M8N', '', 'elettronica', 2, 30, 30],
   ['el-sens', 'IMU, BME280, 3× DS18B20, ADS1115', 'inclinometro, temperature, serbatoi', 'elettronica', 2, 60, 60],
   ['el-press', 'Trasduttore pressione 0-6 bar + flussimetro', 'diagnosi pompa e litri della doccia', 'elettronica', 2, 45, 60],

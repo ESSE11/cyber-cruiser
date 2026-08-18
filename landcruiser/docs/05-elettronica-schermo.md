@@ -12,7 +12,7 @@ e senza rete.
 | Storage | SSD NVMe via HAT, **non microSD** | Le microSD muoiono per i tagli di alimentazione: è il guasto n.1 nei progetti car-PC |
 | Schermo | **10,1" IPS 1280×800 touch capacitivo**, luminosità ≥ 450 cd/m² | 7" è troppo piccolo per la doppia funzione, 12" non entra nella plancia del 120 |
 | Alimentazione | convertitore 12→5 V 5 A **con spegnimento ritardato** (LiFePO4 buffer o UPS HAT tipo PiJuice / Witty Pi 4) | Deve fare shutdown pulito quando giri la chiave, altrimenti corrompi il filesystem |
-| OBD | **CAN HAT MCP2515** collegato al pin 6/14 dell'OBD-II, oppure adattatore ELM327 USB | Il KDJ120 2006+ parla ISO 15765-4 (CAN 500 kbit); i modelli 2003-2005 possono essere K-line (ISO 14230) → in quel caso ELM327 |
+| Motore | **sensori nostri**, non OBD (vedi riquadro sotto) | Sul Prado 90/95 col 1KZ-TE non c'è una diagnosi standard da cui leggere |
 | GPS | modulo u-blox NEO-M8N USB/UART | Velocità e quota affidabili anche dove l'OBD non dà velocità |
 | IMU | **MPU-6050 / BNO055** | Inclinometro pitch/roll — la schermata che userai davvero in fuoristrada |
 | Ambiente | BME280 (temp/umidità/pressione), DS18B20 ×3 | Temperature interne, esterna, frigo |
@@ -27,11 +27,37 @@ e senza rete.
 
 ### Montaggio in plancia
 
-Sul KDJ120 il vano centrale della radio (doppio DIN) e il vano portaoggetti
+Sul Prado 90/95 il vano centrale della radio (doppio DIN) e il vano portaoggetti
 sopra permettono un adattamento pulito con cornice stampata in 3D
 (PETG, non PLA: d'estate dietro il parabrezza si superano i 60 °C).
 Il Raspberry va nel vano sotto il sedile passeggero, con ventilazione, collegato
 allo schermo con cavo HDMI piatto + USB touch.
+
+### Il 90/95 non ha OBD-II: la telemetria motore la costruiamo
+
+Questa è la conseguenza pratica di aver scelto il Prado 90/95 al posto di un
+120. L'OBD-II è obbligatorio sui diesel immatricolati in Europa **dal 2004**:
+un 1KZ-TE del 1996-2002 espone al massimo il connettore diagnostico Toyota
+(DLC1, protocollo proprietario, quasi solo codici guasto). Niente giri, niente
+temperature, niente carico motore da leggere in chiaro.
+
+Non è un problema, è un cambio di sorgente: sul 1KZ-TE tutto ciò che serve è
+già un segnale elettrico da qualche parte.
+
+| Grandezza | Da dove la prendiamo |
+|---|---|
+| Giri motore | morsetto **W dell'alternatore** (onda quadra proporzionale ai giri) su GPIO, con partitore e ottoaccoppiatore |
+| Velocità | **GPS**, che sulle gomme maggiorate è pure più onesto del tachimetro |
+| Temperatura refrigerante | sonda **DS18B20 sul manicotto** o secondo sensore NTC in derivazione |
+| Temperatura gas di scarico | **termocoppia K + MAX31855** sul collettore: sul turbodiesel è il dato che protegge il motore |
+| Pressione olio | trasduttore 0-10 bar al posto (o in parallelo) del bulbo di serie |
+| Sovralimentazione | sensore MAP 0-3 bar sul collettore |
+| Livello gasolio | il galleggiante di serie, letto sull'ADS1115 |
+| Spie originali | ottoaccoppiatori sui fili delle spie, come fa il Cyber Pandino |
+
+Costo di questa scelta: ~150 € di sensori in più e qualche ora di cablaggio.
+In cambio i valori sono **misurati**, non stimati da una centralina che sul
+diesel dà comunque numeri approssimativi.
 
 ## Un solo computer, due schermi
 

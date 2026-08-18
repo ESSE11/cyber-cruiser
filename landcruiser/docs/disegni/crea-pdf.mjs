@@ -80,7 +80,7 @@ const html = `<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8">
 
 <section class="page cover">
   <h1>CYBER<span>CRUISER</span></h1>
-  <div class="sub">Toyota Land Cruiser KDJ120 — allestimento camper · tavole tecniche · rev. B</div>
+  <div class="sub">Toyota Land Cruiser Prado 90/95 — allestimento camper · tavole tecniche · rev. B</div>
   <div class="cols">
     <ul>
       ${TAVOLE.map(([, t]) => `<li><span>▸</span> ${t}</li>`).join('\n      ')}

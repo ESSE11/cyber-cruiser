@@ -55,7 +55,7 @@ soffietto in un secondo momento senza rifare il retro.
 
 ## Layout del vano posteriore
 
-Riferimento KDJ120 5 porte, sedili posteriori rimossi:
+Riferimento Prado 90/95 5 porte, seconda e terza fila rimosse:
 vano utile ≈ **165 cm (lung.) × 130 cm (largh.) × 90 cm (alt.)**.
 
 > 📐 **Disegni quotati**: [docs/disegni/](disegni/) — scheda di rilievo, pianta, due
@@ -160,7 +160,7 @@ soffietto non prevede il letto ripiegabile, la postazione PC non funziona:
 
 ## Budget pesi (il vincolo vero)
 
-KDJ120: massa a vuoto ~2.100 kg, massa complessiva ~2.850 kg → **portata ~750 kg**,
+Prado 90/95: massa a vuoto 1.885 kg, massa complessiva 2.710 kg → **portata ~795 kg**,
 da cui togliere le persone.
 
 | Voce | kg |

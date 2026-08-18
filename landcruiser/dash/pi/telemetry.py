@@ -69,7 +69,13 @@ async def broadcast_loop() -> None:
 # --------------------------------------------------------------------------
 
 async def obd_source(port: str | None) -> None:
-    """Motore via OBD-II. Sul KDJ120 2006+ è CAN ISO 15765-4."""
+    """Motore via OBD-II.
+
+    Sul Prado 90/95 (1KZ-TE, 1996-2002) l'OBD-II standard NON c'è: questa
+    sorgente resta per un eventuale mezzo più recente o per un ELM327 su
+    protocollo Toyota. La telemetria motore vera arriva dai sensori nostri,
+    vedi docs/05-elettronica-schermo.md.
+    """
     try:
         import obd
     except ImportError:

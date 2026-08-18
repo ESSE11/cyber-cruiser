@@ -17,9 +17,38 @@ quindi conta il volume dietro, la portata utile e l'affidabilità in viaggio.
 | Prezzo usato tipico | 12.000-22.000 € | 15.000-30.000 € (105 quotati alti) | 8.000-14.000 € |
 | Ricambi / officine | ottimi, ancora comuni | buoni, alcuni pezzi cari | buoni |
 
-### Raccomandazione
+### Raccomandazione — aggiornata: **Prado 90/95, 5 porte**
 
-**KDJ120 passo lungo, 5 porte, 2006-2009** come prima scelta.
+> Prima versione di questo documento consigliava il KDJ120. La scelta è stata
+> cambiata dopo aver messo i numeri accanto ai prezzi reali: il mezzo è il
+> **Prado J95 5 porte, 1996-2002**.
+
+Perché il 90/95 vince su questo progetto:
+
+| | Prado 90/95 | KDJ120 |
+|---|---|---|
+| Prezzo usato sano | **8.000 - 13.000 €** | 12.000 - 18.000 € |
+| Massa a vuoto / complessiva | 1.885 / 2.710 kg | ~2.100 / 2.990 kg |
+| **Portata utile** | **fino a 795 kg** (3.0 TD 125 cv) | ~600 kg |
+| Serbatoio | 90 L | 87 L |
+| Vano utile (2ª e 3ª fila via) | 158 × 128 × 88 cm | 165 × 130 × 90 cm |
+| Motore | 1KZ-TE, iniezione meccanica gestita, si ripara ovunque | 1KD-FTV common rail, officina |
+| Elettronica | quasi assente: nessun OBD-II da cui leggere | CAN OBD-II ricco |
+
+Sette centimetri di vano in meno, **200 kg di portata in più** e 5.000 € in
+meno: su un mezzo che deve portarsi dietro soffietto, batteria, acqua e
+mobilio, la portata conta più della lunghezza.
+
+Il prezzo da pagare è la telemetria: senza OBD-II i dati motore vanno presi con
+sensori nostri (vedi doc 05, riquadro sull'assenza di diagnosi standard).
+
+### Il difetto da conoscere prima di comprare
+
+Sul **1KZ-TE** il punto debole è la **testata** (crepe fra le sedi valvole,
+tipiche sopra i 200.000 km e sui mezzi che hanno scaldato). Un esemplare con
+testata già rifatta, fattura alla mano, vale più di uno "mai aperto" con
+250.000 km. Metti comunque 2.000-2.500 € a budget per questa voce: se non serve,
+diventano gomme e sospensioni.
 
 Motivi: è il miglior compromesso volume/prezzo/guidabilità; il tetto è lungo e
 piatto (ideale sia per il soffietto sia per il rack); dal 2006 il 1KD-FTV è la

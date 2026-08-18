@@ -3,7 +3,7 @@
 //
 //   node genera-disegni.mjs      → tav-1 ... tav-5 (.svg) + index.html
 //
-// Sistema di riferimento del veicolo (KDJ120 passo lungo, sedili post. rimossi):
+// Sistema di riferimento del veicolo (Prado 90/95 passo lungo, sedili post. rimossi):
 //   L = longitudinale, 0 = filo portellone, 165 = schienale sedili anteriori
 //   T = trasversale,   0 = fiancata sinistra, 130 = fiancata destra
 //   H = verticale,     0 = pavimento del vano (che sta a 78 cm da terra)
@@ -102,7 +102,7 @@ class Sheet {
     this.line(x, y + 24, x + w, y + 24, { stroke: C.dim, sw: 1 });
     this.text(x + 10, y + 16, this.title, { size: 11.5, weight: 700, fill: C.acc, ls: 1.6 });
     this.text(x + 10, y + 39, this.subtitle, { size: 8.6, fill: C.dimText, ls: 0.4 });
-    this.text(x + 10, y + 53, 'CYBER CRUISER · KDJ120 · quote in cm · rev. B', { size: 9, fill: C.dim });
+    this.text(x + 10, y + 53, 'CYBER CRUISER · PRADO 90/95 · quote in cm · rev. C', { size: 9, fill: C.dim });
     return this;
   }
   /** Sagoma umana in piedi (h in cm), per dare la scala. */
@@ -667,7 +667,7 @@ const html = `<!DOCTYPE html>
   img { width:100%; min-width:760px; height:auto; display:block; }
 </style></head><body><div class="wrap">
 <h1>CYBER<span>CRUISER</span> — DISEGNI TECNICI INTERNI</h1>
-<p class="sub">Land Cruiser KDJ120 passo lungo · quote in cm · rev. B<br>
+<p class="sub">Land Cruiser Prado 90/95 passo lungo · quote in cm · rev. B<br>
 Pavimento del vano a 78 cm da terra: è la quota che comanda l’ergonomia di tutto il progetto.</p>
 ${tavole.map(([f, t]) => `<figure><figcaption>${t}</figcaption><img src="${f}" alt="${t}"></figure>`).join('\n')}
 </div></body></html>`;

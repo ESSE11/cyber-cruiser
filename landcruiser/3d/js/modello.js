@@ -105,9 +105,15 @@ function carrozzeria() {
   const sporg = (CAR.larghezza - V.T) / 2;
   const xDx = V.T + sporg, xSx = -sporg;
 
+  // Il profilo è disegnato una volta su una sagoma di riferimento 484 × 186 e
+  // poi riscalato sulle quote reali del mezzo: cambiando generazione bastano i
+  // numeri in CARROZZERIA, la forma segue.
+  const kz = CAR.lunghezza / 484, ky = CAR.altezza / 186;
+  const Z = (v) => v * kz, YY = (v) => v * ky;
+
   // profilo laterale (z, y) in cm: coda squadrata, padiglione piatto,
   // montante A inclinato, cofano quasi orizzontale, muso corto
-  const p = [
+  const pRif = [
     [-14, 44], [-14, 104], [-13, 158], [-11, 180], [-6, 186],
     [110, 187], [232, 186],
     [246, 185], [268, 176], [296, 154],      // parabrezza
@@ -116,6 +122,7 @@ function carrozzeria() {
     [472, 100], [474, 74],
     [466, 58], [440, 50], [300, 47], [150, 47], [30, 48], [-8, 50],
   ];
+  const p = pRif.map(([z, y]) => [Z(z), YY(y)]);
   const shape = new THREE.Shape();
   shape.moveTo(p[0][0], p[0][1]);
   p.slice(1).forEach(([z, y]) => shape.lineTo(z, y));
@@ -149,7 +156,8 @@ function carrozzeria() {
 
   // vetratura sopra la linea di cintura
   const vetro = new THREE.Shape();
-  const pv = [[4, 152], [4, 180], [234, 179], [250, 177], [290, 155], [238, 152]];
+  const pv = [[4, 152], [4, 180], [234, 179], [250, 177], [290, 155], [238, 152]]
+    .map(([z, y]) => [Z(z), YY(y)]);
   vetro.moveTo(pv[0][0], pv[0][1]);
   pv.slice(1).forEach(([z, y]) => vetro.lineTo(z, y));
   vetro.closePath();
@@ -180,7 +188,7 @@ function carrozzeria() {
   // pedane laterali fra i passaruota
   for (const x of [xSx - 4, xDx + 4]) {
     const ped = new THREE.Mesh(new THREE.BoxGeometry(14, 6, 190), matNero);
-    ped.position.set(x, 56, (CAR.assePost + CAR.passo / 2) - 20);
+    ped.position.set(x, YY(56), (CAR.assePost + CAR.passo / 2) - 18);
     g.add(ped);
   }
 
@@ -190,8 +198,8 @@ function carrozzeria() {
     b.position.set(V.T / 2, y, (z0 + z1) / 2);
     g.add(b);
   };
-  par(-24, -13, 58);
-  par(470, 484, 62);
+  par(Z(-24), Z(-13), YY(58));
+  par(Z(470), Z(484), YY(62));
 
   // snorkel sul montante anteriore destro
   const snorkel = new THREE.Group();
@@ -200,23 +208,23 @@ function carrozzeria() {
   const presa = new THREE.Mesh(new THREE.CylinderGeometry(7, 7, 16, 12), matNero);
   presa.position.set(0, 100, 0);
   snorkel.add(tubo, presa);
-  snorkel.position.set(xDx + 3, 122, 292);
+  snorkel.position.set(xDx + 3, YY(122), Z(292));
   g.add(snorkel);
 
   // rack a piattaforma sopra la cabina (dove nelle foto stanno tenda e faretti)
   const rack = new THREE.Mesh(new THREE.BoxGeometry(CAR.larghezza - 26, 5, 96), matScuro);
-  rack.position.set(V.T / 2, 191, 205);
+  rack.position.set(V.T / 2, CAR.altezza + 3, Z(205));
   g.add(rack);
   for (const z of [162, 205, 248]) {
     const trav = new THREE.Mesh(new THREE.BoxGeometry(CAR.larghezza - 20, 4, 5), matNero);
-    trav.position.set(V.T / 2, 194, z);
+    trav.position.set(V.T / 2, CAR.altezza + 6, Z(z));
     g.add(trav);
   }
 
   // specchietti
   for (const x of [xSx - 10, xDx + 10]) {
     const sp = new THREE.Mesh(new THREE.BoxGeometry(12, 9, 5), matScuro);
-    sp.position.set(x, 150, 300);
+    sp.position.set(x, YY(150), Z(300));
     g.add(sp);
   }
 
@@ -620,7 +628,7 @@ function gruppoPortellone() {
   const sporg = (CAR.larghezza - V.T) / 2;
   const cerniera = { x: -sporg, z: -9 };
   const larg = CAR.larghezza - 4;
-  const yBasso = 62, yAlto = Y(V.H) + 10;
+  const yBasso = 62, yAlto = Math.min(Y(V.H) + 10, CAR.altezza - 4);
 
   // Nota sul verso: la cerniera è a sinistra e il battente spazza dietro/sinistra,
   // così il lato destro — cucina estratta e chi cucina — resta libero.
@@ -822,7 +830,7 @@ function gruppoTenda() {
   const g = new THREE.Group();
   const td = EST.tenda;
   const sporg = (CAR.larghezza - V.T) / 2;
-  const quotaTetto = 188;                     // filo superiore delle barre
+  const quotaTetto = CAR.altezza;             // filo superiore delle barre
   const xCasson = -sporg - 9;
 
   // --- cassonetto: c'è sempre, aperta o chiusa ----------------------------
