@@ -311,6 +311,14 @@ async function caricaScocca() {
   const gltf = await new GLTFLoader().loadAsync('assets/scocca.glb');
   const m = gltf.scene;
 
+  // I modelli scaricati portano quasi sempre un piano d'appoggio o un fondale:
+  // qui darebbero un pavimento fantasma sopra il nostro terreno.
+  for (const nome of cfg.escludi ?? ['Plane']) {
+    const daTogliere = [];
+    m.traverse((n) => { if (n.isMesh && n.name.startsWith(nome)) daTogliere.push(n); });
+    for (const n of daTogliere) n.parent.remove(n);
+  }
+
   // allineamento: scala e offset stanno in assets/scocca.json, così si registra
   // il modello sulle nostre quote senza ritoccare il codice.
   const s = cfg.scala ?? 100;                       // GLB in metri -> cm

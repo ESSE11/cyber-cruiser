@@ -1,0 +1,10 @@
+{
+  "scala": 2.293,
+  "rotY": 0,
+  "dx": 128,
+  "dy": -0.2,
+  "dz": 315.3,
+  "opacita": 0.85,
+  "escludi": ["Plane"],
+  "nota": "Toyota Land Cruiser 76 (2016) da Sketchfab, CC-BY. NON è un Prado 90/95: scala e offset lo riportano sulle nostre quote (467 cm fuori tutto), ma le forme sono quelle del 70. Vale come volume di riferimento, non come disegno del mezzo."
+}

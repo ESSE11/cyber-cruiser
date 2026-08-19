@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CYBER CRUISER — Quale Land Cruiser</title>
+<meta name="description" content="Prado 90/95, Prado 120, 70-series 75/76/78/79 e 80 a confronto: sagome in scala, quote, portata, omologazione e cosa cambia davvero per camperizzare.">
+<meta name="theme-color" content="#0a0e12">
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+  .sagome { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; overflow-x: auto; }
+  .sagome svg { display: block; min-width: 760px; width: 100%; }
+  .lbl { font-family: var(--font-tit); font-size: 11px; letter-spacing: 1.4px; fill: var(--dim); }
+  .lbl b { fill: var(--text); }
+  .quota { font-family: var(--font-num); font-size: 11px; fill: var(--dim); }
+  .nostro .corpo { fill: rgba(255,176,32,.16); stroke: var(--acc); }
+  .corpo { fill: rgba(143,163,181,.09); stroke: #6d8092; stroke-width: 1.6; }
+  .ruota { fill: none; stroke: #6d8092; stroke-width: 1.6; }
+  .nostro .ruota { stroke: var(--acc); }
+  .suolo { stroke: #24303c; stroke-width: 1; }
+  td.si { color: var(--ok); } td.no { color: var(--alarm); }
+  .verdetto { border-left: 3px solid var(--acc); padding-left: 18px; margin: 26px 0; }
+  .scroll { overflow-x: auto; }
+  table { min-width: 900px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">CYBER<span>CRUISER</span></div>
+    <nav class="menu">
+      <a href="/landcruiser/3d/">Modello 3D</a>
+      <a href="/landcruiser/dash/?sim=1">Dashboard</a>
+      <a href="/checklist/">Checklist e costi</a>
+      <a class="on" href="/confronto/">Quale Land Cruiser</a>
+      <a href="/">Home</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Quale Land Cruiser, e perché</h2>
+    <p class="lead">
+      Si chiamano tutti Land Cruiser ma sono tre famiglie diverse: il <b>Prado</b>
+      (90, 120), la <b>serie 70</b> (75, 76, 78, 79) e la <b>serie pesante</b>
+      (80, 100/105). Cambiano telaio, sospensioni, portata e — in Italia — la
+      possibilità stessa di immatricolarli.
+    </p>
+
+    <div class="sagome" id="sagome"></div>
+    <p class="note" style="color:var(--dim);font-size:14px;margin-top:10px">
+      Sagome in scala, allineate sulla coda. Cerchi = assi alla distanza reale del passo.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>I numeri</h2>
+    <div class="scroll">
+      <table id="tab">
+        <thead>
+          <tr>
+            <th>Modello</th><th>Anni</th><th class="r">Lung.</th><th class="r">Passo</th>
+            <th class="r">Alt.</th><th class="r">Portata</th><th class="r">Serbatoio</th>
+            <th>Sospensioni</th><th>Immatricolabile in Italia</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Cosa cambia davvero</h2>
+    <div class="grid c2">
+      <div class="card">
+        <h3>Telaio e sospensioni</h3>
+        <p><b>Prado 90/120</b>: anteriore a ruote indipendenti, posteriore rigido a
+        molle. Comodo su strada, meno articolato in fuoristrada estremo.<br>
+        <b>75</b>: balestre davanti e dietro fino al 1999 — indistruttibile, ma
+        di comfort zero e con l'assetto che cambia parecchio a pieno carico.<br>
+        <b>76/78/79</b>: rigido dietro a balestre, davanti molle elicoidali.<br>
+        <b>80</b>: molle elicoidali su entrambi gli assi rigidi, la combinazione
+        più apprezzata dagli overlander.</p>
+      </div>
+      <div class="card">
+        <h3>Portata: il numero che decide</h3>
+        <p>Il nostro allestimento con acqua, batteria, persone e bagagli pesa
+        <b>667 kg</b>. Su un 120 (~600 kg di portata) si è già fuori legge prima
+        di partire. Su un 90/95 restano 158 kg di margine, su un 76 o un 79 ne
+        restano centinaia — ma quelli in Italia non si immatricolano.</p>
+      </div>
+      <div class="card">
+        <h3>Immatricolazione (il punto che taglia la lista)</h3>
+        <p>Le 70-series moderne (<b>76, 78, 79</b> dal 2007) non hanno omologazione
+        europea: importarle significa <i>visita e prova</i> in Motorizzazione e
+        conformità alle norme in vigore <b>oggi</b>, non a quelle del paese
+        d'origine. Un'omologazione individuale rilasciata da un altro Stato UE
+        vale solo lì. Tradotto: costi, tempi e rischio di non farcela.</p>
+      </div>
+      <div class="card">
+        <h3>Motori</h3>
+        <p><b>1KZ-TE</b> (90/95): 3.0 TD 125 cv, iniezione gestita ma semplice,
+        difetto noto alla testata.<br>
+        <b>1HZ</b> (75/78/76 base): 4.2 aspirato, nessuna elettronica, si ripara
+        ovunque nel mondo — e va piano.<br>
+        <b>1KD-FTV</b> (120, 90 dal 2000): common rail, più potenza, officina
+        obbligatoria.<br>
+        <b>1VD-FTV V8</b> (76/79 recenti): moderno e potente, ricambi cari.</p>
+      </div>
+    </div>
+
+    <div class="verdetto">
+      <h3 style="color:var(--acc);margin-bottom:8px">Per questo progetto: Prado 90/95</h3>
+      <p style="color:var(--dim)">
+        È l'unico che mette insieme le tre cose che servono: <b>portata sufficiente</b>
+        (825 kg), <b>targa italiana senza pratiche</b> e <b>prezzo d'ingresso basso</b>
+        (8-13.000 €). Il 76 e il 79 sarebbero mezzi migliori per viaggiare, ma in
+        Italia non si immatricolano; il 78 Troopy è il camper perfetto già di
+        fabbrica e infatti è la base di quasi tutti i build che si vedono online —
+        girati però in Australia e in Africa, dove si comprano dal concessionario.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">Quote di catalogo. Le versioni cambiano per mercato: prima di comprare, si legge la carta di circolazione di quell'esemplare.</div></footer>
+
+<script>
+// Un solo elenco: alimenta sia le sagome sia la tabella.
+// Quote in mm come sui cataloghi. `tipo` decide la sagoma.
+const MODELLI = [
+  { id: 'p90', nome: 'Prado 90/95 5p', anni: '1996-2002', tipo: 'wagon', nostro: true,
+    L: 4675, passo: 2675, W: 1820, H: 1880, portata: 825, serb: 90,
+    sosp: 'ant. indip. · post. rigido a molle', reg: 'sì, venduto in Europa',
+    note: 'il nostro' },
+  { id: 'p120', nome: 'Prado 120 5p', anni: '2003-2009', tipo: 'wagon',
+    L: 4840, passo: 2790, W: 1875, H: 1890, portata: 600, serb: 87,
+    sosp: 'ant. indip. · post. rigido a molle', reg: 'sì, venduto in Europa' },
+  { id: 'lc75', nome: '75 (HZJ75)', anni: '1985-1999', tipo: 'pickup',
+    L: 4890, passo: 2730, W: 1790, H: 1930, portata: 900, serb: 90,
+    sosp: 'balestre su entrambi gli assi', reg: 'sì se già immatricolato in UE' },
+  { id: 'lc76', nome: '76 wagon', anni: '2007→', tipo: 'wagon',
+    L: 4910, passo: 2730, W: 1870, H: 1940, portata: 805, serb: 130,
+    sosp: 'ant. molle · post. balestre', reg: 'no: nessuna omologazione UE' },
+  { id: 'lc78', nome: '78 Troop Carrier', anni: '1999→', tipo: 'troopy',
+    L: 5060, passo: 2980, W: 1690, H: 2115, portata: 1000, serb: 180,
+    sosp: 'ant. molle · post. balestre', reg: 'no: nessuna omologazione UE' },
+  { id: 'lc79', nome: '79 pick-up', anni: '1999→', tipo: 'pickup',
+    L: 5275, passo: 2980, W: 1790, H: 1955, portata: 1315, serb: 130,
+    sosp: 'ant. molle · post. balestre', reg: 'no: nessuna omologazione UE' },
+  { id: 'lc80', nome: '80 (HDJ80)', anni: '1990-1997', tipo: 'wagon',
+    L: 4970, passo: 2850, W: 1930, H: 1850, portata: 650, serb: 95,
+    sosp: 'molle elicoidali, due assi rigidi', reg: 'sì, venduto in Europa' },
+];
+
+// --- sagome in scala -------------------------------------------------------
+const SC = 0.047;                    // mm -> px
+const RIGA = 118;
+const MARGINE = { x: 148, y: 26 };
+const svgNS = 'http://www.w3.org/2000/svg';
+const el = (t, a = {}) => { const n = document.createElementNS(svgNS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+
+function profilo(m) {
+  const L = m.L * SC, H = m.H * SC;
+  const p = [];
+  if (m.tipo === 'wagon') {
+    p.push([0, 0], [0, -H * 0.82], [L * 0.03, -H], [L * 0.52, -H],
+      [L * 0.62, -H * 0.78], [L * 0.9, -H * 0.72], [L, -H * 0.52], [L, 0]);
+  } else if (m.tipo === 'troopy') {
+    p.push([0, 0], [0, -H], [L * 0.58, -H], [L * 0.66, -H * 0.74],
+      [L * 0.92, -H * 0.68], [L, -H * 0.5], [L, 0]);
+  } else {                                  // pick-up: cassone basso dietro
+    p.push([0, 0], [0, -H * 0.52], [L * 0.46, -H * 0.52], [L * 0.46, -H],
+      [L * 0.62, -H], [L * 0.72, -H * 0.74], [L * 0.94, -H * 0.68], [L, -H * 0.5], [L, 0]);
+  }
+  return p.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+}
+
+function disegna() {
+  const larg = Math.max(...MODELLI.map((m) => m.L)) * SC + MARGINE.x + 120;
+  const alt = MODELLI.length * RIGA + MARGINE.y + 20;
+  const svg = el('svg', { viewBox: `0 0 ${larg} ${alt}` });
+
+  MODELLI.forEach((m, i) => {
+    const y = MARGINE.y + i * RIGA + RIGA - 26;
+    const g = el('g', { class: m.nostro ? 'nostro' : '' });
+
+    g.appendChild(el('line', { class: 'suolo', x1: MARGINE.x - 8, y1: y, x2: larg - 20, y2: y }));
+    const poly = el('polygon', { class: 'corpo', points: profilo(m) });
+    poly.setAttribute('transform', `translate(${MARGINE.x} ${y})`);
+    g.appendChild(poly);
+
+    // ruote alla distanza reale del passo, con lo sbalzo posteriore stimato
+    const sbalzo = (m.L - m.passo) * 0.42 * SC;
+    for (const dz of [sbalzo, sbalzo + m.passo * SC]) {
+      g.appendChild(el('circle', { class: 'ruota', cx: MARGINE.x + dz, cy: y - 17, r: 17 }));
+    }
+
+    const t = el('text', { class: 'lbl', x: 8, y: y - 30 });
+    const b = el('tspan'); b.setAttribute('style', 'fill:var(--text)');
+    b.textContent = m.nome;
+    t.appendChild(b);
+    g.appendChild(t);
+
+    const q = el('text', { class: 'quota', x: 8, y: y - 12 });
+    q.textContent = `${(m.L / 10).toFixed(0)} cm · ${m.portata} kg`;
+    g.appendChild(q);
+
+    svg.appendChild(g);
+  });
+
+  // barra di scala: un metro
+  const y0 = alt - 8;
+  svg.appendChild(el('line', { class: 'suolo', x1: MARGINE.x, y1: y0, x2: MARGINE.x + 1000 * SC, y2: y0 }));
+  const s = el('text', { class: 'quota', x: MARGINE.x + 1000 * SC + 8, y: y0 + 4 });
+  s.textContent = '1 m';
+  svg.appendChild(s);
+
+  document.getElementById('sagome').appendChild(svg);
+}
+
+// --- tabella ---------------------------------------------------------------
+function tabella() {
+  const tb = document.querySelector('#tab tbody');
+  for (const m of MODELLI) {
+    const tr = document.createElement('tr');
+    const ok = m.reg.startsWith('sì');
+    tr.innerHTML = `
+      <td><b>${m.nome}</b>${m.nostro ? ' <span style="color:var(--acc)">← il nostro</span>' : ''}</td>
+      <td>${m.anni}</td>
+      <td class="r">${(m.L / 10).toFixed(0)} cm</td>
+      <td class="r">${(m.passo / 10).toFixed(0)} cm</td>
+      <td class="r">${(m.H / 10).toFixed(0)} cm</td>
+      <td class="r">${m.portata} kg</td>
+      <td class="r">${m.serb} L</td>
+      <td>${m.sosp}</td>
+      <td class="${ok ? 'si' : 'no'}">${m.reg}</td>`;
+    tb.appendChild(tr);
+  }
+}
+
+disegna();
+tabella();
+</script>
+</body>
+</html>
