@@ -104,7 +104,7 @@ const VISTE = {
 };
 
 // Gruppi accendibili: non sono animazioni, solo visibilità.
-const visibili = { impianti: 1, cabina: 1, esterni: 1, porte: 1, stivaggio: 1, etichette: 0, scocca: 0 };
+const visibili = { impianti: 1, cabina: 1, esterni: 1, porte: 0, stivaggio: 1, etichette: 0, scocca: 0 };
 
 function applicaVisibilita() {
   parti.impianti.visible = !!visibili.impianti;

@@ -760,8 +760,15 @@ function gruppoPorte() {
   const g = new THREE.Group();
   const sporg = (CAR.larghezza - V.T) / 2;
   const lati = [-sporg - 0.6, V.T + sporg + 0.6];   // 6 mm fuori, per non compenetrare
-  const matP = new THREE.LineBasicMaterial({ color: COL.ambra, transparent: true, opacity: 0.55 });
-  const matC = new THREE.LineBasicMaterial({ color: COL.ambra, transparent: true, opacity: 0.9 });
+  // Grigio-azzurro tratteggiato, non ambra: l'ambra qui è il colore dei piani
+  // di lavoro, usarla anche per le porte confondeva la legenda. E il tratteggio
+  // dice "apertura", non "oggetto".
+  const matP = new THREE.LineDashedMaterial({
+    color: 0x6d8092, transparent: true, opacity: 0.5, dashSize: 6, gapSize: 5,
+  });
+  const matC = new THREE.LineDashedMaterial({
+    color: 0x8fa3b5, transparent: true, opacity: 0.75, dashSize: 4, gapSize: 3,
+  });
 
   const rettangolo = (x, z0, z1, y0, y1, mat) => {
     const pts = [
@@ -769,7 +776,9 @@ function gruppoPorte() {
       new THREE.Vector3(x, y1, z1), new THREE.Vector3(x, y0, z1),
       new THREE.Vector3(x, y0, z0),
     ];
-    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), mat));
+    const linea = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), mat);
+    linea.computeLineDistances();          // senza, il tratteggio non compare
+    g.add(linea);
   };
 
   for (const p of [PORTE.ant, PORTE.post]) {
