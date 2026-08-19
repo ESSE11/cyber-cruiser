@@ -5,21 +5,21 @@
 <rect x="466.4" y="568.0" width="185.6" height="41.6" fill="#101820" stroke="#8fa3b5" stroke-width="1.2" stroke-dasharray="5 3"/>
 <text x="572.0" y="224.8" fill="#9fb3c4" font-size="8.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">PASSARUOTA</text>
 <text x="572.0" y="592.8" fill="#9fb3c4" font-size="8.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">PASSARUOTA</text>
-<rect x="300.0" y="200.0" width="230.4" height="140.8" fill="#182029" stroke="#35d0c0" stroke-width="1.6"/>
-<text x="415.2" y="266.4" fill="#e6edf3" font-size="11" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">FRIGO 50 L</text>
-<text x="415.2" y="281.4" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">45 × 75 · slitta</text>
-<rect x="300.0" y="340.8" width="185.6" height="268.8" fill="#182029" stroke="#ffb020" stroke-width="1.6"/>
-<text x="392.8" y="471.2" fill="#e6edf3" font-size="11" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">CUCINA ESTRAIBILE</text>
-<text x="392.8" y="486.2" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">85 × 60 · piano a +20</text>
-<rect x="485.6" y="340.8" width="108.8" height="227.2" fill="#182029" stroke="#e6edf3" stroke-width="1.6"/>
-<text x="540.0" y="450.4" fill="#e6edf3" font-size="11" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">2 CASSETTONI</text>
-<text x="540.0" y="465.4" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">72 × 35</text>
-<rect x="530.4" y="241.6" width="153.6" height="99.2" fill="#182029" stroke="#e6edf3" stroke-width="1.6"/>
-<text x="607.2" y="287.2" fill="#e6edf3" font-size="11" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">ATTREZZI</text>
-<text x="607.2" y="302.2" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">32 × 50</text>
-<rect x="594.4" y="340.8" width="89.6" height="220.8" fill="#0f1c1e" stroke="#35d0c0" stroke-width="1.6"/>
-<text x="639.2" y="447.2" fill="#e6edf3" font-size="11" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">POZZETTO PIEDI</text>
-<text x="639.2" y="462.2" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">70 × 30</text>
+<rect x="300.0" y="241.6" width="224.0" height="140.8" fill="#182029" stroke="#35d0c0" stroke-width="1.6"/>
+<text x="412.0" y="308.0" fill="#e6edf3" font-size="11" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">FRIGO 50 L</text>
+<text x="412.0" y="323.0" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">45 × 75 · slitta</text>
+<rect x="300.0" y="382.4" width="160.0" height="227.2" fill="#182029" stroke="#ffb020" stroke-width="1.6"/>
+<text x="380.0" y="492.0" fill="#e6edf3" font-size="11" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">CUCINA ESTRAIBILE</text>
+<text x="380.0" y="507.0" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">85 × 60 · piano a +20</text>
+<rect x="466.4" y="382.4" width="128.0" height="185.6" fill="#182029" stroke="#e6edf3" stroke-width="1.6"/>
+<text x="530.4" y="471.2" fill="#e6edf3" font-size="11" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">2 CASSETTONI</text>
+<text x="530.4" y="486.2" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">72 × 35</text>
+<rect x="524.0" y="241.6" width="160.0" height="140.8" fill="#182029" stroke="#e6edf3" stroke-width="1.6"/>
+<text x="604.0" y="308.0" fill="#e6edf3" font-size="11" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">ATTREZZI</text>
+<text x="604.0" y="323.0" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">32 × 50</text>
+<rect x="594.4" y="382.4" width="89.6" height="179.2" fill="#0f1c1e" stroke="#35d0c0" stroke-width="1.6"/>
+<text x="639.2" y="468.0" fill="#e6edf3" font-size="11" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">POZZETTO PIEDI</text>
+<text x="639.2" y="483.0" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">70 × 30</text>
 <rect x="684.0" y="200.0" width="121.6" height="192.0" fill="#182029" stroke="#35d0c0" stroke-width="1.6"/>
 <text x="744.8" y="292.0" fill="#e6edf3" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">VANO TECNICO</text>
 <text x="744.8" y="307.0" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">batteria · MPPT</text>
@@ -29,7 +29,7 @@
 <line x1="764.0" y1="212.8" x2="703.2" y2="91.2" stroke="#6c8296" stroke-width="1"/>
 <circle cx="764.0" cy="212.8" r="2.4" fill="#6c8296" stroke="none" stroke-width="1.4"/>
 <text x="709.2" y="94.7" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">SEDUTA / DINETTE sopra questi due vani</text>
-<rect x="581.6" y="340.8" width="144.0" height="220.8" fill="none" stroke="#ffb020" stroke-width="1.4" stroke-dasharray="7 4"/>
+<rect x="581.6" y="382.4" width="144.0" height="179.2" fill="none" stroke="#ffb020" stroke-width="1.4" stroke-dasharray="7 4"/>
 <line x1="664.8" y1="360.0" x2="428.0" y2="20.8" stroke="#ffb020" stroke-width="1"/>
 <circle cx="664.8" cy="360.0" r="2.4" fill="#ffb020" stroke="none" stroke-width="1.4"/>
 <text x="434.0" y="24.3" fill="#ffb020" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">SCRIVANIA / TAVOLO 70 × 45 — quota +76 — su braccio orientabile:</text>
@@ -40,9 +40,9 @@
 <line x1="524.0" y1="552.0" x2="524.0" y2="643.6" stroke="#35d0c0" stroke-width="1"/>
 <circle cx="524.0" cy="552.0" r="2.4" fill="#35d0c0" stroke="none" stroke-width="1.4"/>
 <text x="530.0" y="647.1" fill="#35d0c0" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">SERBATOIO 60 L (100 × 50 × 12) nel falso pavimento</text>
-<rect x="114.4" y="340.8" width="185.6" height="268.8" fill="none" stroke="#ffb020" stroke-width="1.2" stroke-dasharray="6 4"/>
-<text x="207.2" y="471.2" fill="#ffb020" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">CUCINA IN USO</text>
-<text x="207.2" y="485.2" fill="#ffb020" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">fuori dal portellone</text>
+<rect x="114.4" y="382.4" width="185.6" height="227.2" fill="none" stroke="#ffb020" stroke-width="1.2" stroke-dasharray="6 4"/>
+<text x="207.2" y="492.0" fill="#ffb020" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">CUCINA IN USO</text>
+<text x="207.2" y="506.0" fill="#ffb020" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">fuori dal portellone</text>
 <path d="M 287.2 641.6 L 130.39999999999998 641.6" fill="none" stroke="#ffb020" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
 <path d="M 130.39999999999998 641.6 l 8 -4 l 0 8 z" fill="#ffb020" stroke="#ffb020" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
 <text x="207.2" y="692.8" fill="#ffb020" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">corsa 60</text>

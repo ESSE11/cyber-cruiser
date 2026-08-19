@@ -5,7 +5,7 @@
 //              z = longitudinale (0 = filo portellone, +z verso l'avanti).
 
 import * as THREE from 'three';
-import { V, CARROZZERIA as CAR, IMP, CABINA as CAB, EST, PORTE, STIV, PORT } from '../../docs/disegni/quote.mjs';
+import { V, CARROZZERIA as CAR, IMP, CABINA as CAB, EST, PORTE, STIV, PORT, BOTOLE } from '../../docs/disegni/quote.mjs';
 
 export const COL = {
   bg: 0x0d1219,
@@ -40,6 +40,7 @@ export function box({ x0, x1, y0, y1, z0, z1 }, color = COL.modulo, o = {}) {
       opacity: o.opacity ?? 1,
       depthWrite: o.opacity == null || o.opacity > 0.6,
     }));
+    mesh.userData.ruolo = o.ruolo || 'mobile';
     g.add(mesh);
   }
 
@@ -51,6 +52,8 @@ export function box({ x0, x1, y0, y1, z0, z1 }, color = COL.modulo, o = {}) {
       opacity: o.opacitaSpigoli ?? (o.soloSpigoli ? 0.9 : 0.35),
     })
   );
+  edges.userData.ruolo = o.ruolo;
+  edges.userData.opacitaOrig = edges.material.opacity;
   g.add(edges);
 
   g.position.set(x0 + w / 2, y0 + h / 2, z0 + d / 2);
@@ -58,8 +61,8 @@ export function box({ x0, x1, y0, y1, z0, z1 }, color = COL.modulo, o = {}) {
 }
 
 /** Modulo dell'allestimento definito con le quote dei disegni (l = z, t = x). */
-function modulo(m, h0, h1, color, o) {
-  return box({ x0: m.t0, x1: m.t1, y0: Y(h0), y1: Y(h1), z0: m.l0, z1: m.l1 }, color, o);
+function modulo(m, h0, h1, color, o = {}) {
+  return box({ x0: m.t0, x1: m.t1, y0: Y(h0), y1: Y(h1), z0: m.l0, z1: m.l1 }, color, { ruolo: 'mobile', ...o });
 }
 
 /** Sagoma umana stilizzata, in piedi o seduta. */
@@ -145,14 +148,18 @@ function carrozzeria() {
   geo.rotateY(-Math.PI / 2);
   geo.translate(xDx - 5, 0, 0);
 
-  g.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
+  const scocca = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
     color: COL.carrozzeria, transparent: true, opacity: 0.1,
     roughness: 0.5, side: THREE.DoubleSide, depthWrite: false,
-  })));
-  g.add(new THREE.LineSegments(
+  }));
+  scocca.userData.ruolo = 'scocca';
+  const spigoli = new THREE.LineSegments(
     new THREE.EdgesGeometry(geo, 26),
     new THREE.LineBasicMaterial({ color: COL.carrozzeria, transparent: true, opacity: 0.5 })
-  ));
+  );
+  spigoli.userData.ruolo = 'scocca';
+  spigoli.userData.opacitaOrig = 0.5;
+  g.add(scocca, spigoli);
 
   // vetratura sopra la linea di cintura
   const vetro = new THREE.Shape();
@@ -164,10 +171,12 @@ function carrozzeria() {
   const geoV = new THREE.ExtrudeGeometry(vetro, { depth: CAR.larghezza - 16, bevelEnabled: false });
   geoV.rotateY(-Math.PI / 2);
   geoV.translate(xDx - 8, 0, 0);
-  g.add(new THREE.Mesh(geoV, new THREE.MeshStandardMaterial({
+  const luce = new THREE.Mesh(geoV, new THREE.MeshStandardMaterial({
     color: COL.vetro, transparent: true, opacity: 0.16,
     roughness: 0.15, side: THREE.DoubleSide, depthWrite: false,
-  })));
+  }));
+  luce.userData.ruolo = 'vetro';
+  g.add(luce);
 
   const matScuro = new THREE.MeshStandardMaterial({ color: 0x1b232c, roughness: 0.92 });
   const matNero = new THREE.MeshStandardMaterial({ color: 0x141a21, roughness: 0.96 });
@@ -266,6 +275,7 @@ export function costruisciAllestimento() {
   );
   suolo.position.set(V.T / 2, 0, 140);
   suolo.receiveShadow = true;
+  suolo.userData.ruolo = 'suolo';
   root.add(suolo);
 
   // --- pavimento e falso pavimento ---------------------------------------
@@ -298,10 +308,10 @@ export function costruisciAllestimento() {
 
   // --- piano continuo, interrotto sul pozzetto ---------------------------
   const pianoY = [Y(V.piano), Y(V.piano + V.pianoSp)];
-  root.add(box({ x0: 0, x1: V.T, y0: pianoY[0], y1: pianoY[1], z0: 0, z1: V.pozzetto.l0 }, 0x3a2e12, { spigolo: COL.ambra, opacitaSpigoli: 0.8 }));
-  root.add(box({ x0: 0, x1: V.pozzetto.t0, y0: pianoY[0], y1: pianoY[1], z0: V.pozzetto.l0, z1: V.pozzetto.l1 }, 0x3a2e12, { spigolo: COL.ambra, opacitaSpigoli: 0.8 }));
-  root.add(box({ x0: V.pozzetto.t1, x1: V.T, y0: pianoY[0], y1: pianoY[1], z0: V.pozzetto.l0, z1: V.pozzetto.l1 }, 0x3a2e12, { spigolo: COL.ambra, opacitaSpigoli: 0.8 }));
-  root.add(box({ x0: 0, x1: V.T, y0: pianoY[0], y1: pianoY[1], z0: V.pozzetto.l1, z1: V.L }, 0x3a2e12, { spigolo: COL.ambra, opacitaSpigoli: 0.8 }));
+  root.add(box({ x0: 0, x1: V.T, y0: pianoY[0], y1: pianoY[1], z0: 0, z1: V.pozzetto.l0 }, 0x3a2e12, { spigolo: COL.ambra, opacitaSpigoli: 0.8, ruolo: 'piano' }));
+  root.add(box({ x0: 0, x1: V.pozzetto.t0, y0: pianoY[0], y1: pianoY[1], z0: V.pozzetto.l0, z1: V.pozzetto.l1 }, 0x3a2e12, { spigolo: COL.ambra, opacitaSpigoli: 0.8, ruolo: 'piano' }));
+  root.add(box({ x0: V.pozzetto.t1, x1: V.T, y0: pianoY[0], y1: pianoY[1], z0: V.pozzetto.l0, z1: V.pozzetto.l1 }, 0x3a2e12, { spigolo: COL.ambra, opacitaSpigoli: 0.8, ruolo: 'piano' }));
+  root.add(box({ x0: 0, x1: V.T, y0: pianoY[0], y1: pianoY[1], z0: V.pozzetto.l1, z1: V.L }, 0x3a2e12, { spigolo: COL.ambra, opacitaSpigoli: 0.8, ruolo: 'piano' }));
 
   // --- seduta -------------------------------------------------------------
   root.add(box({ x0: 0, x1: V.T, y0: Y(V.piano + V.pianoSp), y1: Y(V.piano + 8), z0: V.seduta.l0, z1: V.L }, 0x2b3541));
@@ -318,7 +328,23 @@ export function costruisciAllestimento() {
   // fornello e lavello sul piano del blocco
   parti.cucina.add(box({ x0: cu.t0 + 3, x1: cu.t0 + 47, y0: Y(cu.h), y1: Y(cu.h + 4), z0: 6, z1: 38 }, 0x1b232c, { spigolo: COL.ambra }));
   parti.cucina.add(box({ x0: cu.t0 + 50, x1: cu.t0 + 82, y0: Y(cu.h - 12), y1: Y(cu.h), z0: 8, z1: 36 }, 0x0f2a2c, { spigolo: COL.teal }));
+
+  // Gamba telescopica: sbalzata di 58 cm fuori dal portellone, la cucina non
+  // può reggersi sulle sole guide. Compare solo a blocco estratto.
+  parti.gambaCucina = new THREE.Mesh(
+    new THREE.CylinderGeometry(2, 2, V.pavTerra, 10),
+    new THREE.MeshStandardMaterial({ color: 0x55677a, roughness: 0.5, metalness: 0.6 })
+  );
+  parti.gambaCucina.userData.ruolo = 'metallo';
+  parti.gambaCucina.position.set(cu.t0 + 10, V.pavTerra / 2, 6);
+  parti.cucina.add(parti.gambaCucina);
   root.add(parti.cucina);
+
+  // botole di accesso dall'alto, ricavate nel piano
+  for (const b of BOTOLE) {
+    root.add(box({ x0: b.t0, x1: b.t1, y0: Y(V.piano + V.pianoSp), y1: Y(V.piano + V.pianoSp + 0.6), z0: b.l0, z1: b.l1 },
+      0x4a3a18, { spigolo: COL.ambra, opacitaSpigoli: 1, ruolo: 'piano' }));
+  }
 
   // --- scrivania su braccio orientabile ----------------------------------
   const sc = V.scrivania;
@@ -341,13 +367,13 @@ export function costruisciAllestimento() {
   const sporgenza = (CAR.larghezza - V.T) / 2;
   parti.guscio = new THREE.Group();
   parti.guscio.add(box({
-    x0: -sporgenza, x1: V.T + sporgenza, y0: Y(V.H), y1: Y(V.H + 12), z0: -12, z1: 230,
-  }, 0x1c2530, { spigolo: COL.carrozzeria, opacitaSpigoli: 0.7 }));
+    x0: -sporgenza, x1: V.T + sporgenza, y0: Y(V.H), y1: Y(V.H + 12), z0: -12, z1: 218,
+  }, 0x1c2530, { spigolo: COL.carrozzeria, opacitaSpigoli: 0.7, ruolo: 'guscio' }));
 
   // tessuto del soffietto: si allunga con il sollevamento
   parti.tessuto = box({
-    x0: -sporgenza + 3, x1: V.T + sporgenza - 3, y0: Y(V.H) - 1, y1: Y(V.H), z0: -9, z1: 227,
-  }, COL.tessuto, { opacity: 0.18, spigolo: COL.tessuto, opacitaSpigoli: 0.45 });
+    x0: -sporgenza + 3, x1: V.T + sporgenza - 3, y0: Y(V.H) - 1, y1: Y(V.H), z0: -9, z1: 215,
+  }, COL.tessuto, { opacity: 0.18, spigolo: COL.tessuto, opacitaSpigoli: 0.45, ruolo: 'soffietto' });
   root.add(parti.tessuto, parti.guscio);
 
   // --- letto matrimoniale nel soffietto ------------------------------------
@@ -363,7 +389,7 @@ export function costruisciAllestimento() {
   );
   const materasso = (z0, z1) => box(
     { x0: ltX0 + 2, x1: ltX0 + lt.t - 2, y0: Y(V.H + 4), y1: Y(V.H + 4 + lt.materasso), z0, z1 },
-    0x123033, { spigolo: COL.teal, opacitaSpigoli: 0.9, opacity: 0.8 }
+    0x123033, { spigolo: COL.teal, opacitaSpigoli: 0.9, opacity: 0.8, ruolo: 'tessuto' }
   );
 
   const mezzeria = lt.off + lt.l / 2;
@@ -377,7 +403,7 @@ export function costruisciAllestimento() {
     box({ x0: ltX0, x1: ltX0 + lt.t, y0: 0, y1: 4, z0: 0, z1: meta },
       0x1b232c, { spigolo: COL.spigolo, opacitaSpigoli: 0.5, opacity: 0.85 }),
     box({ x0: ltX0 + 2, x1: ltX0 + lt.t - 2, y0: 4, y1: 4 + lt.materasso, z0: 2, z1: meta - 2 },
-      0x123033, { spigolo: COL.teal, opacitaSpigoli: 0.9, opacity: 0.8 })
+      0x123033, { spigolo: COL.teal, opacitaSpigoli: 0.9, opacity: 0.8, ruolo: 'tessuto' })
   );
   parti.lettoMobile.position.set(0, Y(V.H), mezzeria);
 
@@ -386,7 +412,7 @@ export function costruisciAllestimento() {
     parti.lettoFisso.add(box({
       x0: ltX0 + lt.t * dx - 22, x1: ltX0 + lt.t * dx + 22,
       y0: Y(V.H + 14), y1: Y(V.H + 24), z0: lt.off + 6, z1: lt.off + 36,
-    }, 0x9fb3c4, { opacity: 0.5, spigolo: COL.tessuto, opacitaSpigoli: 0.6 }));
+    }, 0x9fb3c4, { opacity: 0.5, spigolo: COL.tessuto, opacitaSpigoli: 0.6, ruolo: 'tessuto' }));
   }
 
   parti.letto.add(parti.lettoFisso, parti.lettoMobile);
@@ -482,11 +508,11 @@ function gruppoImpianti() {
 
   // energia (rame)
   for (const k of ['batteria', 'mppt', 'inverter', 'shunt', 'fusibiliera', 'dcdc']) {
-    g.add(comp(IMP[k], k === 'batteria' ? 0x3a2a16 : 0x2a2015, { spigolo: COL.rame }));
+    g.add(comp(IMP[k], k === 'batteria' ? 0x3a2a16 : 0x2a2015, { spigolo: COL.rame, ruolo: 'energia' }));
   }
   // acqua (azzurro)
   for (const k of ['serbGrigie', 'boiler', 'pompa', 'filtro']) {
-    g.add(comp(IMP[k], 0x10222e, { spigolo: COL.acqua }));
+    g.add(comp(IMP[k], 0x10222e, { spigolo: COL.acqua, ruolo: 'acqua' }));
   }
   // calore: riscaldatore sotto scocca, condotto e bocchette dentro
   for (const k of ['riscald', 'condotto', 'bocchetta1', 'bocchetta2', 'presaAria']) {
@@ -792,7 +818,7 @@ function gruppoStivaggio() {
   }
 
   // tasche sul portellone e rete nel soffietto: elementi morbidi, solo contorno
-  for (const k of ['tascaPort', 'reteSoffietto']) {
+  for (const k of ['reteSoffietto']) {
     const m = STIV[k];
     g.add(box({ x0: m.t0, x1: m.t1, y0: Y(m.y0), y1: Y(m.y1), z0: m.l0, z1: m.l1 },
       COL.tessuto, { soloSpigoli: true, opacitaSpigoli: 0.75 }));
@@ -864,7 +890,9 @@ function gruppoTenda() {
     const p2 = new THREE.Vector3(td.raggio * Math.cos(passo), -td.caduta, -td.raggio * Math.sin(passo));
     const geo = new THREE.BufferGeometry().setFromPoints([p0, p1, p2]);
     geo.computeVertexNormals();
-    s.add(new THREE.Mesh(geo, matTela));
+    const telaMesh = new THREE.Mesh(geo, matTela);
+    telaMesh.userData.ruolo = 'tela';
+    s.add(telaMesh);
 
     // stecca: tubo vero, non una linea — è quella che tiene su la tela
     const stecca = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, td.raggio, 8), matStecca);

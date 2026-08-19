@@ -18,15 +18,15 @@ export const V = {
   letto: { l: 190, t: 148, off: -26, materasso: 10 },   // matrimoniale: sfrutta tutta la larghezza del guscio
 
   // moduli  [L0,L1] × [T0,T1]
-  frigo:     { l0: 0,   l1: 72,  t0: 0,  t1: 44,  h: 46 },
-  cucina:    { l0: 0,   l1: 58,  t0: 44, t1: 128, corsa: 58, h: 20 },
-  cassetti:  { l0: 58,  l1: 92,  t0: 44, t1: 115 },
-  attrezzi:  { l0: 72,  l1: 120, t0: 13, t1: 44 },
-  pozzetto:  { l0: 92,  l1: 120, t0: 44, t1: 113 },   // vano piedi (cassa amovibile)
+  frigo:     { l0: 0,   l1: 70,  t0: 13, t1: 57,  h: 46 },   // t0 = 13: fuori dal passaruota sx
+  cucina:    { l0: 0,   l1: 50,  t0: 57, t1: 128, corsa: 58, h: 20, gamba: true },   // l1 = 50: prima del passaruota dx
+  cassetti:  { l0: 52,  l1: 92,  t0: 57, t1: 115 },
+  attrezzi:  { l0: 70,  l1: 120, t0: 13, t1: 57 },
+  pozzetto:  { l0: 92,  l1: 120, t0: 57, t1: 113 },   // vano piedi (cassa amovibile)
   seduta:    { l0: 120, l1: 158, t0: 0,  t1: 128 },
   tecnico:   { l0: 120, l1: 158, t0: 0,  t1: 60 },    // sotto la seduta
   stiva:     { l0: 120, l1: 158, t0: 60, t1: 128 },   // sotto la seduta
-  scrivania: { l0: 88,  l1: 133, t0: 44, t1: 113, h: 76 },
+  scrivania: { l0: 88,  l1: 133, t0: 57, t1: 113, h: 76 },
   serbatoio: { l0: 60,  l1: 108, t0: 13, t1: 111, h: 12 },   // 98×48×12 = 56 L
 
   // Serbatoio gasolio ORIGINALE del mezzo (90 L sul Prado 90/95 5 porte):
@@ -99,7 +99,7 @@ export const CABINA = {
   volante:  { r: 18, t: 33, y: 118, l: 276 },
   schermo:  { w: 23, h: 15, t0: 76, y0: 104, l: 282, et: 'schermo principale 10,1"' },
   schermoSec: { w: 17, h: 11, t0: 104, y0: 103, l: 282, et: 'schermo impianti 7"' },
-  pi:       { l0: 234, l1: 256, t0: 84,  t1: 100, y0: 34, y1: 42, et: 'Raspberry Pi 5' },
+  pi:       { l0: 172, l1: 194, t0: 80,  t1: 96,  y0: 34, y1: 42, et: 'Raspberry Pi 5' },
 };
 
 // Allestimento esterno.
@@ -151,12 +151,60 @@ export const PORT = {
 // quote stesse (vedi gruppoStivaggio nel modello 3D), non scritto a mano.
 // ---------------------------------------------------------------------------
 
+// Botole di accesso dall'alto ai mobili: si aprono dal piano di lavoro senza
+// dover girare intorno al mezzo. È il dettaglio che distingue un allestimento
+// vissuto da uno disegnato (visto sui build Alu-Cab e Wasatch Overland).
+export const BOTOLE = [
+  { l0: 56, l1: 88,  t0: 62, t1: 96,  et: 'botola cassetti' },
+  { l0: 124, l1: 152, t0: 66, t1: 108, et: 'botola stiva' },
+];
+
 export const STIV = {
   mensolaSx:  { l0: 16,  l1: 116, t0: 0,   t1: 22,  y0: 64, y1: 67,  bordo: 6,  et: 'mensola sx' },
   mensolaDx:  { l0: 60,  l1: 120, t0: 106, t1: 128, y0: 64, y1: 67,  bordo: 6,  et: 'mensola dx' },
   pensile:    { l0: 124, l1: 158, t0: 0,   t1: 128, y0: 62, y1: 86,  et: 'pensile sopra la seduta' },
-  tascaPort:  { l0: -14, l1: -8,  t0: 15,  t1: 145, y0: 92, y1: 122, et: 'tasche del portellone' },
   gavoneArcoSx: { l0: 52, l1: 110, t0: 0,  t1: 13,  y0: 28, y1: 46,  et: 'gavone sopra il passaruota sx' },
   gavoneArcoDx: { l0: 52, l1: 110, t0: 115, t1: 128, y0: 28, y1: 46, et: 'gavone sopra il passaruota dx' },
   reteSoffietto: { l0: 18, l1: 142, t0: 0, t1: 16,  y0: 102, y1: 126, et: 'rete nel soffietto' },
+};
+
+// ---------------------------------------------------------------------------
+// Budget pesi (kg). Su un mezzo con 795 kg di portata il peso è il vincolo
+// vero: più della lunghezza, più del prezzo. Ogni voce è pesata a secco.
+// Riferimento di mercato: un sistema interno completo tipo Alu-Cab per Troopy
+// pesa ~100 kg senza acqua né batteria.
+// ---------------------------------------------------------------------------
+
+export const PESI = {
+  // struttura
+  soffietto: 85,          // guscio + soffietto + telaio, installato
+  isolamento: 18,
+  mobilio: 62,            // multistrato 15 mm + profili alluminio + guide
+  piano: 11,
+  cassaPozzetto: 4,
+
+  // impianti
+  batteria: 21,           // LiFePO4 200 Ah
+  elettricoVario: 14,     // MPPT, DC-DC, inverter, shunt, fusibiliera, cavi
+  solare: 9,              // 2 pannelli + staffe
+  frigo: 17,              // 50 L a compressore + slitta
+  cucina: 12,             // fornello, lavello, rubinetteria
+  boiler: 7,
+  pompaIdrica: 3,
+  riscaldatore: 6,        // stufa a gasolio + condotti
+  elettronica: 4,         // Pi, schermi, sensori, cablaggi
+
+  // esterni
+  rack: 16,
+  tenda: 23,              // batwing 270° + cassonetto
+  scorta: 32,             // ruota di scorta all-terrain sul portellone
+  portelloneAllestito: 9,
+
+  // liquidi e carico (a pieno)
+  acquaChiara: 56,
+  acqueGrigie: 20,
+  gas: 12,                // bombola 5 kg + vano
+  gasolioPieno: 75,       // 90 L di gasolio
+  persone: 150,
+  bagagli: 60,
 };

@@ -7,6 +7,7 @@ import { V, EST } from '../../docs/disegni/quote.mjs';
 
 const EST_ANGOLO = EST.tenda.angolo;
 import { costruisciAllestimento, COL, Y } from './modello.js';
+import { applicaModo } from './materiali.js';
 
 // ---------------------------------------------------------------- scena
 
@@ -14,6 +15,11 @@ const canvas = document.getElementById('vista');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.setClearColor(COL.bg);
+// tono cinematografico e ombre morbide: senza, il modo realistico resta piatto
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(COL.bg, 1800, 5200);
@@ -30,6 +36,13 @@ controls.target.set(0, 110, 0);
 scene.add(new THREE.HemisphereLight(0x9fc4e8, 0x0a0e12, 1.5));
 const sole = new THREE.DirectionalLight(0xfff0d8, 2.1);
 sole.position.set(-380, 520, -260);
+sole.castShadow = true;
+sole.shadow.mapSize.set(2048, 2048);
+sole.shadow.camera.near = 50;
+sole.shadow.camera.far = 1800;
+Object.assign(sole.shadow.camera, { left: -520, right: 520, top: 520, bottom: -520 });
+sole.shadow.camera.updateProjectionMatrix();
+sole.shadow.bias = -0.0012;
 scene.add(sole);
 const controluce = new THREE.DirectionalLight(0x5fa8d3, 0.7);
 controluce.position.set(420, 260, 380);
@@ -37,6 +50,33 @@ scene.add(controluce);
 
 const { root, parti } = costruisciAllestimento();
 scene.add(root);
+
+// Riflessi: un ambiente sintetico (nessun file HDR da scaricare) alza di colpo
+// la resa dei materiali metallici e del vetro.
+let ambiente = null;
+async function preparaAmbiente() {
+  const { RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js');
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  ambiente = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  if (modo === 'reale') scene.environment = ambiente;
+}
+
+let modo = 'tecnico';
+
+function impostaModo(m) {
+  modo = m;
+  applicaModo(root, m);
+  scene.environment = m === 'reale' ? ambiente : null;
+  renderer.toneMappingExposure = m === 'reale' ? 1.05 : 1.25;
+  for (const b of document.querySelectorAll('[data-modo]')) {
+    b.classList.toggle('on', b.dataset.modo === m);
+  }
+  // in modalità realistica le etichette darebbero fastidio
+  if (m === 'reale' && visibili.etichette) {
+    visibili.etichette = 0;
+    applicaVisibilita();
+  }
+}
 
 // ---------------------------------------------------------------- stato
 
@@ -145,6 +185,8 @@ function applica(dt) {
   // cucina e frigo sulle guide
   parti.cucina.position.z = -anim.cucina * V.cucina.corsa;
   parti.frigo.position.z = -anim.frigo * 40;
+  // la gamba serve solo quando il blocco è davvero fuori
+  parti.gambaCucina.visible = anim.cucina > 0.6;
 
   // scrivania: ruota sul braccio e scorre verso il portellone
   parti.scrivania.rotation.y = anim.scrivania * Math.PI / 2;
@@ -233,6 +275,11 @@ for (const b of document.querySelectorAll('[data-stato]')) {
 for (const b of document.querySelectorAll('[data-vista]')) {
   b.addEventListener('click', () => vista(b.dataset.vista));
 }
+for (const b of document.querySelectorAll('[data-modo]')) {
+  b.addEventListener('click', () => impostaModo(b.dataset.modo));
+}
+preparaAmbiente().catch((e) => console.warn('ambiente non caricato:', e.message));
+impostaModo('tecnico');
 
 for (const b of document.querySelectorAll('[data-vis]')) {
   b.addEventListener('click', () => {
@@ -296,6 +343,7 @@ requestAnimationFrame(loop);
 window.CC = {
   setStato(s) { Object.assign(target, s); Object.assign(anim, target); aggiornaBottoni(); applica(1); },
   setVisibili(v) { Object.assign(visibili, v); applicaVisibilita(); },
+  setModo(m) { impostaModo(m); },
   setVista(nome) { vista(nome, true); },
   render,
   // esposti per gli script di rendering e per il debug dell'inquadratura

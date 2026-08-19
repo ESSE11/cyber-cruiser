@@ -10,9 +10,9 @@
 <text x="790.9" y="596.0" fill="#9fb3c4" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" transform="rotate(-90 790.9 596.0)">PORTELLONE APERTO 180°</text>
 <circle cx="747.4" cy="619.2" r="95.7" fill="none" stroke="#8fa3b5" stroke-width="1.4" stroke-dasharray="5 3"/>
 <text x="747.4" y="623.2" fill="#9fb3c4" font-size="8" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">scorta</text>
-<rect x="393.6" y="665.6" width="246.5" height="58.0" fill="#1d1809" stroke="#ffb020" stroke-width="2.4"/>
-<line x1="393.6" y1="665.6" x2="637.2" y2="665.6" stroke="#ffb020" stroke-width="3"/>
-<text x="515.4" y="698.6" fill="#ffb020" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">CUCINA ESTRATTA 85 cm</text>
+<rect x="431.3" y="665.6" width="246.5" height="58.0" fill="#1d1809" stroke="#ffb020" stroke-width="2.4"/>
+<line x1="431.3" y1="665.6" x2="637.2" y2="665.6" stroke="#ffb020" stroke-width="3"/>
+<text x="553.1" y="698.6" fill="#ffb020" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" font-weight="600">CUCINA ESTRATTA 85 cm</text>
 <rect x="405.2" y="639.5" width="127.6" height="26.1" fill="#241c08" stroke="#ffb020" stroke-width="1.4"/>
 <text x="469.0" y="633.5" fill="#ffb020" font-size="8.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle">fornello</text>
 <rect x="544.4" y="659.8" width="87.0" height="5.8" fill="none" stroke="#35d0c0" stroke-width="1.4"/>
@@ -41,8 +41,8 @@
 <line x1="94.0" y1="944.0" x2="94.0" y2="665.6" stroke="#6c8296" stroke-width="1"/>
 <line x1="91.5" y1="946.5" x2="96.5" y2="941.5" stroke="#6c8296" stroke-width="1"/>
 <line x1="91.5" y1="668.1" x2="96.5" y2="663.1" stroke="#6c8296" stroke-width="1"/>
-<line x1="393.6" y1="944.0" x2="94.0" y2="944.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
-<line x1="393.6" y1="665.6" x2="94.0" y2="665.6" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<line x1="431.3" y1="944.0" x2="94.0" y2="944.0" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
+<line x1="431.3" y1="665.6" x2="94.0" y2="665.6" stroke="#6c8296" stroke-width="0.6" stroke-dasharray="2 3"/>
 <text x="89.0" y="804.8" fill="#9fb3c4" font-size="10" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="middle" transform="rotate(-90 89.0 804.8)">98  (piano cucina)</text>
 <line x1="62.0" y1="944.0" x2="62.0" y2="439.4" stroke="#6c8296" stroke-width="1"/>
 <line x1="59.5" y1="946.5" x2="64.5" y2="941.5" stroke="#6c8296" stroke-width="1"/>
@@ -69,8 +69,8 @@
 <text x="161.6" y="323.4" fill="#ffb020" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">piano a 98 cm da terra: altezza di lavoro giusta</text>
 <text x="161.6" y="310.4" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">per una persona di 175-185 cm</text>
 <text x="161.6" y="297.4" fill="#9fb3c4" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">il blocco è estratto verso l’osservatore</text>
-<line x1="422.6" y1="706.2" x2="161.6" y2="509.0" stroke="#35d0c0" stroke-width="1"/>
-<circle cx="422.6" cy="706.2" r="2.4" fill="#35d0c0" stroke="none" stroke-width="1.4"/>
+<line x1="460.3" y1="706.2" x2="161.6" y2="509.0" stroke="#35d0c0" stroke-width="1"/>
+<circle cx="460.3" cy="706.2" r="2.4" fill="#35d0c0" stroke="none" stroke-width="1.4"/>
 <text x="167.6" y="512.5" fill="#35d0c0" font-size="9.5" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">attacchi a sgancio rapido: gas · acqua · 12 V</text>
 <text x="179.0" y="496.0" fill="#9fb3c4" font-size="9" font-family="DejaVu Sans Mono, monospace" letter-spacing="0.8" text-anchor="start">tanica grigie 20 L estraibile sotto il lavello</text>
 <line x1="150.0" y1="1024.0" x2="440.0" y2="1024.0" stroke="#9fb3c4" stroke-width="1.4"/>
