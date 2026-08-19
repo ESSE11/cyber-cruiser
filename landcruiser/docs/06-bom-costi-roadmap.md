@@ -12,7 +12,7 @@
 | Piano lavoro + rivestimenti + verniciatura | 350 |
 | Frigo a compressore 50 L + slitta | 750 |
 | Fornello 2 fuochi + lavello + rubinetteria | 450 |
-| Serbatoi (60 L pulita, 20 L grigie) + pompa + tubi + filtri | 480 |
+| Serbatoi (72 L pulita, 20 L grigie) + pompa + tubi + filtri | 520 |
 | Vano gas + bombola + regolatore certificato | 250 |
 | Riscaldatore diesel 2 kW installato | 900 |
 | Tendalino laterale 2×2,5 m | 550 |

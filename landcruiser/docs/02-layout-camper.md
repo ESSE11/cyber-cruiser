@@ -88,7 +88,7 @@ esterna, quella della seduta e quella della scrivania.
    └──────────┴───────────────┴──────────┴───────────────────────────┘
      ↑ esce 60 cm dal portellone      ↑ sopra questi due vani: SEDUTA
 
-   quote in cm · piano continuo a +50 · falso pavimento 12 (serbatoio 60 L)
+   quote in cm · piano continuo a +50 · falso pavimento 12 (serbatoio 72 L)
 ```
 
 ### Le tre quote verticali che contano
@@ -171,7 +171,7 @@ da cui togliere le persone.
 | Frigo pieno | 25 |
 | Batteria LiFePO4 200 Ah + elettrico | 35 |
 | Pannelli solari 2× 200 W + supporti | 22 |
-| Acqua 60 L | 60 |
+| Acqua 72 L | 72 |
 | Attrezzi, verricello, piastre, ricambi | 70 |
 | Bagagli, cibo, vestiti | 60 |
 | Paraurti anteriore in acciaio (**se** lo monti) | 65 |

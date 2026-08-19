@@ -31,7 +31,7 @@ Perché il 90/95 vince su questo progetto:
 | Massa a vuoto / complessiva | 1.885 / 2.710 kg | ~2.100 / 2.990 kg |
 | **Portata utile** | **fino a 795 kg** (3.0 TD 125 cv) | ~600 kg |
 | Serbatoio | 90 L | 87 L |
-| Vano utile (2ª e 3ª fila via) | 158 × 128 × 88 cm | 165 × 130 × 90 cm |
+| Vano utile (2ª e 3ª fila via) | 175 × 128 × 88 cm | 182 × 130 × 90 cm |
 | Motore | 1KZ-TE, iniezione meccanica gestita, si ripara ovunque | 1KD-FTV common rail, officina |
 | Elettronica | quasi assente: nessun OBD-II da cui leggere | CAN OBD-II ricco |
 

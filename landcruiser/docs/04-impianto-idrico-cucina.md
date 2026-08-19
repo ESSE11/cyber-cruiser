@@ -6,7 +6,7 @@
 
 | Elemento | Scelta | Note |
 |---|---|---|
-| Serbatoio pulita | 60 L in polietilene alimentare, ribassato, sotto il piano | Baricentro basso, in asse col veicolo. 60 L = ~4 giorni in due con doccia parsimoniosa |
+| Serbatoio pulita | **72 L** in polietilene alimentare, ribassato, nel falso pavimento (100 × 60 × 12) | Baricentro basso, in asse col veicolo. 72 L = ~5 giorni in due con doccia parsimoniosa. I sistemi di serie stanno su 70-100 L: sotto i 70 si torna a casa per l'acqua |
 | Bocchettone di carico | esterno, sul fianco sinistro, con filtro a rete | Poter caricare senza aprire il portellone è comodità pura |
 | Pompa | autoclave 12 V 10 L/min con pressostato + vaso d'espansione | Il vaso evita che la pompa parta a singhiozzo, e fa meno rumore la notte |
 | Filtro | a carboni attivi in linea + (opzionale) UV per viaggi lunghi | Il filtro non fa miracoli: acqua dubbia = pastiglie o bollitura |
